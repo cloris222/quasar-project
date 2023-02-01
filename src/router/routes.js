@@ -1,5 +1,5 @@
 import MainLayout from '../layouts/MainLayout.vue'
-import IndexPage from '../pages/IndexPage.vue'
+import IndexPage from '../pages/FrontLayout/IndexPage.vue'
 import ErrorNotFound from '../pages/ErrorNotFound.vue'
 
 const routes = [
@@ -13,6 +13,13 @@ const routes = [
         component: IndexPage,
         meta: {
           title: '桌遊網'
+        }
+      }, {
+        path: 'register',
+        name: 'register',
+        component: () => import('@/pages/FrontLayout/RegisterView.vue'),
+        meta: {
+          title: '桌遊網 | 註冊'
         }
       }
     ]

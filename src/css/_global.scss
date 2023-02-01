@@ -4,3 +4,12 @@ body,html{
     box-sizing: border-box;
     font-family: 'Noto Sans TC','Roboto Slab', sans-serif;
 }
+
+.q-page-container{
+    height: calc(100vh - 50px);
+}
+
+.q-page{
+    height: 100%;
+}
+

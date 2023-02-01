@@ -1,6 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import { api, apiAuth } from '../boot/axios.js'
+import { api } from '../boot/axios.js'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
 
 export const useUserStore = defineStore('user', () => {
   const tokens = ref('')
@@ -24,7 +27,7 @@ export const useUserStore = defineStore('user', () => {
     return `https://source.boringavatars.com/beam/256/${account.value}?colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`
   })
 
-  const async function login (form) {
+  async function login (form) {
     try {
       const { data } = await api.post('/users/login', form)
       tokens.value = data.result.tokens
@@ -35,9 +38,33 @@ export const useUserStore = defineStore('user', () => {
       cart.value = data.result.cart
       role.value = data.result.role
       favorites.value = data.result.favorites
+
+      $q.notify({
+        message: '登入成功',
+        color: 'primary'
+      })
+
       this.router.push('/')
     } catch (error) {
-
+      $q.notify({
+        message: error?.response?.data?.message || '發生錯誤',
+        color: 'primary'
+      })
     }
+  }
+
+  return {
+    tokens,
+    name,
+    account,
+    email,
+    phone,
+    cart,
+    role,
+    favorites,
+    isLogin,
+    isAdmin,
+    avatar,
+    login
   }
 })

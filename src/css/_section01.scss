@@ -1,6 +1,6 @@
 #section01{
     width: 100%;
-    height: calc(100vh - 50px);
+    height: 100%;
     overflow: hidden;
 
         .bg_area{
@@ -112,7 +112,7 @@
 
                 .textarea{
                     width: 100%;
-                    padding-top: 96%;
+                    padding-top: 50vh;
                     transition-duration:1.5s;
                     transition-property: padding-top;
                     // font-family: 'Roboto', sans-serif;
@@ -149,7 +149,7 @@
                 &:hover{
                     
                     .textarea{
-                        padding-top: 70%;
+                        padding-top: 30vh;
 
                         .text_title{
                             margin-bottom: 1rem;
