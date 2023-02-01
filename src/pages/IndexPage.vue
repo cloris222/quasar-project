@@ -1,6 +1,6 @@
 <template>
   <q-page class="flex flex-center">
-    <div class="section01">
+    <div id="section01">
       <div class="row bg_area justify-center items-center">
           <div class="col col_area">
             <div class="col_block block1">

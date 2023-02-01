@@ -1,81 +1,12 @@
 // app global css in SCSS form
-body,html{
-    width: 100%;
-}
-.section01{
-    width: 100%;
-    height: 93vh;
-    
 
-    .bg_area{
-        width: 100%;
-        height: 100%;
-        background-image:
-            linear-gradient(90deg,rgba(0,0,0,0.2), rgba(0,0,0,0.2)),
-            url(../assets/amusement-g9784a5c17_1920.jpg),
-            url(../assets/woman-gcf8d87f22_1920.jpg),
-            url(../assets/smiley-g0b434d373_1920.jpg) ;
+// mixins
+@import './mixins/rwd';
 
-        .col_area{
-            width: 33%;
-            height: 100%;
-            border: 1px solid rgb(221, 218, 218);
-            overflow: hidden;
+// 全域設定
+@import './global';
 
-            .col_block{
-                width: 100%;
-                height: 200%;
-                padding-left: 2rem;
-                transition-duration:3s;
-                transition-delay:10s;
+// 區塊結構
+@import '_navbar.scss';
+@import './section01';
 
-                .textarea{
-                    width: 100%;
-                    padding-top: 24rem;
-                    font-family: 'Noto Sans TC','Roboto Slab', sans-serif;
-                    // font-family: 'Roboto', sans-serif;
-
-                    .text_number{
-                        font-size:120px;
-                        font-weight: bolder;
-                        -webkit-text-stroke: 1px #fff ;
-                        -webkit-text-fill-color: transparent;
-                    }
-
-                    .text_title{
-                        font-size: 60px;
-                        font-weight: bolder;
-                        color: #fff;
-                        margin-bottom: 3rem;
-                    }
-
-                    .text_description{
-                        font-size: 20px;
-                        color: #fff;
-                        margin-bottom: 1rem;
-                    }
-                }
-
-                .btnarea{
-                    width: 100%;
-
-                    .q-btn{
-                        width: 50%;
-                    }
-                }
-
-                &:hover{
-                    
-                    .textarea{
-                        padding-top: 15rem;
-
-                        .text_title{
-                            margin-bottom: 1rem;
-                        }
-                    }
-                    
-                }
-            }
-        }
-    }
-}
