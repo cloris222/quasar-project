@@ -6,7 +6,7 @@
         notice shrink property since we are placing it
         as child of QToolbar
       -->
-        <q-btn flat round color="white" icon="home" />
+        <q-btn flat round color="white" icon="home" to="/" />
         <q-tabs v-model="tab" shrink class="q-mx-auto">
           <q-tab name="tab2" label="最新公告" />
           <q-tab name="tab3" label="活動訊息" />

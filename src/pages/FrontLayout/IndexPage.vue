@@ -1,5 +1,6 @@
 <template>
   <q-page class="flex flex-center">
+    <!-- 首頁導覽 -->
     <div id="section01">
       <div class="row bg_area justify-center items-center">
         <div class="col col_area">
@@ -16,7 +17,7 @@
               </div>
             </div>
             <div class="btnarea q-mx-auto">
-              <q-btn color="primary" label="了解更多" />
+              <q-btn color="secondary" label="了解更多" />
             </div>
           </div>
         </div>
@@ -34,7 +35,7 @@
               </div>
             </div>
             <div class="btnarea">
-              <q-btn color="primary" label="了解更多" />
+              <q-btn color="secondary" label="了解更多" />
             </div>
           </div>
         </div>
@@ -52,15 +53,24 @@
               </div>
             </div>
             <div class="btnarea">
-              <q-btn color="primary" label="了解更多" />
+              <q-btn color="secondary" label="了解更多" />
             </div>
           </div>
         </div>
       </div>
     </div>
+    <!-- 最新公告 -->
+    <div id="section02">
+      <newsModle />
+    </div>
+    <!-- 活動訊息 -->
+    <!-- 關於我們 -->
+    <!-- 消費方式 -->
+    <!-- 二手專區 -->
+    <!-- 常見Q&A -->
   </q-page>
 </template>
 
 <script setup>
-
+import newsModle from '../../components/newsModel.vue'
 </script>

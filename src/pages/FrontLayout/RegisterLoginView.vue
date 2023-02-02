@@ -76,14 +76,15 @@
                 />
                 <q-toggle v-model="form.registeraccept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
                 <div>
-                  <q-btn label="Submit" type="submit" color="primary" @click="loginValidate" />
-                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="loginReset" />
+                  <q-btn label="Submit" type="submit" color="primary" @click="registerValidate" />
+                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="registerReset" />
                 </div>
               </q-form>
             </q-tab-panel>
 
             <q-tab-panel name="login">
               <q-form
+                ref="loginForm"
                 class="q-gutter-md"
                 @submit="onSubmit"
                 @reset="onReset"
@@ -102,12 +103,13 @@
                   filled
                   type="password"
                   label="請輸入密碼 *"
+                  hint="密碼以4~12字元組成"
                   lazy-rules
                   :rules="[ rules.length,rules.required]"
                 />
                 <div>
-                  <q-btn label="Submit" type="submit" color="primary" @click="validate" />
-                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="reset" />
+                  <q-btn label="Submit" type="submit" color="primary" @click="loginValidate" />
+                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="loginReset" />
                 </div>
               </q-form>
             </q-tab-panel>
@@ -124,6 +126,7 @@ import { ref, reactive } from 'vue'
 import { api } from '../../boot/axios.js'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
+import { useUserStore } from '../../stores/users.js'
 
 const tab = ref('register')
 const $q = useQuasar()
@@ -135,10 +138,11 @@ const form = reactive({
   registeremail: '',
   registerphone: '',
   registerpassword: '',
-  registeraccept: false
+  registeraccept: false,
 
   // login
-
+  loginaccount: '',
+  loginpassword: ''
 })
 
 const rules = reactive({
@@ -159,15 +163,17 @@ const rules = reactive({
   }
 })
 
+// register
+
 // 設定表單驗證
 const registerForm = ref(null)
 
-async function loginValidate () {
+async function registerValidate () {
   const result = await registerForm.value.validate()
   if (!result) return
   try {
     await api.post('/users', form)
-    console.log(api.post)
+    // console.log(api.post)
     $q.notify({
       position: 'top',
       message: '註冊成功'
@@ -175,15 +181,15 @@ async function loginValidate () {
     router.push('/')
     registerForm.value.submit()
   } catch (error) {
-    console.log($q + error)
     $q.notify({
       position: 'top',
-      message: error?.response?.data?.message || '發生錯誤'
+      message: error?.response?.data?.message || '發生錯誤',
+      color: 'primary'
     })
   }
 }
 
-function loginReset () {
+function registerReset () {
   // form.registeraccount = '',
   // form.registername = '',
   // form.registeremail = '',
@@ -191,6 +197,32 @@ function loginReset () {
   // form.registerpassword = '',
   // form.registeraccept = false
   registerForm.value.resetValidation()
+}
+
+// login
+const loginForm = ref(null)
+const user = useUserStore()
+
+async function loginValidate () {
+  const result = await loginForm.value.validate()
+  if (!result) return
+  try {
+    await user.login(loginForm)
+    $q.notify({
+      position: 'top',
+      message: '歡迎回來',
+      color: 'primary'
+    })
+    router.push('/')
+    loginForm.value.submit()
+  } catch (error) {
+    console.log(error)
+    $q.notify({
+      position: 'top',
+      message: error?.response?.data?.message || '發生錯誤',
+      color: 'primary'
+    })
+  }
 }
 
 </script>

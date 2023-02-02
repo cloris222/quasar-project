@@ -1,9 +1,7 @@
 import { defineStore } from 'pinia'
+import { LocalStorage } from 'quasar'
 import { ref, computed } from 'vue'
 import { api } from '../boot/axios.js'
-import { useQuasar } from 'quasar'
-
-const $q = useQuasar()
 
 export const useUserStore = defineStore('user', () => {
   const tokens = ref('')
@@ -39,17 +37,9 @@ export const useUserStore = defineStore('user', () => {
       role.value = data.result.role
       favorites.value = data.result.favorites
 
-      $q.notify({
-        message: '登入成功',
-        color: 'primary'
-      })
-
       this.router.push('/')
     } catch (error) {
-      $q.notify({
-        message: error?.response?.data?.message || '發生錯誤',
-        color: 'primary'
-      })
+      console.log(error)
     }
   }
 
@@ -66,5 +56,16 @@ export const useUserStore = defineStore('user', () => {
     isAdmin,
     avatar,
     login
+  }
+}, {
+  persist: {
+    storage: {
+      getItem: (key) => {
+        return LocalStorage.getItem(key)
+      },
+      setItem: (key, value) => {
+        LocalStorage.set(key, value)
+      }
+    }
   }
 })

@@ -1,7 +1,5 @@
 #registerlogin{
     width: 100%;
-    height: 100%;
-    overflow: hidden;
     .container{
         width: 60%;
         margin-top: 30%;
@@ -14,6 +12,7 @@
     @include lg{
         .container{
            margin-top: 4%;
+           padding-bottom: 4%;
         }
     }
 }
