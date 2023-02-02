@@ -47,7 +47,7 @@
           </q-btn-dropdown>
           <q-tab name="tab7" label="常見Q&A" />
         </q-tabs>
-        <q-btn flat round color="white" icon="account_circle" />
+        <q-btn flat round color="white" icon="account_circle" to="/register" />
         <q-btn flat round color="white" icon="shopping_cart" />
         <!-- <q-input v-model="ph" filled label="Label" placeholder="Placeholder" hint="With placeholder" :dense="dense" /> -->
       </q-toolbar>

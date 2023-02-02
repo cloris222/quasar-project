@@ -26,12 +26,15 @@
                     width: 100%;
                     height: 100%;
                     padding-left: 1rem;
+                    position: relative;
     
                     .textarea{
                         width: 100%;
-                        padding-top: 252%;
+                        position: absolute;
+                        top: 64%;
+                        // padding-top: 252%;
                         transition-duration:1.5s;
-                        transition-property: padding-top;
+                        transition-property: top;
                         // font-family: 'Roboto', sans-serif;
     
                         .text_number{
@@ -45,7 +48,7 @@
                             font-size: 32px;
                             font-weight: bolder;
                             color: #fff;
-                            margin-bottom: 3rem;
+                            margin-bottom: 30%;
                         }
     
                         .text_description{
@@ -57,7 +60,11 @@
                     }
     
                     .btnarea{
-                        width: 90%;
+                        width: 80%;
+                        position: absolute;
+                        top: 110%;
+                        transition-duration:1.5s;
+                        transition-property: top;
     
                         .q-btn{
                             width: 100%;
@@ -67,11 +74,15 @@
                     &:hover{
                         
                         .textarea{
-                            padding-top: 90%;
+                            top: 40%;
     
                             .text_title{
                                 margin-bottom: 1rem;
                             }
+                        }
+
+                        .btnarea{
+                            top: 90%;
                         }
                         
                     }
@@ -112,10 +123,10 @@
 
                 .textarea{
                     width: 100%;
-                    padding-top: 50vh;
+                    top: 66%;
                     transition-duration:1.5s;
-                    transition-property: padding-top;
-                    // font-family: 'Roboto', sans-serif;
+                    transition-property: top;
+                    
 
                     .text_number{
                         font-size:120px;
@@ -128,7 +139,9 @@
                         font-size: 60px;
                         font-weight: bolder;
                         color: #fff;
-                        margin-bottom: 3rem;
+                        margin-bottom:2rem;
+                        transition-duration:1.5s;
+                        transition-property: margin-bottom;
                     }
 
                     .text_description{
@@ -149,7 +162,7 @@
                 &:hover{
                     
                     .textarea{
-                        padding-top: 30vh;
+                        top: 40%;
 
                         .text_title{
                             margin-bottom: 1rem;

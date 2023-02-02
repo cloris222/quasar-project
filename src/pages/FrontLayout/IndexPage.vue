@@ -15,7 +15,7 @@
                 桌上遊戲，讓我們拉近人與人的距離。
               </div>
             </div>
-            <div class="btnarea">
+            <div class="btnarea q-mx-auto">
               <q-btn color="primary" label="了解更多" />
             </div>
           </div>
