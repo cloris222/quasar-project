@@ -17,7 +17,7 @@ const routes = [
       }, {
         path: 'registerlogin',
         name: 'registerlogin',
-        component: () => import('@/pages/FrontLayout/RegisterView.vue'),
+        component: () => import('@/pages/FrontLayout/RegisterLoginView.vue'),
         meta: {
           title: '桌遊網 | 註冊/登入'
         }

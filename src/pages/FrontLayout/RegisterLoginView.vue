@@ -13,14 +13,14 @@
           </q-card-section>
 
           <q-tabs v-model="tab" class="text-teal">
-            <q-tab label="註冊" name="one" animated />
-            <q-tab label="登入" name="two" />
+            <q-tab label="註冊" name="register" animated />
+            <q-tab label="登入" name="login" />
           </q-tabs>
 
           <q-separator />
 
           <q-tab-panels v-model="tab" animated>
-            <q-tab-panel name="one">
+            <q-tab-panel name="register">
               <q-form
                 ref="registerForm"
                 class="q-gutter-md"
@@ -28,14 +28,14 @@
                 @reset="onReset"
               >
                 <q-input
-                  v-model="form.name"
+                  v-model="form.registername"
                   filled
                   label="請填入姓名 *"
                   lazy-rules
                   :rules="[ rules.required]"
                 />
                 <q-input
-                  v-model="form.email"
+                  v-model="form.registeremail"
                   filled
                   type="email"
                   label="請填入信箱 *"
@@ -44,7 +44,7 @@
                     rules.required,rules.email]"
                 />
                 <q-input
-                  v-model="form.phone"
+                  v-model="form.registerphone"
                   filled
                   type="text"
                   label="請填入手機號碼 *"
@@ -53,7 +53,7 @@
                     rules.required,rules.phone]"
                 />
                 <q-input
-                  v-model="form.account"
+                  v-model="form.registeraccount"
                   filled
                   type="text"
                   label="請設定帳號 *"
@@ -64,7 +64,7 @@
                   ]"
                 />
                 <q-input
-                  v-model="form.password"
+                  v-model="form.registerpassword"
                   filled
                   type="password"
                   label="請設定密碼 *"
@@ -74,43 +74,37 @@
                     rules.required,rules.length
                   ]"
                 />
-                <q-toggle v-model="form.accept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
+                <q-toggle v-model="form.registeraccept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
                 <div>
-                  <q-btn label="Submit" type="submit" color="primary" @click="validate" />
-                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="reset" />
+                  <q-btn label="Submit" type="submit" color="primary" @click="loginValidate" />
+                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="loginReset" />
                 </div>
               </q-form>
             </q-tab-panel>
 
-            <q-tab-panel name="two">
+            <q-tab-panel name="login">
               <q-form
                 class="q-gutter-md"
                 @submit="onSubmit"
                 @reset="onReset"
               >
                 <q-input
-                  v-model="name"
+                  v-model="form.loginaccount"
                   filled
-                  label="Your name *"
-                  hint="Name and surname"
+                  label="請輸入帳號 *"
+                  hint="帳號以4~12字元組成"
                   lazy-rules
-                  :rules="[ val => val && val.length > 0 || 'Please type something']"
+                  :rules="[ rules.length,rules.required]"
                 />
 
                 <q-input
-                  v-model="age"
+                  v-model="form.loginpassword"
                   filled
-                  type="number"
-                  label="Your age *"
+                  type="password"
+                  label="請輸入密碼 *"
                   lazy-rules
-                  :rules="[
-                    val => val !== null && val !== '' || 'Please type your age',
-                    val => val > 0 && val < 100 || 'Please type a real age'
-                  ]"
+                  :rules="[ rules.length,rules.required]"
                 />
-
-                <q-toggle v-model="accept" label="I accept the license and terms" />
-
                 <div>
                   <q-btn label="Submit" type="submit" color="primary" @click="validate" />
                   <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="reset" />
@@ -131,16 +125,20 @@ import { api } from '../../boot/axios.js'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
 
-const tab = ref('one')
+const tab = ref('register')
 const $q = useQuasar()
 const router = useRouter()
 const form = reactive({
-  account: '',
-  name: '',
-  email: '',
-  phone: '',
-  password: '',
-  accept: false
+  // register
+  registeraccount: '',
+  registername: '',
+  registeremail: '',
+  registerphone: '',
+  registerpassword: '',
+  registeraccept: false
+
+  // login
+
 })
 
 const rules = reactive({
@@ -164,7 +162,7 @@ const rules = reactive({
 // 設定表單驗證
 const registerForm = ref(null)
 
-async function validate () {
+async function loginValidate () {
   const result = await registerForm.value.validate()
   if (!result) return
   try {
@@ -185,7 +183,13 @@ async function validate () {
   }
 }
 
-function reset () {
+function loginReset () {
+  // form.registeraccount = '',
+  // form.registername = '',
+  // form.registeremail = '',
+  // form.registerphone = '',
+  // form.registerpassword = '',
+  // form.registeraccept = false
   registerForm.value.resetValidation()
 }
 
