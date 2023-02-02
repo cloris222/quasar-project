@@ -1,33 +1,121 @@
 <template>
   <q-page>
-    <div id="register">
-      <div class="container">
+    <div id="registerlogin">
+      <div class="container q-mx-auto ">
         <q-card class="my-card">
           <q-card-section>
-            <div class="text-h6">
-              Our Changing Planet
+            <div class="text-h6 text-center">
+              桌遊店
             </div>
-            <div class="text-subtitle2">
-              by John Doe
+            <div class="text-subtitle2 text-center">
+              桌上遊戲，讓我們拉近人與人的距離
             </div>
           </q-card-section>
 
           <q-tabs v-model="tab" class="text-teal">
-            <q-tab label="Tab one" name="one" />
-            <q-tab label="Tab two" name="two" />
+            <q-tab label="註冊" name="one" animated />
+            <q-tab label="登入" name="two" />
           </q-tabs>
 
           <q-separator />
 
           <q-tab-panels v-model="tab" animated>
             <q-tab-panel name="one">
-              The QCard component is a great way to display important pieces of grouped content.
+              <q-form
+                ref="registerForm"
+                class="q-gutter-md"
+                @submit="onSubmit"
+                @reset="onReset"
+              >
+                <q-input
+                  v-model="form.name"
+                  filled
+                  label="請填入姓名 *"
+                  lazy-rules
+                  :rules="[ rules.required]"
+                />
+                <q-input
+                  v-model="form.email"
+                  filled
+                  type="email"
+                  label="請填入信箱 *"
+                  lazy-rules
+                  :rules="[
+                    rules.required,rules.email]"
+                />
+                <q-input
+                  v-model="form.phone"
+                  filled
+                  type="text"
+                  label="請填入手機號碼 *"
+                  lazy-rules
+                  :rules="[
+                    rules.required,rules.phone]"
+                />
+                <q-input
+                  v-model="form.account"
+                  filled
+                  type="text"
+                  label="請設定帳號 *"
+                  hint="帳號請以4~12字元組成"
+                  lazy-rules
+                  :rules="[
+                    rules.required,rules.length
+                  ]"
+                />
+                <q-input
+                  v-model="form.password"
+                  filled
+                  type="password"
+                  label="請設定密碼 *"
+                  hint="密碼請以4~12字元組成"
+                  lazy-rules
+                  :rules="[
+                    rules.required,rules.length
+                  ]"
+                />
+                <q-toggle v-model="form.accept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
+                <div>
+                  <q-btn label="Submit" type="submit" color="primary" @click="validate" />
+                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="reset" />
+                </div>
+              </q-form>
             </q-tab-panel>
 
             <q-tab-panel name="two">
-              With so much content to display at once, and often so little screen real-estate,
-              Cards have fast become the design pattern of choice for many companies, including
-              the likes of Google and Twitter.
+              <q-form
+                class="q-gutter-md"
+                @submit="onSubmit"
+                @reset="onReset"
+              >
+                <q-input
+                  v-model="name"
+                  filled
+                  label="Your name *"
+                  hint="Name and surname"
+                  lazy-rules
+                  :rules="[ val => val && val.length > 0 || 'Please type something']"
+                />
+
+                <q-input
+                  v-model="age"
+                  filled
+                  type="number"
+                  label="Your age *"
+                  lazy-rules
+                  :rules="[
+                    val => val !== null && val !== '' || 'Please type your age',
+                    val => val > 0 && val < 100 || 'Please type a real age'
+                  ]"
+                />
+
+                <q-toggle v-model="accept" label="I accept the license and terms" />
+
+                <div>
+                  <q-btn label="Submit" type="submit" color="primary" @click="validate" />
+                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="reset" />
+                </div>
+              </q-form>
             </q-tab-panel>
           </q-tab-panels>
         </q-card>
@@ -37,6 +125,68 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-const tab = ref('')
+import { ref, reactive } from 'vue'
+// import validator from '../../boot/validator.js'
+import { api } from '../../boot/axios.js'
+import { useRouter } from 'vue-router'
+import { useQuasar } from 'quasar'
+
+const tab = ref('one')
+const $q = useQuasar()
+const router = useRouter()
+const form = reactive({
+  account: '',
+  name: '',
+  email: '',
+  phone: '',
+  password: '',
+  accept: false
+})
+
+const rules = reactive({
+//   email (value) {
+//     return validator.isEmail(value) || '格式錯誤'
+//   },
+//   phone (value) {
+//     return validator.isMobilePhone(value, 'zh-TW') || '格式錯誤'
+//   },
+  // return phoneValidate
+  // return value === [/^[0-9]{10}$/] || '格式錯誤'
+  //   },
+  required (value) {
+    return !!value || '欄位必填'
+  },
+  length (value) {
+    return (value.length >= 4 && value.length <= 12) || '長度必須為 4 ~ 12 個字'
+  }
+})
+
+// 設定表單驗證
+const registerForm = ref(null)
+
+async function validate () {
+  const result = await registerForm.value.validate()
+  if (!result) return
+  try {
+    await api.post('/users', form)
+    console.log(api.post)
+    $q.notify({
+      position: 'top',
+      message: '註冊成功'
+    })
+    router.push('/')
+    registerForm.value.submit()
+  } catch (error) {
+    console.log($q + error)
+    $q.notify({
+      position: 'top',
+      message: error?.response?.data?.message || '發生錯誤'
+    })
+  }
+}
+
+function reset () {
+  registerForm.value.resetValidation()
+}
+
 </script>

@@ -15,11 +15,11 @@ const routes = [
           title: '桌遊網'
         }
       }, {
-        path: 'register',
-        name: 'register',
+        path: 'registerlogin',
+        name: 'registerlogin',
         component: () => import('@/pages/FrontLayout/RegisterView.vue'),
         meta: {
-          title: '桌遊網 | 註冊'
+          title: '桌遊網 | 註冊/登入'
         }
       }
     ]
