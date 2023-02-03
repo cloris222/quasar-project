@@ -2,9 +2,9 @@
   <q-page class="flex flex-center">
     <!-- 首頁導覽 -->
     <div id="section01">
-      <div class="row bg_area justify-center items-center">
+      <div ref="bgArea" class="row bg_area justify-center items-center">
         <div class="col col_area">
-          <div class="col_block block1">
+          <div ref="block1" class="col_block block1">
             <div class="textarea">
               <div class="text_number">
                 #1
@@ -24,7 +24,7 @@
           </div>
         </div>
         <div class="col col_area">
-          <div class="col_block block2">
+          <div ref="block2" class="col_block block2">
             <div class="textarea">
               <div class="text_number">
                 #2
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="col col_area">
-          <div class="col_block block3">
+          <div ref="block3" class="col_block block3">
             <div class="textarea">
               <div class="text_number">
                 #3
@@ -79,4 +79,22 @@
 
 <script setup>
 import newsModle from '../../components/newsModel.vue'
+import { ref, onMounted } from 'vue'
+
+// 處理大圖動畫
+const bgArea = ref(null)
+const block1 = ref(null)
+const block2 = ref(null)
+const block3 = ref(null)
+
+onMounted(() => {
+  console.log(bgArea.value.style.backgroundImage)
+})
+
+// const imgs = reactive([
+//   { src: '../assets/amusement-g9784a5c17_1920.jpg' },
+//   { src: '../assets/woman-gcf8d87f22_1920.jpg' },
+//   { src: '../assets/smiley-g0b434d373_1920.jpg' }
+// ])
+
 </script>
