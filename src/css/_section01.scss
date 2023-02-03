@@ -50,27 +50,32 @@
                             color: #fff;
                             margin-bottom: 30%;
                         }
-    
-                        .text_description{
-                            font-size: 16px;
-                            color: #fff;
-                            padding-right: 1rem;
-                            margin-bottom: 1rem;
-                        }
                     }
-    
-                    .btnarea{
+
+                    .infoarea{
                         width: 80%;
                         position: absolute;
                         top: 110%;
                         transition-duration:1.5s;
-                        transition-property: top;
-    
-                        .q-btn{
-                            width: 100%;
+                        transition-property: all;
+                        opacity: 0;
+
+                        .info_description{
+                            font-size: 14px;
+                            color: #fff;
+                            margin-bottom: 1rem;
+                        }
+        
+                        .info_btn{
+                            width: 80%;
+                            transition-duration:1.5s;
+                            transition-property: top;
+        
+                            .q-btn{
+                                width: 100%;
+                            }
                         }
                     }
-    
                     &:hover{
                         
                         .textarea{
@@ -81,8 +86,9 @@
                             }
                         }
 
-                        .btnarea{
-                            top: 90%;
+                        .infoarea{
+                            top: 70%;
+                            opacity: 1;
                         }
                         
                     }
@@ -144,20 +150,27 @@
                         transition-property: margin-bottom;
                     }
 
-                    .text_description{
+                    
+                }
+
+                .infoarea{
+                    .info_description{
                         font-size: 20px;
                         color: #fff;
                         margin-bottom: 1rem;
                     }
-                }
 
-                .btnarea{
-                    width: 100%;
-
-                    .q-btn{
-                        width: 50%;
+                    .info_btn{
+                        width: 100%;
+    
+                        .q-btn{
+                            width: 50%;
+                        }
                     }
+
                 }
+
+                
 
                 &:hover{
                     

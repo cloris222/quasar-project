@@ -12,12 +12,14 @@
               <div class="text_title">
                 關於我們
               </div>
-              <div class="text_description">
+            </div>
+            <div class="infoarea q-mx-auto">
+              <div class="info_description">
                 桌上遊戲，讓我們拉近人與人的距離。
               </div>
-            </div>
-            <div class="btnarea q-mx-auto">
-              <q-btn color="secondary" label="了解更多" />
+              <div class="info_btn q-mx-auto">
+                <q-btn color="secondary" label="了解更多" />
+              </div>
             </div>
           </div>
         </div>
@@ -30,12 +32,14 @@
               <div class="text_title">
                 立即預約
               </div>
-              <div class="text_description">
+            </div>
+            <div class="infoarea q-mx-auto">
+              <div class="info_description">
                 桌上遊戲，讓我們拉近人與人的距離。
               </div>
-            </div>
-            <div class="btnarea">
-              <q-btn color="secondary" label="了解更多" />
+              <div class="info_btn q-mx-auto">
+                <q-btn color="secondary" label="了解更多" />
+              </div>
             </div>
           </div>
         </div>
@@ -48,12 +52,14 @@
               <div class="text_title">
                 二手專區
               </div>
-              <div class="text_description">
+            </div>
+            <div class="infoarea q-mx-auto">
+              <div class="info_description">
                 桌上遊戲，讓我們拉近人與人的距離。
               </div>
-            </div>
-            <div class="btnarea">
-              <q-btn color="secondary" label="了解更多" />
+              <div class="info_btn q-mx-auto">
+                <q-btn color="secondary" label="了解更多" />
+              </div>
             </div>
           </div>
         </div>
