@@ -33,7 +33,8 @@ module.exports = configure(function (/* ctx */) {
       'i18n',
       'axios',
       'validator',
-      'gsap'
+      'gsap',
+      'swiper'
     ],
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#css

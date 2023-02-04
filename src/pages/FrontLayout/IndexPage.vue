@@ -1,7 +1,7 @@
 <template>
   <q-page class="flex flex-center">
     <!-- 首頁導覽 -->
-    <div id="section01">
+    <div id="section01" class="section">
       <div ref="bgArea" class="row bg_area justify-center items-center">
         <div class="col col_area">
           <div ref="block1" class="col_block block1">
@@ -66,14 +66,29 @@
       </div>
     </div>
     <!-- 最新公告 -->
-    <div id="section02">
+    <div id="section02" class="section">
       <newsModle />
     </div>
     <!-- 活動訊息 -->
+    <div id="section03" class="section">
+      <h1>活動訊息</h1>
+    </div>
     <!-- 關於我們 -->
+    <div id="section04" class="section">
+      <h1>關於我們</h1>
+    </div>
     <!-- 消費方式 -->
+    <div id="section05" class="section">
+      <h1>消費方式</h1>
+    </div>
     <!-- 二手專區 -->
+    <div id="section06" class="section">
+      <h1>二手專區</h1>
+    </div>
     <!-- 常見Q&A -->
+    <div id="section07" class="section">
+      <h1>常見Q&A</h1>
+    </div>
   </q-page>
 </template>
 
