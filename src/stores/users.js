@@ -28,7 +28,7 @@ export const useUserStore = defineStore('user', () => {
   async function login (form) {
     try {
       const { data } = await api.post('/users/login', form)
-      tokens.value = data.result.tokens
+      tokens.value = data.result.token
       name.value = data.result.name
       account.value = data.result.account
       email.value = data.result.email
