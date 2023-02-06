@@ -47,8 +47,85 @@
           </q-btn-dropdown>
           <q-tab name="tab7" label="常見Q&A" />
         </q-tabs>
+        <q-btn-dropdown v-if="isLogin" color="secondary" label="會員專區" class="q-mr-md">
+          <q-list>
+            <q-item v-close-popup clickable @click="onItemClick">
+              <q-item-section>
+                <q-item-label>會員資料</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item v-close-popup clickable @click="onItemClick">
+              <q-item-section>
+                <q-item-label>預約管理</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item v-close-popup clickable @click="onItemClick">
+              <q-item-section>
+                <q-item-label>活動管理</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item v-close-popup clickable @click="onItemClick">
+              <q-item-section>
+                <q-item-label>訂單管理</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item v-close-popup clickable @click="logout">
+              <q-item-section>
+                <q-item-label>登出</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
+        <q-btn-dropdown v-if="isLogin && isAdmin" color="accent" label="管理" icon="settings">
+          <q-list>
+            <q-item v-close-popup clickable to="/admin" @click="onItemClick">
+              <q-item-section>
+                <q-item-label>管理員專區</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item v-close-popup clickable @click="onItemClick">
+              <q-item-section>
+                <q-item-label>會員管理</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item v-close-popup clickable @click="onItemClick">
+              <q-item-section>
+                <q-item-label>上架管理</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item v-close-popup clickable @click="onItemClick">
+              <q-item-section>
+                <q-item-label>預約管理</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item v-close-popup clickable @click="onItemClick">
+              <q-item-section>
+                <q-item-label>活動管理</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item v-close-popup clickable @click="onItemClick">
+              <q-item-section>
+                <q-item-label>訂單管理</q-item-label>
+              </q-item-section>
+            </q-item>
+
+            <q-item v-close-popup clickable @click="onItemClick">
+              <q-item-section>
+                <q-item-label>公告管理</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-list>
+        </q-btn-dropdown>
         <q-btn v-if="!isLogin" flat round color="white" icon="account_circle" to="/registerlogin" />
-        <q-btn v-else flat round color="white" icon="logout" @click="logout" />
         <q-btn v-if="isLogin" flat round color="white" icon="shopping_cart" />
         <!-- <q-input v-model="ph" filled label="Label" placeholder="Placeholder" hint="With placeholder" :dense="dense" /> -->
       </q-toolbar>
@@ -66,7 +143,7 @@ import { useUserStore } from 'src/stores/users'
 import { storeToRefs } from 'pinia'
 
 const user = useUserStore()
-const { isLogin } = storeToRefs(user)
+const { isLogin, isAdmin } = storeToRefs(user)
 const { logout } = user
 
 const tab = ref('')

@@ -5,7 +5,7 @@
         <q-card class="my-card">
           <q-card-section>
             <div class="text-h6 text-center">
-              桌遊店
+              桌下吧
             </div>
             <div class="text-subtitle2 text-center">
               桌上遊戲，讓我們拉近人與人的距離
@@ -176,7 +176,8 @@ async function registerValidate () {
     $q.notify({
       position: 'top',
       message: '註冊成功',
-      color: 'secondary'
+      color: 'secondary',
+      avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
     })
     router.push('/')
     registerForm.value.submit()
@@ -202,16 +203,20 @@ function registerReset () {
 // login
 const loginForm = ref(null)
 const user = useUserStore()
+const notifyName = ref('')
 
 async function loginValidate () {
   const result = await loginForm.value.validate()
   if (!result) return
   try {
     await user.login(loginform)
+    notifyName.value = user.name
+
     $q.notify({
       position: 'top',
-      message: '歡迎回來',
-      color: 'secondary'
+      message: `歡迎回來，${notifyName.value}`,
+      color: 'secondary',
+      avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
     })
     router.push('/')
     loginForm.value.submit()

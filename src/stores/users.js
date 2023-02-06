@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { LocalStorage } from 'quasar'
+import { LocalStorage, Notify } from 'quasar'
 import { ref, computed } from 'vue'
 import { api, apiAuth } from '../boot/axios.js'
 import { useRouter } from 'vue-router'
@@ -51,9 +51,20 @@ export const useUserStore = defineStore('user', () => {
       account.value = ''
       role.value = 0
       cart.value = 0
+      Notify.create({
+        position: 'top',
+        message: '登出成功',
+        color: 'secondary',
+        avatar: `https://source.boringavatars.com/beam/256/${account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+
+      })
       router.push('/')
     } catch (error) {
-      console.log(error)
+      Notify.create({
+        position: 'top',
+        message: error?.response?.data?.message || '發生錯誤',
+        color: 'secondary'
+      })
     }
   }
 
