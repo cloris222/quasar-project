@@ -47,8 +47,9 @@
           </q-btn-dropdown>
           <q-tab name="tab7" label="常見Q&A" />
         </q-tabs>
-        <q-btn flat round color="white" icon="account_circle" to="/registerlogin" />
-        <q-btn flat round color="white" icon="shopping_cart" />
+        <q-btn v-if="!isLogin" flat round color="white" icon="account_circle" to="/registerlogin" />
+        <q-btn v-else flat round color="white" icon="logout" @click="logout" />
+        <q-btn v-if="isLogin" flat round color="white" icon="shopping_cart" />
         <!-- <q-input v-model="ph" filled label="Label" placeholder="Placeholder" hint="With placeholder" :dense="dense" /> -->
       </q-toolbar>
     </q-header>
@@ -61,7 +62,14 @@
 
 <script setup>
 import { ref } from 'vue'
+import { useUserStore } from 'src/stores/users'
+import { storeToRefs } from 'pinia'
+
+const user = useUserStore()
+const { isLogin } = storeToRefs(user)
+const { logout } = user
 
 const tab = ref('')
 // const ph = ref('')
+
 </script>

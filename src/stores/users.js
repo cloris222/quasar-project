@@ -1,10 +1,13 @@
 import { defineStore } from 'pinia'
 import { LocalStorage } from 'quasar'
 import { ref, computed } from 'vue'
-import { api } from '../boot/axios.js'
+import { api, apiAuth } from '../boot/axios.js'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 export const useUserStore = defineStore('user', () => {
-  const tokens = ref('')
+  const token = ref('')
   const name = ref('')
   const account = ref('')
   const email = ref('')
@@ -14,7 +17,7 @@ export const useUserStore = defineStore('user', () => {
   const favorites = ref(0)
 
   const isLogin = computed(() => {
-    return tokens.value.length > 0
+    return token.value.length > 0
   })
 
   const isAdmin = computed(() => {
@@ -28,7 +31,7 @@ export const useUserStore = defineStore('user', () => {
   async function login (form) {
     try {
       const { data } = await api.post('/users/login', form)
-      tokens.value = data.result.token
+      token.value = data.result.token
       name.value = data.result.name
       account.value = data.result.account
       email.value = data.result.email
@@ -36,15 +39,26 @@ export const useUserStore = defineStore('user', () => {
       cart.value = data.result.cart
       role.value = data.result.role
       favorites.value = data.result.favorites
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
-      this.router.push('/')
+  const logout = async () => {
+    try {
+      await apiAuth.delete('/users/logout')
+      token.value = ''
+      account.value = ''
+      role.value = 0
+      cart.value = 0
+      router.push('/')
     } catch (error) {
       console.log(error)
     }
   }
 
   return {
-    tokens,
+    token,
     name,
     account,
     email,
@@ -55,7 +69,8 @@ export const useUserStore = defineStore('user', () => {
     isLogin,
     isAdmin,
     avatar,
-    login
+    login,
+    logout
   }
 }, {
   persist: {

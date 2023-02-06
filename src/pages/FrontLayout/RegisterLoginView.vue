@@ -28,14 +28,14 @@
                 @reset="onReset"
               >
                 <q-input
-                  v-model="form.registername"
+                  v-model="registerform.registername"
                   filled
                   label="請填入姓名 *"
                   lazy-rules
                   :rules="[ rules.required]"
                 />
                 <q-input
-                  v-model="form.registeremail"
+                  v-model="registerform.registeremail"
                   filled
                   type="email"
                   label="請填入信箱 *"
@@ -44,7 +44,7 @@
                     rules.required,rules.email]"
                 />
                 <q-input
-                  v-model="form.registerphone"
+                  v-model="registerform.registerphone"
                   filled
                   type="text"
                   label="請填入手機號碼 *"
@@ -53,7 +53,7 @@
                     rules.required,rules.phone]"
                 />
                 <q-input
-                  v-model="form.registeraccount"
+                  v-model="registerform.registeraccount"
                   filled
                   type="text"
                   label="請設定帳號 *"
@@ -64,7 +64,7 @@
                   ]"
                 />
                 <q-input
-                  v-model="form.registerpassword"
+                  v-model="registerform.registerpassword"
                   filled
                   type="password"
                   label="請設定密碼 *"
@@ -74,7 +74,7 @@
                     rules.required,rules.length
                   ]"
                 />
-                <q-toggle v-model="form.registeraccept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
+                <q-toggle v-model="registerform.registeraccept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
                 <div>
                   <q-btn label="Submit" type="submit" color="primary" @click="registerValidate" />
                   <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="registerReset" />
@@ -90,7 +90,7 @@
                 @reset="onReset"
               >
                 <q-input
-                  v-model="form.loginaccount"
+                  v-model="loginform.loginaccount"
                   filled
                   label="請輸入帳號 *"
                   hint="帳號以4~12字元組成"
@@ -99,7 +99,7 @@
                 />
 
                 <q-input
-                  v-model="form.loginpassword"
+                  v-model="loginform.loginpassword"
                   filled
                   type="password"
                   label="請輸入密碼 *"
@@ -131,27 +131,27 @@ import { useUserStore } from '../../stores/users.js'
 const tab = ref('register')
 const $q = useQuasar()
 const router = useRouter()
-const form = reactive({
-  // register
+const registerform = reactive({
   registeraccount: '',
   registername: '',
   registeremail: '',
   registerphone: '',
   registerpassword: '',
-  registeraccept: false,
+  registeraccept: false
+})
 
-  // login
+const loginform = reactive({
   loginaccount: '',
   loginpassword: ''
 })
 
 const rules = reactive({
-//   email (value) {
-//     return validator.isEmail(value) || '格式錯誤'
-//   },
-//   phone (value) {
-//     return validator.isMobilePhone(value, 'zh-TW') || '格式錯誤'
-//   },
+  // email (value) {
+  //   return validator.isEmail(value) || '格式錯誤'
+  // },
+  // phone (value) {
+  //   return validator.isMobilePhone(value, 'zh-TW') || '格式錯誤'
+  // },
   // return phoneValidate
   // return value === [/^[0-9]{10}$/] || '格式錯誤'
   //   },
@@ -172,11 +172,11 @@ async function registerValidate () {
   const result = await registerForm.value.validate()
   if (!result) return
   try {
-    await api.post('/users', form)
-    // console.log(api.post)
+    await api.post('/users', registerform)
     $q.notify({
       position: 'top',
-      message: '註冊成功'
+      message: '註冊成功',
+      color: 'secondary'
     })
     router.push('/')
     registerForm.value.submit()
@@ -184,7 +184,7 @@ async function registerValidate () {
     $q.notify({
       position: 'top',
       message: error?.response?.data?.message || '發生錯誤',
-      color: 'primary'
+      color: 'secondary'
     })
   }
 }
@@ -207,11 +207,11 @@ async function loginValidate () {
   const result = await loginForm.value.validate()
   if (!result) return
   try {
-    await user.login(loginForm)
+    await user.login(loginform)
     $q.notify({
       position: 'top',
       message: '歡迎回來',
-      color: 'primary'
+      color: 'secondary'
     })
     router.push('/')
     loginForm.value.submit()
@@ -220,7 +220,7 @@ async function loginValidate () {
     $q.notify({
       position: 'top',
       message: error?.response?.data?.message || '發生錯誤',
-      color: 'primary'
+      color: 'secondary'
     })
   }
 }

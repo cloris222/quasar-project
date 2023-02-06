@@ -11,7 +11,7 @@ import { useUserStore } from '../stores/users.js'
 export const api = axios.create({ baseURL: process.env.VITE_API })
 export const apiAuth = axios.create({ baseURL: process.env.VITE_API })
 
-// 呼叫 axios ---> interceptors.request ---> 送出請求 ---> interceptors.response ---> 呼叫的地方
+// 呼叫 axios ---> interceptors.request請求攔截器 ---> 送出請求 ---> interceptors.response回應攔截器 ---> 呼叫的地方
 apiAuth.interceptors.request.use(config => {
   const user = useUserStore()
   config.headers.authorization = 'Bearer ' + user.token
