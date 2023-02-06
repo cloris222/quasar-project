@@ -5,10 +5,6 @@
         nextEl: '.btn_next',
         prevEl: '.btn_prev',
       }"
-      :pagination="{
-        clickable: true,
-        dynamicBullets: true,
-      }"
       :modules="modules"
     >
       <swiper-slide>
@@ -102,7 +98,5 @@ import { Pagination, Navigation } from 'swiper'
 const modules = reactive([Pagination, Navigation])
 const title = ref('這是一個桌遊店的最新公告')
 const date = ref('1999/02/24')
-
-// 自定義翻頁按鈕
 
 </script>
