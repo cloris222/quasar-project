@@ -1,15 +1,91 @@
 <template>
   <q-layout view="hHh lpR fFf">
     <q-header elevated class="bg-primary text-white">
-      <q-toolbar>
-        <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+      <q-toolbar class="justify-between">
+        <div class="left_area">
+          <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
+          <q-btn flat round color="white" icon="home" to="/" />
+        </div>
+        <div class="right_area">
+          <q-btn-dropdown color="secondary" label="會員專區" class="q-mr-md">
+            <q-list>
+              <q-item v-close-popup clickable @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>會員資料</q-item-label>
+                </q-item-section>
+              </q-item>
 
-        <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg">
-          </q-avatar>
-          Title
-        </q-toolbar-title>
+              <q-item v-close-popup clickable @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>預約管理</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item v-close-popup clickable @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>活動管理</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item v-close-popup clickable @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>訂單管理</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item v-close-popup clickable @click="logout">
+                <q-item-section>
+                  <q-item-label>登出</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+          <q-btn-dropdown color="accent" label="管理" icon="settings">
+            <q-list>
+              <q-item v-close-popup clickable to="/admin" @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>管理員專區</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item v-close-popup clickable @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>會員管理</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item v-close-popup clickable @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>上架管理</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item v-close-popup clickable @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>預約管理</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item v-close-popup clickable @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>活動管理</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item v-close-popup clickable @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>訂單管理</q-item-label>
+                </q-item-section>
+              </q-item>
+
+              <q-item v-close-popup clickable @click="onItemClick">
+                <q-item-section>
+                  <q-item-label>公告管理</q-item-label>
+                </q-item-section>
+              </q-item>
+            </q-list>
+          </q-btn-dropdown>
+        </div>
       </q-toolbar>
     </q-header>
 
@@ -23,41 +99,61 @@
         <q-list padding>
           <q-item v-ripple clickable>
             <q-item-section avatar>
-              <q-icon name="inbox" />
+              <q-icon name="face" color="primary" />
             </q-item-section>
 
             <q-item-section>
-              Inbox
+              會員管理
             </q-item-section>
           </q-item>
 
           <q-item v-ripple active clickable>
             <q-item-section avatar>
-              <q-icon name="star" />
+              <q-icon name="star" color="primary" />
             </q-item-section>
 
             <q-item-section>
-              Star
+              上架管理
             </q-item-section>
           </q-item>
 
           <q-item v-ripple clickable>
             <q-item-section avatar>
-              <q-icon name="send" />
+              <q-icon name="event_available" color="primary" />
             </q-item-section>
 
             <q-item-section>
-              Send
+              預約管理
             </q-item-section>
           </q-item>
 
           <q-item v-ripple clickable>
             <q-item-section avatar>
-              <q-icon name="drafts" />
+              <q-icon name="festival" color="primary" />
             </q-item-section>
 
             <q-item-section>
-              Drafts
+              活動管理
+            </q-item-section>
+          </q-item>
+
+          <q-item v-ripple clickable>
+            <q-item-section avatar>
+              <q-icon name="list_alt" color="primary" />
+            </q-item-section>
+
+            <q-item-section>
+              訂單管理
+            </q-item-section>
+          </q-item>
+
+          <q-item v-ripple clickable>
+            <q-item-section avatar>
+              <q-icon name="campaign" color="primary" />
+            </q-item-section>
+
+            <q-item-section>
+              公告管理
             </q-item-section>
           </q-item>
         </q-list>
@@ -69,9 +165,8 @@
             <img src="https://cdn.quasar.dev/img/boy-avatar.png">
           </q-avatar>
           <div class="text-weight-bold">
-            Razvan Stoenescu
+            Admin
           </div>
-          <div>@rstoenescu</div>
         </div>
       </q-img>
     </q-drawer>

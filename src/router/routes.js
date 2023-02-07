@@ -12,14 +12,18 @@ const routes = [
         name: 'Home',
         component: IndexPage,
         meta: {
-          title: '桌下吧'
+          title: '桌下吧',
+          login: false,
+          admin: false
         }
       }, {
         path: 'registerlogin',
         name: 'registerlogin',
         component: () => import('@/pages/FrontLayout/RegisterLoginView.vue'),
         meta: {
-          title: '桌下吧 | 註冊/登入'
+          title: '桌下吧 | 註冊/登入',
+          login: false,
+          admin: false
         }
       }
     ]

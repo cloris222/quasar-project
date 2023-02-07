@@ -77,7 +77,7 @@
                 <q-toggle v-model="registerform.accept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
                 <div>
                   <q-btn label="Submit" type="submit" color="primary" />
-                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="registerReset" />
+                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
                 </div>
               </q-form>
             </q-tab-panel>
@@ -180,7 +180,6 @@ async function registerValidate () {
       avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
     })
     router.push('/')
-    registerForm.value.submit()
   } catch (error) {
     $q.notify({
       position: 'top',
@@ -210,15 +209,15 @@ async function loginValidate () {
   try {
     await user.login(loginform)
     notifyName.value = user.name
-
-    $q.notify({
-      position: 'top',
-      message: `歡迎回來，${notifyName.value}`,
-      color: 'secondary',
-      avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
-    })
-    router.push('/')
-    loginForm.value.submit()
+    if (user.token.length > 0) {
+      $q.notify({
+        position: 'top',
+        message: `歡迎回來，${notifyName.value}`,
+        color: 'secondary',
+        avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+      })
+      router.push('/')
+    }
   } catch (error) {
     console.log(error)
     $q.notify({

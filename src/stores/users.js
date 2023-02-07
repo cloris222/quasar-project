@@ -1,10 +1,7 @@
 import { defineStore } from 'pinia'
-import { LocalStorage, Notify } from 'quasar'
+import { Notify } from 'quasar'
 import { ref, computed } from 'vue'
 import { api, apiAuth } from '../boot/axios.js'
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
 
 export const useUserStore = defineStore('user', () => {
   const token = ref('')
@@ -44,7 +41,7 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const logout = async () => {
+  async function logout () {
     try {
       await apiAuth.delete('/users/logout')
       token.value = ''
@@ -58,13 +55,30 @@ export const useUserStore = defineStore('user', () => {
         avatar: `https://source.boringavatars.com/beam/256/${account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
 
       })
-      router.push('/')
+      this.router.push('/')
     } catch (error) {
+      console.log(error)
       Notify.create({
         position: 'top',
         message: error?.response?.data?.message || '發生錯誤',
         color: 'secondary'
       })
+    }
+  }
+
+  const getUser = async () => {
+    if (token.value.length === 0) return
+    try {
+      const { data } = await apiAuth.get('/users/me')
+      name.value = data.result.name
+      account.value = data.result.account
+      email.value = data.result.email
+      phone.value = data.result.phone
+      cart.value = data.result.cart
+      role.value = data.result.role
+      favorites.value = data.result.favorites
+    } catch (error) {
+      logout()
     }
   }
 
@@ -81,17 +95,12 @@ export const useUserStore = defineStore('user', () => {
     isAdmin,
     avatar,
     login,
-    logout
+    logout,
+    getUser
   }
 }, {
   persist: {
-    storage: {
-      getItem: (key) => {
-        return LocalStorage.getItem(key)
-      },
-      setItem: (key, value) => {
-        LocalStorage.set(key, value)
-      }
-    }
+    key: 'user',
+    paths: ['token']
   }
 })
