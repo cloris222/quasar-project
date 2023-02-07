@@ -24,18 +24,18 @@
               <q-form
                 ref="registerForm"
                 class="q-gutter-md"
-                @submit="onSubmit"
-                @reset="onReset"
+                @submit="registerValidate"
+                @reset="resetValidation"
               >
                 <q-input
-                  v-model="registerform.registername"
+                  v-model="registerform.name"
                   filled
                   label="請填入姓名 *"
                   lazy-rules
                   :rules="[ rules.required]"
                 />
                 <q-input
-                  v-model="registerform.registeremail"
+                  v-model="registerform.email"
                   filled
                   type="email"
                   label="請填入信箱 *"
@@ -44,7 +44,7 @@
                     rules.required,rules.email]"
                 />
                 <q-input
-                  v-model="registerform.registerphone"
+                  v-model="registerform.phone"
                   filled
                   type="text"
                   label="請填入手機號碼 *"
@@ -53,7 +53,7 @@
                     rules.required,rules.phone]"
                 />
                 <q-input
-                  v-model="registerform.registeraccount"
+                  v-model="registerform.account"
                   filled
                   type="text"
                   label="請設定帳號 *"
@@ -64,7 +64,7 @@
                   ]"
                 />
                 <q-input
-                  v-model="registerform.registerpassword"
+                  v-model="registerform.password"
                   filled
                   type="password"
                   label="請設定密碼 *"
@@ -74,9 +74,9 @@
                     rules.required,rules.length
                   ]"
                 />
-                <q-toggle v-model="registerform.registeraccept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
+                <q-toggle v-model="registerform.accept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
                 <div>
-                  <q-btn label="Submit" type="submit" color="primary" @click="registerValidate" />
+                  <q-btn label="Submit" type="submit" color="primary" />
                   <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="registerReset" />
                 </div>
               </q-form>
@@ -86,8 +86,8 @@
               <q-form
                 ref="loginForm"
                 class="q-gutter-md"
-                @submit="onSubmit"
-                @reset="onReset"
+                @submit="loginValidate"
+                @reset="loginReset"
               >
                 <q-input
                   v-model="loginform.loginaccount"
@@ -108,8 +108,8 @@
                   :rules="[ rules.length,rules.required]"
                 />
                 <div>
-                  <q-btn label="Submit" type="submit" color="primary" @click="loginValidate" />
-                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="loginReset" />
+                  <q-btn label="Submit" type="submit" color="primary" />
+                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
                 </div>
               </q-form>
             </q-tab-panel>
@@ -122,7 +122,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-// import validator from '../../boot/validator.js'
+import validator from 'validator'
 import { api } from '../../boot/axios.js'
 import { useRouter } from 'vue-router'
 import { useQuasar } from 'quasar'
@@ -132,12 +132,12 @@ const tab = ref('register')
 const $q = useQuasar()
 const router = useRouter()
 const registerform = reactive({
-  registeraccount: '',
-  registername: '',
-  registeremail: '',
-  registerphone: '',
-  registerpassword: '',
-  registeraccept: false
+  account: '',
+  name: '',
+  email: '',
+  phone: '',
+  password: '',
+  accept: false
 })
 
 const loginform = reactive({
@@ -145,13 +145,13 @@ const loginform = reactive({
   loginpassword: ''
 })
 
-const rules = reactive({
-  // email (value) {
-  //   return validator.isEmail(value) || '格式錯誤'
-  // },
-  // phone (value) {
-  //   return validator.isMobilePhone(value, 'zh-TW') || '格式錯誤'
-  // },
+const rules = {
+  email (value) {
+    return validator.isEmail(value) || '格式錯誤'
+  },
+  phone (value) {
+    return validator.isMobilePhone(value, 'zh-TW') || '格式錯誤'
+  },
   // return phoneValidate
   // return value === [/^[0-9]{10}$/] || '格式錯誤'
   //   },
@@ -161,7 +161,7 @@ const rules = reactive({
   length (value) {
     return (value.length >= 4 && value.length <= 12) || '長度必須為 4 ~ 12 個字'
   }
-})
+}
 
 // register
 
@@ -190,14 +190,13 @@ async function registerValidate () {
   }
 }
 
-function registerReset () {
-  // form.registeraccount = '',
-  // form.registername = '',
-  // form.registeremail = '',
-  // form.registerphone = '',
-  // form.registerpassword = '',
-  // form.registeraccept = false
-  registerForm.value.resetValidation()
+function resetValidation () {
+  registerform.account = ''
+  registerform.name = ''
+  registerform.email = ''
+  registerform.phone = ''
+  registerform.password = ''
+  registerform.accept = false
 }
 
 // login
@@ -228,6 +227,11 @@ async function loginValidate () {
       color: 'secondary'
     })
   }
+}
+
+function loginReset () {
+  loginform.loginaccount = ''
+  loginform.loginapassword = ''
 }
 
 </script>
