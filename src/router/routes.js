@@ -42,7 +42,7 @@ const routes = [
           admin: true
         }
       }, {
-        path: '/users',
+        path: 'users',
         name: 'admin-users',
         component: () => import('@/pages/AdminLayout/adminUsers.vue'),
         meta: {
@@ -51,7 +51,7 @@ const routes = [
           admin: true
         }
       }, {
-        path: '/products',
+        path: 'products',
         name: 'admin-products',
         component: () => import('@/pages/AdminLayout/adminProducts.vue'),
         meta: {
@@ -60,7 +60,7 @@ const routes = [
           admin: true
         }
       }, {
-        path: '/products/list',
+        path: 'products/list',
         name: 'admin-products-list',
         component: () => import('@/pages/AdminLayout/adminProductsList.vue'),
         meta: {
@@ -69,7 +69,7 @@ const routes = [
           admin: true
         }
       }, {
-        path: '/products/shoppingMall',
+        path: 'products/shoppingMall',
         name: 'admin-products-shoppingMall',
         component: () => import('@/pages/AdminLayout/adminProductsShoppingMall.vue'),
         meta: {
@@ -78,7 +78,7 @@ const routes = [
           admin: true
         }
       }, {
-        path: '/orders',
+        path: 'orders',
         name: 'admin-orders',
         component: () => import('@/pages/AdminLayout/adminOrders.vue'),
         meta: {
@@ -87,7 +87,7 @@ const routes = [
           admin: true
         }
       }, {
-        path: '/events',
+        path: 'events',
         name: 'admin-events',
         component: () => import('@/pages/AdminLayout/adminEvents.vue'),
         meta: {
@@ -96,7 +96,7 @@ const routes = [
           admin: true
         }
       }, {
-        path: '/shoppings',
+        path: 'shoppings',
         name: 'admin-shoppings',
         component: () => import('@/pages/AdminLayout/adminShoppings.vue'),
         meta: {
@@ -105,7 +105,7 @@ const routes = [
           admin: true
         }
       }, {
-        path: '/news',
+        path: 'news',
         name: 'admin-news',
         component: () => import('@/pages/AdminLayout/adminNews.vue'),
         meta: {

@@ -7,6 +7,8 @@
 @import './global';
 
 // 區塊結構
+
+// 首頁
 @import '_navbar.scss';
 @import './indexpage/section01';
 @import './indexpage/section02';
@@ -15,6 +17,9 @@
 @import './indexpage/section05';
 @import './indexpage/section06';
 @import './indexpage/section07';
+
+// admin
+@import './admin/adminProducts';
 
 
 

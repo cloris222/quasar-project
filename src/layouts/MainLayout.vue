@@ -94,7 +94,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable to="/products">
+            <q-item v-close-popup clickable to="/admin/products">
               <q-item-section>
                 <q-item-label>上架管理</q-item-label>
               </q-item-section>
