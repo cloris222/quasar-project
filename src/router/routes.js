@@ -59,8 +59,9 @@ const routes = [
           login: true,
           admin: true
         }
-      }, {
-        path: 'products/list',
+      },
+      {
+        path: 'products_list',
         name: 'admin-products-list',
         component: () => import('@/pages/AdminLayout/adminProductsList.vue'),
         meta: {
@@ -68,8 +69,9 @@ const routes = [
           login: true,
           admin: true
         }
-      }, {
-        path: 'products/shoppingMall',
+      },
+      {
+        path: 'products_shoppingMall',
         name: 'admin-products-shoppingMall',
         component: () => import('@/pages/AdminLayout/adminProductsShoppingMall.vue'),
         meta: {
@@ -77,7 +79,8 @@ const routes = [
           login: true,
           admin: true
         }
-      }, {
+      },
+      {
         path: 'orders',
         name: 'admin-orders',
         component: () => import('@/pages/AdminLayout/adminOrders.vue'),

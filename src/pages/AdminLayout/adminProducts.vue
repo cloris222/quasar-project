@@ -3,19 +3,39 @@
     <div class="container">
       <div class="row">
         <div class="col-5 list_area">
-          <div class="card">
-            <div class="card_text">
+          <div class="card" @click="toList">
+            <div class="card_content">
+              <q-icon name="mdi-cards" :style="{color:hover?'primary':'secondary'}" @mouseover="hover = true" @mouseleave="hover = false" />
               桌遊清單
             </div>
-            <q-icon name="dashboard" color="secondary" style="font-size: 2rem" />
           </div>
         </div>
         <div class="col-5 shopping_area">
-          <div class="card">
-            二手商品
+          <div class="card" @click="toShoppings">
+            <div class="card_content">
+              <q-icon name="mdi-bookshelf" :style="{color:hover?'primary':'secondary'}" @mouseover="hover = true" @mouseleave="hover = false" />
+              二手商品
+            </div>
           </div>
         </div>
       </div>
     </div>
   </q-page>
 </template>
+
+<script setup>
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const hover = ref(false)
+
+const toList = () => {
+  router.push('/admin/products_list')
+}
+
+const toShoppings = () => {
+  router.push('/admin/products_shoppingMall')
+}
+
+</script>
