@@ -14,7 +14,7 @@
         <template #body-cell-images="props">
           <q-td :props="props">
             <div class="adminProductsImages">
-              <img :props="props" :src="props.row.images[0]" >
+              <img :props="props" :src="props.row.images[0]">
             </div>
           </q-td>
         </template>
@@ -56,7 +56,7 @@
       </q-table>
 
       <!-- 新增按鈕 -->
-      <q-btn round color="primary" icon="add" class="addBtn q-mt-md " @click="openDialog(-1)" size="lg"/>
+      <q-btn round color="primary" icon="add" class="addBtn q-mt-md " size="lg" @click="openDialog(-1)" />
 
     <!-- <div class="q-mt-md">
       Selected: {{ JSON.stringify(selected) }}
@@ -309,7 +309,9 @@ const submit = async () => {
   for (const image of form.images) {
     fd.append('images', image)
   }
-  fd.append('category', form.category)
+  for (const item of form.category) {
+    fd.append('category', item)
+  }
   fd.append('gamer', form.gamer)
   fd.append('age', form.age)
   fd.append('rules', form.rules)
