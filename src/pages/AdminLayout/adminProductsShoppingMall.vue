@@ -11,10 +11,10 @@
         class="q-mt-lg"
       >
         <!-- 圖片 -->
-        <template #body-cell-image="props">
+        <template #body-cell-images="props">
           <q-td :props="props">
-            <div class="productsImage">
-              <img v-for="(image,i) in props.row.images" :key="i" :src="image.children">
+            <div class="adminProductsImages">
+              <img :props="props" :src="props.row.images[0]" >
             </div>
           </q-td>
         </template>
@@ -49,15 +49,14 @@
         <template #body-cell-others="props">
           <q-td :props="props">
             <div class="productsOthers">
-              <q-btn square color="secondary" icon="edit" :props="props" @click="openDialog()" />
-              <q-btn square color="negative" icon="delete" :props="props" @click="delItem()" />
+              <q-btn square color="secondary" icon="edit" :props="props" @click="openDialog(products.findIndex(item=>item._id===props.row._id))" />
             </div>
           </q-td>
         </template>
       </q-table>
 
       <!-- 新增按鈕 -->
-      <q-btn round color="primary" icon="add" class="q-mt-md" @click="openDialog(-1)" />
+      <q-btn round color="primary" icon="add" class="addBtn q-mt-md " @click="openDialog(-1)" size="lg"/>
 
     <!-- <div class="q-mt-md">
       Selected: {{ JSON.stringify(selected) }}
@@ -95,7 +94,7 @@
             label="請選擇要上傳的圖片"
             outlined
             counter
-            max-files="3"
+            max-files="10"
             multiple
             style="max-width: 300px"
             :rules="[ rules.required]"
@@ -168,7 +167,6 @@
           <div>
             <q-card-section>
               <q-btn label="Submit" type="submit" color="primary" @click="submit" />
-              <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" @click="Reset" />
             </q-card-section>
           </div>
         </q-form>
@@ -237,6 +235,7 @@ const columns = [
 // 類別選擇filter
 const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
 const options = ref(categories)
+
 const filterFn = (val, update) => {
   if (val === '') {
     update(() => {
@@ -279,7 +278,7 @@ const openDialog = async (idx) => {
   if (idx === -1) {
     form._id = ''
     form.name = ''
-    form.images = ''
+    form.images = []
     form.category = []
     form.gamer = 0
     form.age = 0
@@ -306,8 +305,9 @@ const submit = async () => {
   // fd.append(key, value)
   const fd = new FormData()
   fd.append('name', form.name)
+  console.log(form.images)
   for (const image of form.images) {
-    fd.append('image', image)
+    fd.append('images', image)
   }
   fd.append('category', form.category)
   fd.append('gamer', form.gamer)
@@ -320,21 +320,27 @@ const submit = async () => {
     if (form._id.length === 0) {
       const { data } = await apiAuth.post('/products', fd)
       products.push(data.result)
+      $q.notify({
+        position: 'top',
+        message: '新增成功',
+        color: 'secondary',
+        avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+      })
     } else {
       const { data } = await apiAuth.patch('/products/' + form._id, fd)
       products[form.idx] = data.result
+      $q.notify({
+        position: 'top',
+        message: '編輯成功',
+        color: 'secondary',
+        avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+      })
     }
     form.dialog = false
-    $q.notify({
-      position: 'top',
-      message: '新增成功',
-      color: 'secondary',
-      avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
-    })
   } catch (error) {
     $q.notify({
       position: 'top',
-      message: '新增失敗',
+      message: '操作失敗',
       color: 'secondary',
       avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
     })
