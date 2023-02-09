@@ -4,10 +4,11 @@
       <q-table
         v-model:selected="selected"
         title="商品清單"
-        :rows="rows"
+        :rows="products"
         :columns="columns"
         row-key="name"
         selection="multiple"
+        class="q-mt-lg"
       >
         <!-- 圖片 -->
         <template #body-cell-image="props">
@@ -48,7 +49,7 @@
         <template #body-cell-others="props">
           <q-td :props="props">
             <div class="productsOthers">
-              <q-btn square color="secondary" icon="edit" :props="props" @click="openDialog()" />{{ props }}
+              <q-btn square color="secondary" icon="edit" :props="props" @click="openDialog()" />
               <q-btn square color="negative" icon="delete" :props="props" @click="delItem()" />
             </div>
           </q-td>
@@ -56,7 +57,7 @@
       </q-table>
 
       <!-- 新增按鈕 -->
-      <q-btn round color="secondary" icon="add" @click="openDialog(-1)" />
+      <q-btn round color="primary" icon="add" class="q-mt-md" @click="openDialog(-1)" />
 
     <!-- <div class="q-mt-md">
       Selected: {{ JSON.stringify(selected) }}
@@ -65,13 +66,15 @@
 
     <!-- dialog -->
     <q-dialog v-model="form.dialog" persistent>
-      <q-card>
-        <q-card-section>
+      <q-card class="q-px-md">
+        <q-card-section class="row items-center q-pb-md">
           <div class="text-h6">
             {{ form._id.length > 0 ? '編輯商品' : '新增商品' }}
           </div>
-          <q-btn v-close-popup flat icon="close" class="close_btn" />
+          <q-space />
+          <q-btn v-close-popup icon="close" flat round dense />
         </q-card-section>
+
         <q-form
           class="q-gutter-md"
           :style="{width:'500px'}"
@@ -81,7 +84,7 @@
           <q-input
             v-model="form.name"
             type="text"
-            filled
+            outlined
             label="請輸入商品名稱 *"
             lazy-rules
             :rules="[ rules.required]"
@@ -90,7 +93,7 @@
           <q-file
             v-model="form.images"
             label="請選擇要上傳的圖片"
-            filled
+            outlined
             counter
             max-files="3"
             multiple
@@ -104,7 +107,7 @@
 
           <q-select
             v-model="form.category"
-            filled
+            outlined
             use-input
             multiple
             input-debounce="0"
@@ -126,7 +129,7 @@
 
           <q-input
             v-model="form.gamer"
-            filled
+            outlined
             type="number"
             label="請選擇遊戲人數 *"
             lazy-rules
@@ -135,7 +138,7 @@
 
           <q-input
             v-model="form.age"
-            filled
+            outlined
             type="number"
             label="請輸入適玩年齡 *"
             lazy-rules
@@ -144,7 +147,7 @@
 
           <q-input
             v-model="form.rules"
-            filled
+            outlined
             type="textarea"
             label="請輸入遊戲說明 *"
             lazy-rules
@@ -153,7 +156,7 @@
 
           <q-input
             v-model="form.price"
-            filled
+            outlined
             type="number"
             label="請輸入商品售價 *"
             lazy-rules
@@ -177,6 +180,11 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { apiAuth } from '@/boot/axios.js'
+import { useQuasar } from 'quasar'
+import { useUserStore } from 'src/stores/users'
+
+const $q = useQuasar()
+const user = useUserStore()
 
 const selected = ref([])
 
@@ -201,30 +209,30 @@ const columns = [
 ]
 
 // 列(縱)
-const rows = reactive([
-  {
-    name: '妙語說書人',
-    images: ['../../../../網站資料與圖/桌遊列表/妙語說書人/妙語說書人-1.jpg', '../../../../網站資料與圖/桌遊列表/妙語說書人/妙語說書人-2.jpg'],
-    category: ['熱門遊戲', '八成新'],
-    gamer: 4,
-    age: 6,
-    rules: 12345,
-    price: 50,
-    sell: true,
-    others: ''
-  },
-  {
-    name: '情書',
-    images: '../../../../網站資料與圖/桌遊列表/妙語說書人/妙語說書人-2.jpg',
-    category: ['策略遊戲', '撿便宜'],
-    gamer: 4,
-    age: 6,
-    rules: 12345,
-    price: 50,
-    sell: false,
-    others: ''
-  }
-])
+// const rows = reactive([
+//   {
+//     name: '妙語說書人',
+//     images: ['../../../../網站資料與圖/桌遊列表/妙語說書人/妙語說書人-1.jpg', '../../../../網站資料與圖/桌遊列表/妙語說書人/妙語說書人-2.jpg'],
+//     category: ['熱門遊戲', '八成新'],
+//     gamer: 4,
+//     age: 6,
+//     rules: 12345,
+//     price: 50,
+//     sell: true,
+//     others: ''
+//   },
+//   {
+//     name: '情書',
+//     images: '../../../../網站資料與圖/桌遊列表/妙語說書人/妙語說書人-2.jpg',
+//     category: ['策略遊戲', '撿便宜'],
+//     gamer: 4,
+//     age: 6,
+//     rules: 12345,
+//     price: 50,
+//     sell: false,
+//     others: ''
+//   }
+// ])
 
 // 類別選擇filter
 const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
@@ -298,7 +306,9 @@ const submit = async () => {
   // fd.append(key, value)
   const fd = new FormData()
   fd.append('name', form.name)
-  fd.append('images', form.images)
+  for (const image of form.images) {
+    fd.append('image', image)
+  }
   fd.append('category', form.category)
   fd.append('gamer', form.gamer)
   fd.append('age', form.age)
@@ -315,8 +325,19 @@ const submit = async () => {
       products[form.idx] = data.result
     }
     form.dialog = false
+    $q.notify({
+      position: 'top',
+      message: '新增成功',
+      color: 'secondary',
+      avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+    })
   } catch (error) {
-    console.log(error)
+    $q.notify({
+      position: 'top',
+      message: '新增失敗',
+      color: 'secondary',
+      avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+    })
   }
 
   form.loading = false

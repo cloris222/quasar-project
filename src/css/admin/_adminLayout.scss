@@ -1,0 +1,12 @@
+#adminLayout{
+
+    .q-drawer{
+
+        .q-scroll-area{
+
+            .drawer_item:active{
+                background-color: $primary;
+            }
+        }
+    }
+}
