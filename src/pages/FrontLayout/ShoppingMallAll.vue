@@ -23,28 +23,55 @@
           </template>
         </q-input>
       </div>
-      <!-- tag filter功能 -->
+
+      <!-- 人數slider -->
       <div class="row justify-center q-mt-lg">
-        <div class="col-12 col-lg-7">
+        <div class="col-4 col-lg-2 title_area">
+          人數
+        </div>
+        <div class="col-8 col-lg-4 q-mb-lg">
           <q-slider
             v-model="age"
             snap
-            label-always
-            :marker-labels="gamerMarkerLabel"
+            label
+            markers
+            marker-labels
             :min="0"
-            :max="10"
+            :max="6"
           />
         </div>
-        <div class="col-12 col-lg-7">
-          <q-chip v-for="(category,i) in categories" :key="i" color="primary" text-color="white">
-            {{ category }}
+      </div>
+
+      <!-- 標籤 -->
+      <div class="row justify-center">
+        <div class="col-2 title_area">
+          標籤
+        </div>
+        <div class="col-4 q-mb-lg">
+          <q-select
+            v-model="tags"
+            filled
+            multiple
+            :options="categories"
+            label="新增標籤"
+            style="width: 250px"
+          />
+        </div>
+        <div class="col-6">
+          <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" :props="tagsToChips" removable color="primary" text-color="white" @remove.prevent="removeChip(i)">
+            {{ tag }}
           </q-chip>
         </div>
-        <div class="col-12 col-lg-7">
+      </div>
+
+      <!-- price slider -->
+      <div class="row justify-center">
+        <div class="col-12 col-lg-8 q-mb-lg">
           <q-slider
             v-model="price"
             snap
             markers
+            lable
             :marker-labels="priceMarkerLabel"
             :min="0"
             :max="10"
@@ -70,9 +97,14 @@ const $q = useQuasar()
 const products = reactive([])
 const age = ref(0)
 const price = ref(0)
-const gamerMarkerLabel = (value) => {
-  return `${value}人`
+const tags = ref([])
+const chips = ref([])
+
+const removeChip = (idx) => {
+  tags.value.splice(idx, 1)
+  chips.value.splice(idx, 1)
 }
+
 const priceMarkerLabel = (value) => {
   return `$${100 * value}`
 }
