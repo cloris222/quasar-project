@@ -7,7 +7,6 @@
         :rows="products"
         :columns="columns"
         row-key="name"
-        selection="multiple"
         class="q-mt-lg"
       >
         <!-- 圖片 -->
@@ -21,12 +20,9 @@
 
         <!-- 標籤 -->
         <template #body-cell-category="props">
-          <q-td :props="props">
+          <q-td :props="props" class="text-center">
             <div>
               <q-chip v-for="(item,i) in props.row.category" :key="i" color="primary" :label="item" text-color="white" />
-            </div>
-            <div class="my-table-details">
-              {{ props.row.details }}
             </div>
           </q-td>
         </template>
@@ -197,13 +193,13 @@ const columns = [
     sortable: true
   },
   { name: 'images', align: 'center', label: '圖片', field: row => row.images, sortable: true },
-  { name: 'category', label: '標籤', field: row => row.category, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'gamer', label: '遊戲人數', field: row => row.gamer, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'age', label: '適玩年齡', field: row => row.age, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'rules', label: '遊戲說明', field: row => row.rules },
-  { name: 'price', label: '商品價格', field: row => row.price, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'sell', label: '上架狀態', field: row => row.sell },
-  { name: 'others', label: '操作', field: row => row.others }
+  { name: 'category', align: 'center', label: '標籤', field: row => row.category, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
+  { name: 'gamer', align: 'center', label: '遊戲人數', field: row => row.gamer, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
+  { name: 'age', align: 'center', label: '適玩年齡', field: row => row.age, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
+  { name: 'rules', align: 'center', label: '遊戲說明', field: row => row.rules },
+  { name: 'price', align: 'center', label: '商品價格', field: row => row.price, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
+  { name: 'sell', align: 'center', label: '上架狀態', field: row => row.sell },
+  { name: 'others', align: 'center', label: '操作', field: row => row.others }
 ]
 
 // 列(縱)
@@ -217,17 +213,6 @@ const columns = [
 //     rules: 12345,
 //     price: 50,
 //     sell: true,
-//     others: ''
-//   },
-//   {
-//     name: '情書',
-//     images: '../../../../網站資料與圖/桌遊列表/妙語說書人/妙語說書人-2.jpg',
-//     category: ['策略遊戲', '撿便宜'],
-//     gamer: 4,
-//     age: 6,
-//     rules: 12345,
-//     price: 50,
-//     sell: false,
 //     others: ''
 //   }
 // ])

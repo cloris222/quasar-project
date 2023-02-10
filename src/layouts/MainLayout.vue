@@ -8,9 +8,9 @@
       -->
         <q-btn flat round color="white" icon="home" to="/" />
         <q-tabs v-model="tab" shrink class="q-mx-auto">
-          <q-tab name="tab2" label="最新公告" />
-          <q-tab name="tab3" label="活動訊息" />
-          <q-btn-dropdown auto-close stretch flat label="關於我們">
+          <q-route-tab name="news" label="最新公告" />
+          <q-route-tab name="events" label="活動訊息" />
+          <q-btn-dropdown auto-close stretch flat label="關於我們" name="about">
             <q-list>
               <q-item clickable @click="tab = 'movies'">
                 <q-item-section>經營理念</q-item-section>
@@ -25,29 +25,11 @@
               </q-item>
             </q-list>
           </q-btn-dropdown>
-          <q-tab name="tab5" label="消費方式" />
-          <q-btn-dropdown auto-close stretch flat label="二手專區">
-            <q-list>
-              <q-item clickable @click="tab = 'movies'">
-                <q-item-section>所有商品</q-item-section>
-              </q-item>
-
-              <q-item clickable @click="tab = 'photos'">
-                <q-item-section>暢銷遊戲</q-item-section>
-              </q-item>
-
-              <q-item clickable @click="tab = 'photos'">
-                <q-item-section>最新上架</q-item-section>
-              </q-item>
-
-              <q-item clickable @click="tab = 'photos'">
-                <q-item-section>撿便宜專區</q-item-section>
-              </q-item>
-            </q-list>
-          </q-btn-dropdown>
-          <q-tab name="tab7" label="常見Q&A" />
+          <q-route-tab name="consumeType" label="消費方式" />
+          <q-route-tab name="shoppingMall" label="二手專區" to="/shoppingMall" />
+          <q-route-tab name="Q&A" label="常見Q&A" />
         </q-tabs>
-        <q-btn-dropdown v-if="isLogin" color="secondary" label="會員專區" class="q-mr-md">
+        <q-btn-dropdown v-if="isLogin" color="secondary" label="會員專區" class="q-mr-md" icon="mdi-account">
           <q-list>
             <q-item v-close-popup clickable @click="onItemClick">
               <q-item-section>
@@ -80,7 +62,7 @@
             </q-item>
           </q-list>
         </q-btn-dropdown>
-        <q-btn-dropdown v-if="isLogin && isAdmin" color="accent" label="管理" icon="settings">
+        <q-btn-dropdown v-if="isLogin && isAdmin" color="secondary" label="管理" icon="settings">
           <q-list>
             <q-item v-close-popup clickable to="/admin" @click="onItemClick">
               <q-item-section>

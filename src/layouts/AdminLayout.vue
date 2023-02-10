@@ -8,7 +8,7 @@
             <q-btn flat round color="white" icon="home" to="/" />
           </div>
           <div class="right_area">
-            <q-btn-dropdown color="secondary" label="會員專區" class="q-mr-md">
+            <q-btn-dropdown color="secondary" label="會員專區" class="q-mr-md" icon="mdi-account">
               <q-list>
                 <q-item v-close-popup clickable>
                   <q-item-section>
@@ -41,7 +41,7 @@
                 </q-item>
               </q-list>
             </q-btn-dropdown>
-            <q-btn-dropdown color="accent" label="管理" icon="settings">
+            <q-btn-dropdown color="secondary" label="管理" icon="settings">
               <q-list>
                 <q-item v-close-popup clickable to="/admin">
                   <q-item-section>
@@ -84,6 +84,12 @@
                     <q-item-label>公告管理</q-item-label>
                   </q-item-section>
                 </q-item>
+
+                <q-item v-close-popup clickable @click="logout">
+                  <q-item-section>
+                    <q-item-label>登出</q-item-label>
+                  </q-item-section>
+                </q-item>
               </q-list>
             </q-btn-dropdown>
           </div>
@@ -98,18 +104,18 @@
       >
         <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
           <q-list padding>
-            <q-item v-ripple clickable to="/admin/users" class="drawer_item">
+            <q-item v-ripple clickable to="/admin/users" active-class="bg-primary">
               <q-item-section avatar>
-                <q-icon name="face" color="primary" />
+                <q-icon name="face" color="secondary" />
               </q-item-section>
               <q-item-section>
                 會員管理
               </q-item-section>
             </q-item>
 
-            <q-item v-ripple clickable to="/admin/products">
+            <q-item v-ripple clickable to="/admin/products" active-class="bg-primary">
               <q-item-section avatar>
-                <q-icon name="star" color="primary" />
+                <q-icon name="star" color="secondary" />
               </q-item-section>
 
               <q-item-section>
@@ -117,9 +123,9 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-ripple clickable to="/admin/orders">
+            <q-item v-ripple clickable to="/admin/orders" active-class="bg-primary">
               <q-item-section avatar>
-                <q-icon name="event_available" color="primary" />
+                <q-icon name="event_available" color="secondary" />
               </q-item-section>
 
               <q-item-section>
@@ -127,9 +133,9 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-ripple clickable to="/admin/events">
+            <q-item v-ripple clickable to="/admin/events" active-class="bg-primary">
               <q-item-section avatar>
-                <q-icon name="festival" color="primary" />
+                <q-icon name="festival" color="secondary" />
               </q-item-section>
 
               <q-item-section>
@@ -137,9 +143,9 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-ripple clickable to="/admin/shoppings">
+            <q-item v-ripple clickable to="/admin/shoppings" active-class="bg-primary">
               <q-item-section avatar>
-                <q-icon name="list_alt" color="primary" />
+                <q-icon name="list_alt" color="secondary" />
               </q-item-section>
 
               <q-item-section>
@@ -147,9 +153,9 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-ripple clickable to="/admin/news">
+            <q-item v-ripple clickable to="/admin/news" active-class="bg-primary">
               <q-item-section avatar>
-                <q-icon name="campaign" color="primary" />
+                <q-icon name="campaign" color="secondary" />
               </q-item-section>
 
               <q-item-section>
@@ -191,3 +197,11 @@ const toggleLeftDrawer = () => {
 }
 
 </script>
+
+<style lang="scss" scoped>
+
+.bg-primary{
+        color: #fff;
+    }
+
+</style>

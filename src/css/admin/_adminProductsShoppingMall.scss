@@ -15,4 +15,18 @@
         margin-top: 4%;
         margin-left: 94%;
     }
+
+    .q-table{
+        tr{
+            tbody{
+                td:nth-of-type(7){
+                    width: 100px;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow:hidden
+                }
+            }
+        }
+        
+    }
 }

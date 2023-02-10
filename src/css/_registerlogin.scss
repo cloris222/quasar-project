@@ -1,8 +1,9 @@
 #registerlogin{
     width: 100%;
+    margin-top: 10%;
+    
     .container{
-        width: 60%;
-        margin-top: 30%;
+        width: 100%;
 
         .q-card{
             width: 100%;
@@ -11,8 +12,7 @@
 
     @include lg{
         .container{
-           margin-top: 4%;
-           padding-bottom: 4%;
+           margin-top: 2%;
         }
     }
 }

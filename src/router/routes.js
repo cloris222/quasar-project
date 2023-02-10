@@ -25,6 +25,16 @@ const routes = [
           login: false,
           admin: false
         }
+      },
+      {
+        path: 'shoppingMall',
+        name: 'shoppingMall',
+        component: () => import('@/pages/FrontLayout/ShoppingMallAll.vue'),
+        meta: {
+          title: '桌下吧 | 二手專區',
+          login: false,
+          admin: false
+        }
       }
     ]
   },

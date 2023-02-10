@@ -2,119 +2,123 @@
   <q-page>
     <div id="registerlogin">
       <div class="container q-mx-auto ">
-        <q-card class="my-card">
-          <q-card-section>
-            <div class="text-h6 text-center">
-              桌下吧
-            </div>
-            <div class="text-subtitle2 text-center">
-              桌上遊戲，讓我們拉近人與人的距離
-            </div>
-          </q-card-section>
-
-          <q-tabs v-model="tab" class="text-teal">
-            <q-tab label="註冊" name="register" animated />
-            <q-tab label="登入" name="login" />
-          </q-tabs>
-
-          <q-separator />
-
-          <q-tab-panels v-model="tab" animated>
-            <q-tab-panel name="register">
-              <q-form
-                ref="registerForm"
-                class="q-gutter-md"
-                @submit="registerValidate"
-                @reset="resetValidation"
-              >
-                <q-input
-                  v-model="registerform.name"
-                  filled
-                  label="請填入姓名 *"
-                  lazy-rules
-                  :rules="[ rules.required]"
-                />
-                <q-input
-                  v-model="registerform.email"
-                  filled
-                  type="email"
-                  label="請填入信箱 *"
-                  lazy-rules
-                  :rules="[
-                    rules.required,rules.email]"
-                />
-                <q-input
-                  v-model="registerform.phone"
-                  filled
-                  type="text"
-                  label="請填入手機號碼 *"
-                  lazy-rules
-                  :rules="[
-                    rules.required,rules.phone]"
-                />
-                <q-input
-                  v-model="registerform.account"
-                  filled
-                  type="text"
-                  label="請設定帳號 *"
-                  hint="帳號請以4~12字元組成"
-                  lazy-rules
-                  :rules="[
-                    rules.required,rules.length
-                  ]"
-                />
-                <q-input
-                  v-model="registerform.password"
-                  filled
-                  type="password"
-                  label="請設定密碼 *"
-                  hint="密碼請以4~12字元組成"
-                  lazy-rules
-                  :rules="[
-                    rules.required,rules.length
-                  ]"
-                />
-                <q-toggle v-model="registerform.accept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
-                <div>
-                  <q-btn label="Submit" type="submit" color="primary" />
-                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+        <div class="row justify-center">
+          <div class="col-8 col-lg-6">
+            <q-card>
+              <q-card-section>
+                <div class="text-h6 text-center">
+                  桌下吧
                 </div>
-              </q-form>
-            </q-tab-panel>
-
-            <q-tab-panel name="login">
-              <q-form
-                ref="loginForm"
-                class="q-gutter-md"
-                @submit="loginValidate"
-                @reset="loginReset"
-              >
-                <q-input
-                  v-model="loginform.loginaccount"
-                  filled
-                  label="請輸入帳號 *"
-                  hint="帳號以4~12字元組成"
-                  lazy-rules
-                  :rules="[ rules.length,rules.required]"
-                />
-
-                <q-input
-                  v-model="loginform.loginpassword"
-                  filled
-                  type="password"
-                  label="請輸入密碼 *"
-                  hint="密碼以4~12字元組成"
-                  lazy-rules
-                  :rules="[ rules.length,rules.required]"
-                />
-                <div>
-                  <q-btn label="Submit" type="submit" color="primary" />
-                  <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+                <div class="text-subtitle2 text-center">
+                  桌上遊戲，讓我們拉近人與人的距離
                 </div>
-              </q-form>
-            </q-tab-panel>
-          </q-tab-panels>
-        </q-card>
+              </q-card-section>
+
+              <q-tabs v-model="tab" class="text-teal">
+                <q-tab label="註冊" name="register" animated />
+                <q-tab label="登入" name="login" />
+              </q-tabs>
+
+              <q-separator />
+
+              <q-tab-panels v-model="tab" animated>
+                <q-tab-panel name="register">
+                  <q-form
+                    ref="registerForm"
+                    class="q-gutter-md"
+                    @submit="registerValidate"
+                    @reset="resetValidation"
+                  >
+                    <q-input
+                      v-model="registerform.name"
+                      filled
+                      label="請填入姓名 *"
+                      lazy-rules
+                      :rules="[ rules.required]"
+                    />
+                    <q-input
+                      v-model="registerform.email"
+                      filled
+                      type="email"
+                      label="請填入信箱 *"
+                      lazy-rules
+                      :rules="[
+                        rules.required,rules.email]"
+                    />
+                    <q-input
+                      v-model="registerform.phone"
+                      filled
+                      type="text"
+                      label="請填入手機號碼 *"
+                      lazy-rules
+                      :rules="[
+                        rules.required,rules.phone]"
+                    />
+                    <q-input
+                      v-model="registerform.account"
+                      filled
+                      type="text"
+                      label="請設定帳號 *"
+                      hint="帳號請以4~12字元組成"
+                      lazy-rules
+                      :rules="[
+                        rules.required,rules.length
+                      ]"
+                    />
+                    <q-input
+                      v-model="registerform.password"
+                      filled
+                      type="password"
+                      label="請設定密碼 *"
+                      hint="密碼請以4~12字元組成"
+                      lazy-rules
+                      :rules="[
+                        rules.required,rules.length
+                      ]"
+                    />
+                    <q-toggle v-model="registerform.accept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
+                    <div>
+                      <q-btn label="Submit" type="submit" color="primary" />
+                      <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+                    </div>
+                  </q-form>
+                </q-tab-panel>
+
+                <q-tab-panel name="login">
+                  <q-form
+                    ref="loginForm"
+                    class="q-gutter-md"
+                    @submit="loginValidate"
+                    @reset="loginReset"
+                  >
+                    <q-input
+                      v-model="loginform.loginaccount"
+                      filled
+                      label="請輸入帳號 *"
+                      hint="帳號以4~12字元組成"
+                      lazy-rules
+                      :rules="[ rules.length,rules.required]"
+                    />
+
+                    <q-input
+                      v-model="loginform.loginpassword"
+                      filled
+                      type="password"
+                      label="請輸入密碼 *"
+                      hint="密碼以4~12字元組成"
+                      lazy-rules
+                      :rules="[ rules.length,rules.required]"
+                    />
+                    <div>
+                      <q-btn label="Submit" type="submit" color="primary" />
+                      <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
+                    </div>
+                  </q-form>
+                </q-tab-panel>
+              </q-tab-panels>
+            </q-card>
+          </div>
+        </div>
       </div>
     </div>
   </q-page>
