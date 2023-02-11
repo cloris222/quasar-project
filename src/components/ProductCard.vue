@@ -1,5 +1,70 @@
 <template>
   <div id="ProductCard">
-    <h1>productcard</h1>
+    <q-card class="productCard">
+      <div class="cardImage">
+        <img :src="images[0]">
+      </div>
+      <q-card-section>
+        <div class="text-h6">
+          {{ name }}
+        </div>
+      </q-card-section>
+      <q-card-section class="q-pt-none">
+        <q-chip v-for="(item,i) in category" :key="i" color="primary" text-color="white">
+          {{ item }}
+        </q-chip>
+      </q-card-section>
+      <q-card-section class="q-pt-none price_area">
+        ${{ price }}
+      </q-card-section>
+      <q-card-section class="q-pt-none btn_area">
+        <q-btn icon="mdi-cart-outline" flat class="icon_cart" />
+        <!-- <q-btn icon="mdi-heart" flat class="icon_favorite" /> -->
+      </q-card-section>
+    </q-card>
   </div>
 </template>
+
+<script setup>
+defineProps({
+  /* eslint-disable */
+  _id: {
+    type: String,
+    default: ''
+  },
+  /* eslint-enable */
+  name: {
+    type: String,
+    default: ''
+  },
+  images: {
+    type: [String],
+    default: ''
+  },
+  category: {
+    type: [String],
+    default: ''
+  },
+  gamer: {
+    type: Number,
+    default: 0
+  },
+  age: {
+    type: Number,
+    default: 0
+  },
+  rules: {
+    type: String,
+    default: ''
+  },
+  price: {
+    type: Number,
+    default: 0
+  },
+  sell: {
+    type: Boolean,
+    default: false
+  }
+
+})
+</script>

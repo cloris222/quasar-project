@@ -25,71 +25,78 @@
       </div>
 
       <!-- 人數slider -->
-      <div class="toolSection">
-        <div class="row justify-center q-mt-lg q-mx-auto">
-          <div class="col-1 title_area">
-            人數
+      <q-expansion-item
+        v-model="expanded"
+        icon="mdi-filter-variant"
+        label="篩選條件"
+      >
+        <div class="toolSection">
+          <div class="row justify-center q-mt-lg q-mx-auto">
+            <div class="col-1 title_area">
+              人數
+            </div>
+            <div class="col-6 q-mb-lg">
+              <q-slider
+                v-model="age"
+                snap
+                markers
+                marker-labels
+                :min="0"
+                :max="6"
+              />
+            </div>
           </div>
-          <div class="col-6 q-mb-lg">
-            <q-slider
-              v-model="age"
-              snap
-              markers
-              marker-labels
-              :min="0"
-              :max="6"
-            />
+
+          <!-- 標籤 -->
+          <div class="row justify-center q-mx-auto">
+            <div class="col-1 title_area">
+              標籤
+            </div>
+            <div class="col-3 q-mb-lg">
+              <q-select
+                v-model="tags"
+                filled
+                multiple
+                :options="categories"
+                label="新增標籤"
+                style="width: 250px"
+                bottom-slots
+              >
+                <template #append>
+                  <q-btn round dense flat icon="add" @click="tagToChip" />
+                </template>
+              </q-select>
+            </div>
+            <div class="col-3">
+              <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" color="primary" text-color="white" clickable icon="mdi-close-circle" icon-color="white" @click="delChip(i)">
+                {{ chip }}
+              </q-chip>
+            </div>
+          </div>
+
+          <!-- price slider -->
+          <div class="row justify-center q-mx-auto">
+            <div class="col-1 title_area">
+              價格
+            </div>
+            <div class="col-12 col-lg-6 q-mb-lg">
+              <q-slider
+                v-model="price"
+                markers
+                :marker-labels="priceMarkerLabel"
+                :min="0"
+                :max="10"
+                snap
+              />
+            </div>
           </div>
         </div>
+      </q-expansion-item>
 
-        <!-- 標籤 -->
-        <div class="row justify-center q-mx-auto">
-          <div class="col-1 title_area">
-            標籤
-          </div>
-          <div class="col-3 q-mb-lg">
-            <q-select
-              v-model="tags"
-              filled
-              multiple
-              :options="categories"
-              label="新增標籤"
-              style="width: 250px"
-              bottom-slots
-            >
-              <template #append>
-                <q-btn round dense flat icon="add" @click="tagToChip" />
-              </template>
-            </q-select>
-          </div>
-          <div class="col-3">
-            <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" color="primary" text-color="white" clickable icon="mdi-close-circle" icon-color="white" @click="delChip(i)">
-              {{ chip }}
-            </q-chip>
-          </div>
+      <div class="row q-mx-auto justify-center">
+        <div v-for="(product,i) in products" :key="i" class="col-6 col-lg-3">
+          <ProductCard v-bind="product" />
         </div>
-
-        <!-- price slider -->
-        <div class="row justify-center q-mx-auto">
-          <div class="col-1 title_area">
-            價格
-          </div>
-          <div class="col-12 col-lg-6 q-mb-lg">
-            <q-slider
-              v-model="price"
-              markers
-              :marker-labels="priceMarkerLabel"
-              :min="0"
-              :max="10"
-              snap
-            />
-          </div>
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-12" />
-        <ProductCard v-for="(product,i) in products" :key="i" v-bind="product" />
       </div>
     </div>
   </div>
@@ -107,6 +114,7 @@ const age = ref(0)
 const price = ref(0)
 const tags = ref([])
 const chips = ref([])
+const expanded = ref(true)
 
 const tagToChip = () => {
   chips.value = tags.value.map((tag) => {
