@@ -25,7 +25,7 @@
       </div>
 
       <!-- 人數slider -->
-      <div class="row justify-center q-mt-lg">
+      <div class="row justify-center q-mt-lg q-mx-auto">
         <div class="col-4 col-lg-2 title_area">
           人數
         </div>
@@ -43,11 +43,11 @@
       </div>
 
       <!-- 標籤 -->
-      <div class="row justify-center">
-        <div class="col-2 title_area">
+      <div class="row justify-center q-mx-auto">
+        <div class="col-1 title_area">
           標籤
         </div>
-        <div class="col-4 q-mb-lg">
+        <div class="col-3 q-mb-lg">
           <q-select
             v-model="tags"
             filled
@@ -55,17 +55,22 @@
             :options="categories"
             label="新增標籤"
             style="width: 250px"
-          />
+            bottom-slots
+          >
+            <template #append>
+              <q-btn round dense flat icon="add" @click="tagToChip" />
+            </template>
+          </q-select>
         </div>
-        <div class="col-6">
-          <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" :props="tagsToChips" removable color="primary" text-color="white" @remove.prevent="removeChip(i)">
-            {{ tag }}
+        <div class="col-3">
+          <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" color="primary" text-color="white" clickable icon="mdi-close-circle" icon-color="white" @click="delChip(i)">
+            {{ chip }}
           </q-chip>
         </div>
       </div>
 
       <!-- price slider -->
-      <div class="row justify-center">
+      <div class="row justify-center q-mx-auto">
         <div class="col-12 col-lg-8 q-mb-lg">
           <q-slider
             v-model="price"
@@ -100,9 +105,17 @@ const price = ref(0)
 const tags = ref([])
 const chips = ref([])
 
-const removeChip = (idx) => {
-  tags.value.splice(idx, 1)
+const tagToChip = () => {
+  chips.value = tags.value.map((tag) => {
+    return tag
+  })
+}
+
+const delChip = (idx) => {
+  console.log(idx)
+  console.log(chips.value)
   chips.value.splice(idx, 1)
+  tags.value.splice(idx, 1)
 }
 
 const priceMarkerLabel = (value) => {
