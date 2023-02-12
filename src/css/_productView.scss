@@ -1,0 +1,23 @@
+#productView{
+    width: 100%;
+
+        .container{
+            width: 100%;
+
+            .row{
+                width: 100%;
+            }
+
+        }
+
+        @include lg{
+
+            .container{
+                width: 100%;
+
+                .row{
+                    width: 50%;
+                }
+            }
+        }
+}

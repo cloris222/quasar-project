@@ -176,9 +176,6 @@ import { ref, reactive } from 'vue'
 import { apiAuth } from '@/boot/axios.js'
 import { useQuasar } from 'quasar'
 import { useUserStore } from 'src/stores/users'
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
 
 const $q = useQuasar()
 const user = useUserStore()

@@ -99,6 +99,12 @@
         </div>
       </div>
     </div>
+
+    <div v-if="dialog" class="row q-mx-auto justify-center">
+      <div class="col-12">
+        <CartDialog v-bind="products" />
+      </div>
+    </div>
   </div>
 </template>
 
@@ -107,6 +113,7 @@ import { ref, reactive } from 'vue'
 import { api } from '../../boot/axios.js'
 import { useQuasar } from 'quasar'
 import ProductCard from '../../components/ProductCard.vue'
+import CartDialog from '../../components/cartDialog.vue'
 
 const $q = useQuasar()
 const products = reactive([])
@@ -115,6 +122,7 @@ const price = ref(0)
 const tags = ref([])
 const chips = ref([])
 const expanded = ref(true)
+const dialog = ref(false)
 
 const tagToChip = () => {
   chips.value = tags.value.map((tag) => {
