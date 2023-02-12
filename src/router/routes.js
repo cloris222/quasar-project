@@ -29,9 +29,18 @@ const routes = [
       {
         path: 'shoppingMall',
         name: 'shoppingMall',
-        component: () => import('@/pages/FrontLayout/ShoppingMallAll.vue'),
+        component: () => import('@/pages/FrontLayout/ShoppingMallAllView.vue'),
         meta: {
           title: '桌下吧 | 二手專區',
+          login: false,
+          admin: false
+        }
+      }, {
+        path: 'products/:id',
+        name: 'product',
+        component: () => import('@/pages/FrontLayout/ProductView.vue'),
+        meta: {
+          title: '購物網 | 商品',
           login: false,
           admin: false
         }

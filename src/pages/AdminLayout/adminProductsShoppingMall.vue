@@ -176,6 +176,9 @@ import { ref, reactive } from 'vue'
 import { apiAuth } from '@/boot/axios.js'
 import { useQuasar } from 'quasar'
 import { useUserStore } from 'src/stores/users'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
 
 const $q = useQuasar()
 const user = useUserStore()
@@ -328,7 +331,7 @@ const submit = async () => {
     $q.notify({
       position: 'top',
       message: '操作失敗',
-      color: 'secondary',
+      color: 'negative',
       avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
     })
   }

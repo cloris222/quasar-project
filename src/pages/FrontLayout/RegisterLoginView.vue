@@ -188,7 +188,7 @@ async function registerValidate () {
     $q.notify({
       position: 'top',
       message: error?.response?.data?.message || '發生錯誤',
-      color: 'secondary'
+      color: 'negative'
     })
   }
 }
@@ -227,7 +227,7 @@ async function loginValidate () {
     $q.notify({
       position: 'top',
       message: error?.response?.data?.message || '發生錯誤',
-      color: 'secondary'
+      color: 'negative'
     })
   }
 }
