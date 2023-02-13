@@ -94,7 +94,7 @@
       </q-expansion-item>
 
       <div class="row q-mx-auto justify-center">
-        <div v-for="(product,i) in products" :key="i" class="col-6 col-lg-3">
+        <div v-for="(product,i) in products" :key="i" class="col-6 col-lg-3 q-mb-lg">
           <ProductCard v-bind="product" @open-cart-dialog="openDialog(product)" />
           <!-- 加入cart -->
           <q-dialog v-model="cartDialog" persistent>
