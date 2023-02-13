@@ -109,7 +109,11 @@
         </q-btn-dropdown>
 
         <q-btn v-if="!isLogin" flat round color="white" icon="account_circle" to="/registerlogin" />
-        <q-btn v-if="isLogin" flat round color="white" icon="shopping_cart" />
+        <q-btn v-if="isLogin" flat round color="white" icon="shopping_cart">
+          <q-badge color="red" floating>
+            {{ cart.length }}
+          </q-badge>
+        </q-btn>
         <!-- <q-input v-model="ph" filled label="Label" placeholder="Placeholder" hint="With placeholder" :dense="dense" /> -->
       </q-toolbar>
     </q-header>
@@ -126,7 +130,7 @@ import { useUserStore } from 'src/stores/users'
 import { storeToRefs } from 'pinia'
 
 const user = useUserStore()
-const { isLogin, isAdmin } = storeToRefs(user)
+const { isLogin, isAdmin, cart } = storeToRefs(user)
 const { logout } = user
 
 const tab = ref('')
