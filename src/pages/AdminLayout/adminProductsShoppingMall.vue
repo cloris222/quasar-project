@@ -27,6 +27,15 @@
           </q-td>
         </template>
 
+        <!-- 說明 -->
+        <template #body-cell-rules="props">
+          <q-td :props="props" class="text-center ">
+            <p class="rules_area">
+              {{ props.row.rules }}
+            </p>
+          </q-td>
+        </template>
+
         <!-- 上架狀態 -->
         <template #body-cell-sell="props">
           <q-td :props="props">
@@ -196,7 +205,7 @@ const columns = [
   { name: 'category', align: 'center', label: '標籤', field: row => row.category, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
   { name: 'gamer', align: 'center', label: '遊戲人數', field: row => row.gamer, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
   { name: 'age', align: 'center', label: '適玩年齡', field: row => row.age, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'rules', align: 'center', label: '遊戲說明', field: row => row.rules },
+  { name: 'rules', align: 'center', label: '遊戲說明', field: row => row.rules, classes: 'rules_area' },
   { name: 'price', align: 'center', label: '商品價格', field: row => row.price, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
   { name: 'sell', align: 'center', label: '上架狀態', field: row => row.sell },
   { name: 'others', align: 'center', label: '操作', field: row => row.others }

@@ -95,14 +95,46 @@
 
       <div class="row q-mx-auto justify-center">
         <div v-for="(product,i) in products" :key="i" class="col-6 col-lg-3">
-          <ProductCard v-bind="product" />
-        </div>
-      </div>
-    </div>
+          <ProductCard v-bind="product" @open-cart-dialog="openDialog(product)" />
+          <!-- 加入cart -->
+          <q-dialog v-model="cartDialog" persistent>
+            <q-card class="q-px-md">
+              <q-card-section class="row items-center q-pb-md">
+                <div class="text-h6">
+                  購物車
+                </div>
+                <q-space />
+                <q-btn v-close-popup icon="close" flat round dense />
+              </q-card-section>
 
-    <div v-if="dialog" class="row q-mx-auto justify-center">
-      <div class="col-12">
-        <CartDialog v-bind="products" />
+              <q-form
+                class="q-gutter-md"
+                :style="{width:'500px'}"
+                @submit="onSubmit"
+              >
+                <q-card-section>
+                  品名:{{ form.name }}
+                </q-card-section>
+                <q-card-section>
+                  價錢:{{ form.price }}
+                </q-card-section>
+                <q-card-section>
+                  <q-input
+                    v-model="form.quantity"
+                    outlined
+                    type="number"
+                    label="請選擇商品數量 *"
+                    lazy-rules
+                    :rules="[ rules.required,rules.number]"
+                  />
+                </q-card-section>
+                <q-card-section>
+                  <q-btn label="Submit" type="submit" color="primary" />
+                </q-card-section>
+              </q-form>
+            </q-card>
+          </q-dialog>
+        </div>
       </div>
     </div>
   </div>
@@ -112,9 +144,11 @@
 import { ref, reactive } from 'vue'
 import { api } from '../../boot/axios.js'
 import { useQuasar } from 'quasar'
+import { useUserStore } from '@/stores/users.js'
 import ProductCard from '../../components/ProductCard.vue'
-import CartDialog from '../../components/cartDialog.vue'
 
+const user = useUserStore()
+const { editCart } = user
 const $q = useQuasar()
 const products = reactive([])
 const age = ref(0)
@@ -122,7 +156,26 @@ const price = ref(0)
 const tags = ref([])
 const chips = ref([])
 const expanded = ref(true)
-const dialog = ref(false)
+const cartDialog = ref(false)
+const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
+const filter = ref([])
+
+// 存資料的form
+const form = reactive({
+  p_id: '',
+  quantity: 0,
+  price: 0,
+  name: ''
+})
+
+const openDialog = (product) => {
+  cartDialog.value = true
+  form.name = product.name
+  form.p_id = product._id
+  form.price = product.price
+  form.quantity = 0
+  console.log(cartDialog.value)
+}
 
 const tagToChip = () => {
   chips.value = tags.value.map((tag) => {
@@ -140,8 +193,19 @@ const delChip = (idx) => {
 const priceMarkerLabel = (value) => {
   return `$${100 * value}`
 }
-const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
-const filter = ref([]);
+
+const rules = {
+  required (value) {
+    return !!value || '欄位必填'
+  },
+  number (value) {
+    return value > 0 || '數量錯誤'
+  }
+}
+
+const onSubmit = () => {
+  editCart({ _id: form.p_id, quantity: form.quantity, price: form.price })
+}
 
 (async () => {
   try {

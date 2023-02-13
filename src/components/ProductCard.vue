@@ -19,7 +19,7 @@
         ${{ price }}
       </q-card-section>
       <q-card-section class="q-pt-none btn_area flex justify-center no-wrap">
-        <q-btn icon="mdi-cart-outline" flat class="icon_cart" @click="dialog = true" />
+        <q-btn icon="mdi-cart-outline" flat class="icon_cart" @click="onBtnClick" />
         <q-btn icon="mdi-heart" flat class="icon_favorite" />
       </q-card-section>
     </q-card>
@@ -27,6 +27,15 @@
 </template>
 
 <script setup>
+
+import { ref } from 'vue'
+
+const cartDialog = ref(true)
+const emit = defineEmits(['open-cart-dialog'])
+
+const onBtnClick = () => {
+  emit('open-cart-dialog', cartDialog.value)
+}
 
 defineProps({
   /* eslint-disable */
@@ -40,12 +49,16 @@ defineProps({
     default: ''
   },
   images: {
-    type: [String],
-    default: ''
+    type: Array,
+    default () {
+      return []
+    }
   },
   category: {
-    type: [String],
-    default: ''
+    type: Array,
+    default () {
+      return []
+    }
   },
   gamer: {
     type: Number,

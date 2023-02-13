@@ -1,5 +1,12 @@
 #adminProductsShoppingMall{
 
+    .rules_area{
+        width: 150px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow:hidden
+    }
+
     .adminProductsImages{
         width: 80%;
         height: 80%;

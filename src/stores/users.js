@@ -82,6 +82,38 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const editCart = async ({ _id, quantity, price }) => {
+    if (token.value.length === 0) {
+      Notify.create({
+        position: 'top',
+        message: '請先登入',
+        color: 'negative',
+        avatar: `https://source.boringavatars.com/beam/256/${account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+
+      })
+      this.router.push('/login')
+      return
+    }
+    try {
+      const { data } = await apiAuth.post('/users/cart', { p_id: _id, quantity: parseInt(quantity), price: parseInt(price) })
+      cart.value = data.result
+      Notify.create({
+        position: 'top',
+        message: '加入購物車成功',
+        color: 'secondary',
+        avatar: `https://source.boringavatars.com/beam/256/${account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+
+      })
+    } catch (error) {
+      Notify.create({
+        position: 'top',
+        message: error?.response?.data?.message || '發生錯誤',
+        color: 'negative',
+        avatar: `https://source.boringavatars.com/beam/256/${account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+      })
+    }
+  }
+
   return {
     token,
     name,
@@ -96,7 +128,8 @@ export const useUserStore = defineStore('user', () => {
     avatar,
     login,
     logout,
-    getUser
+    getUser,
+    editCart
   }
 }, {
   persist: {
