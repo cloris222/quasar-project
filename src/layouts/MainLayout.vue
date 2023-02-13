@@ -1,7 +1,7 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    <q-header elevated class="bg-primary text-white">
-      <q-toolbar class="bg-primary text-white shadow-2 rounded-borders flex justify-center items-center">
+    <q-header elevated class=" text-white">
+      <q-toolbar class=" text-white shadow-2 rounded-borders flex justify-center items-center">
         <!--
         notice shrink property since we are placing it
         as child of QToolbar
@@ -109,9 +109,9 @@
         </q-btn-dropdown>
 
         <q-btn v-if="!isLogin" flat round color="white" icon="account_circle" to="/registerlogin" />
-        <q-btn v-if="isLogin" flat round color="white" icon="shopping_cart">
+        <q-btn v-if="isLogin" flat round color="white" icon="shopping_cart" class="icon_cart">
           <q-badge color="red" floating>
-            {{ cart.length }}
+            {{ cart }}
           </q-badge>
         </q-btn>
         <!-- <q-input v-model="ph" filled label="Label" placeholder="Placeholder" hint="With placeholder" :dense="dense" /> -->
