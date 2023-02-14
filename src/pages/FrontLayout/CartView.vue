@@ -117,7 +117,8 @@ const cart = reactive([])
 const totalPrice = ref(0)
 const $q = useQuasar()
 
-const updateCart = async (idx, quantity, price) => {
+const updateCart = async (_id, quantity, price) => {
+  const idx = cart.findIndex(_id)
   await editCart({ id: cart[idx].p_id._id, quantity, price })
   cart[idx].quantity += quantity
   if (cart[idx].quantity <= 0) {
