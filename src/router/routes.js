@@ -40,21 +40,21 @@ const routes = [
         name: 'product',
         component: () => import('@/pages/FrontLayout/ProductView.vue'),
         meta: {
-          title: '購物網 | 商品',
+          title: '桌下吧 | 商品',
           login: false,
           admin: false
         }
-      },
-      {
+      }, {
         path: 'cart',
         name: 'cart',
         component: () => import('@/pages/FrontLayout/CartView.vue'),
         meta: {
-          title: '購物網 | 購物車',
+          title: '桌下吧 | 購物車',
           login: true,
           admin: false
         }
       }
+
     ]
   },
   {

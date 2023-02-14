@@ -37,7 +37,7 @@
             </div>
             <div class="col-6 q-mb-lg">
               <q-slider
-                v-model="age"
+                v-model="filterCondition.gamer"
                 snap
                 markers
                 marker-labels
@@ -54,7 +54,7 @@
             </div>
             <div class="col-3 q-mb-lg">
               <q-select
-                v-model="tags"
+                v-model="filterCondition.category"
                 filled
                 multiple
                 :options="categories"
@@ -81,7 +81,7 @@
             </div>
             <div class="col-12 col-lg-6 q-mb-lg">
               <q-slider
-                v-model="price"
+                v-model="filterPrice"
                 markers
                 :marker-labels="priceMarkerLabel"
                 :min="0"
@@ -94,7 +94,7 @@
       </q-expansion-item>
 
       <div class="row q-mx-auto justify-center">
-        <div v-for="(product,i) in products" :key="i" class="col-6 col-lg-3 q-mb-lg">
+        <div v-for="(product,i) in filterFunc" :key="i" class="col-6 col-lg-3 q-mb-lg">
           <ProductCard v-bind="product" @open-cart-dialog="openDialog(product)" />
           <!-- 加入cart -->
           <q-dialog v-model="cartDialog" persistent>
@@ -141,24 +141,23 @@
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, reactive, computed } from 'vue'
 import { api } from '../../boot/axios.js'
 import { useQuasar } from 'quasar'
 import { useUserStore } from '@/stores/users.js'
+import _ from 'lodash'
 import ProductCard from '../../components/ProductCard.vue'
 
 const user = useUserStore()
 const { editCart } = user
 const $q = useQuasar()
 const products = reactive([])
-const age = ref(0)
-const price = ref(0)
-const tags = ref([])
 const chips = ref([])
 const expanded = ref(true)
 const cartDialog = ref(false)
 const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
 const filter = ref([])
+const filterPrice = ref(5)
 
 // 存資料的form
 const form = reactive({
@@ -178,8 +177,8 @@ const openDialog = (product) => {
 }
 
 const tagToChip = () => {
-  chips.value = tags.value.map((tag) => {
-    return tag
+  chips.value = filterCondition.category.map((category) => {
+    return category
   })
 }
 
@@ -187,7 +186,7 @@ const delChip = (idx) => {
   console.log(idx)
   console.log(chips.value)
   chips.value.splice(idx, 1)
-  tags.value.splice(idx, 1)
+  filterCondition.category.splice(idx, 1)
 }
 
 const priceMarkerLabel = (value) => {
@@ -206,6 +205,22 @@ const rules = {
 const onSubmit = () => {
   editCart({ _id: form.p_id, quantity: form.quantity, price: form.price })
 }
+
+// 篩選條件filter
+const filterCondition = reactive({
+  gamer: 1,
+  category: ['其他遊戲', '暢銷遊戲'],
+  price: filterPrice.value * 100
+})
+
+const filterFunc = computed(() => {
+  return products.filter((product) => {
+    // console.log(_.intersection(product.category, filterCondition.category))
+    return product.gamer >= filterCondition.gamer &&
+           parseInt(_.intersection(product.category, filterCondition.category).length) !== undefined &&
+           product.price <= filterCondition.price
+  })
+});
 
 (async () => {
   try {

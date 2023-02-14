@@ -1,5 +1,5 @@
 <template>
-  <div id="cartView">
+  <div id="CartView">
     <div class="container">
       <div class="row">
         <div class="col-12">
@@ -7,47 +7,43 @@
         </div>
       </div>
       <div class="row">
-        <div v-for="(product,i)in cart" :key="i" class="col-12">
+        <div v-for="(product,i) in cart" :key="i" class="col-12">
           <q-card>
             <q-card-section horizontal>
               <!-- 圖片 -->
               <q-card-section>
-                <img :src="product.images[0]">
+                <div>
+                  <img :src="product.p_id.images[0]" class="cart_img">
+                </div>
               </q-card-section>
               <!-- 品名 -->
               <q-card-section>
-                {{ product.name }}
+                {{ product.p_id.name }}
               </q-card-section>
-              <!-- 價錢 -->
+              <!-- 價格 -->
               <q-card-section>
-                {{ product.price }}
+                {{ product.p_id.price }}
               </q-card-section>
               <!-- 數量 -->
               <q-card-section>
-                <q-input
-                  v-model="product.quantity"
-                  outlined
-                  type="number"
-                />
+                {{ product.quantity }}
+                <q-btn lable="-1" color="secondary" @click="updateCart(product.p_id._id,product.quantity-1)" />
+                <q-btn lable="+1" color="secondary" @click="updateCart(product.p_id._id,product.quantity+1)" />
               </q-card-section>
               <!-- 小計 -->
               <q-card-section>
-                {{ product.price * product.quantity }}
+                {{ product.quantity * product.p_id.price }}
+              </q-card-section>
+              <!-- 操作 -->
+              <q-card-section>
+                <q-btn icon="delete" @click="updateCart(product.p_id._id,product.quantity*-1)" />
               </q-card-section>
             </q-card-section>
-            <!-- 總金額 -->
+            <!-- 總額 -->
             <q-card-section>
               {{ totalPrice }}
             </q-card-section>
           </q-card>
-        </div>
-      </div>
-      <div class="row justify-between">
-        <div class="col-3">
-          <q-btn>再去逛逛</q-btn>
-        </div>
-        <div class="col-3">
-          總額共$元
         </div>
       </div>
     </div>
@@ -55,43 +51,20 @@
 </template>
 
 <script setup>
-import { reactive, computed } from 'vue'
+import { ref, reactive } from 'vue'
 import { useQuasar } from 'quasar'
-import { apiAuth } from '@/plugins/axios'
-import { useUserStore } from '@/stores/user'
-import { useRouter } from 'vue-router'
+import { apiAuth } from '@/boot/axios.js'
+import { useUserStore } from '@/stores/users.js'
 
-const router = useRouter()
 const user = useUserStore()
-const $q = useQuasar()
-const { editCart, checkout } = user
-
+const { editCart } = user
 const cart = reactive([])
+const totalPrice = ref(0)
+const $q = useQuasar()
 
-const updateCart = async (idx, quantity) => {
-  await editCart({ _id: cart[idx].p_id._id, quantity })
-  cart[idx].quantity += quantity
-  if (cart[idx].quantity <= 0) {
-    cart.splice(idx, 1)
-  }
+const updateCart = async (_id, quantity) => {
+  await editCart({ _id, quantity })
 }
-
-const onCheckoutBtnClick = async () => {
-  await checkout()
-  router.push('/orders')
-}
-
-const totalPrice = computed(() => {
-  return cart.reduce((total, current) => {
-    return total + (current.p_id.price * current.quantity)
-  }, 0)
-})
-
-const canCheckout = computed(() => {
-  return cart.length > 0 && !cart.some(product => {
-    return !product.p_id.sell
-  })
-});
 
 (async () => {
   try {
@@ -100,9 +73,8 @@ const canCheckout = computed(() => {
   } catch (error) {
     $q.notify({
       position: 'top',
-      message: '無法取得購物車',
-      color: 'negative',
-      avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+      message: error?.response?.data?.message || '取得購物車失敗',
+      color: 'negative'
     })
   }
 })()

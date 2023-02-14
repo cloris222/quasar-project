@@ -109,7 +109,7 @@
         </q-btn-dropdown>
 
         <q-btn v-if="!isLogin" flat round color="white" icon="account_circle" to="/registerlogin" />
-        <q-btn v-if="isLogin" flat round color="white" icon="shopping_cart" class="icon_cart">
+        <q-btn v-if="isLogin" flat round color="white" icon="shopping_cart" class="icon_cart" to="/cart">
           <q-badge color="red" floating>
             {{ cart }}
           </q-badge>
