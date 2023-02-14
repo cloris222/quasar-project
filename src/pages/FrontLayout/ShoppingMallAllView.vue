@@ -42,7 +42,7 @@
                 markers
                 marker-labels
                 :min="0"
-                :max="6"
+                :max="10"
               />
             </div>
           </div>
@@ -157,7 +157,7 @@ const expanded = ref(true)
 const cartDialog = ref(false)
 const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
 const filter = ref([])
-const filterPrice = ref(5)
+const filterPrice = ref(1)
 
 // 存資料的form
 const form = reactive({
@@ -206,19 +206,23 @@ const onSubmit = () => {
   editCart({ _id: form.p_id, quantity: form.quantity, price: form.price })
 }
 
+const filterPrice2 = computed(() => {
+  return filterPrice.value * 100
+})
+
 // 篩選條件filter
 const filterCondition = reactive({
   gamer: 1,
   category: ['其他遊戲', '暢銷遊戲'],
-  price: filterPrice.value * 100
+  price: filterPrice2
 })
 
 const filterFunc = computed(() => {
   return products.filter((product) => {
     // console.log(_.intersection(product.category, filterCondition.category))
     return product.gamer >= filterCondition.gamer &&
-           parseInt(_.intersection(product.category, filterCondition.category).length) !== undefined &&
-           product.price <= filterCondition.price
+            parseInt(_.intersection(product.category, filterCondition.category).length) !== 0 &&
+            product.price <= filterCondition.price
   })
 });
 
