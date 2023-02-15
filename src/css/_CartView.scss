@@ -1,4 +1,5 @@
 #CartView{
+
     .container{
         width: 90%;
 
@@ -7,38 +8,18 @@
 
             .col-12{
 
-                .q-card{
+                .cart_img{
+                    width: 100%;
+                    height: 100%;
 
-                    .q-card__section--horiz > div:first-child{
-                        width: 30%;
-
-                        .section_img{
-                            width: 100%;
-                            height: 100%;
-        
-                            img{
-                                width: 100%;
-                                height: 100%;
-                                object-fit: cover;
-                        
-                            }
-                        }
-
-                        .section_name{
-                            line-height: 250px;
-                        }
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover;
                     }
-
-                    
-
                 }
             }
 
-            
-
-            
-
         }
     }
-    
 }

@@ -31,27 +31,27 @@
         </q-tabs>
         <q-btn-dropdown v-if="isLogin" color="secondary" label="會員專區" class="q-mr-md" icon="mdi-account">
           <q-list>
-            <q-item v-close-popup clickable @click="onItemClick">
+            <q-item v-close-popup clickable>
               <q-item-section>
                 <q-item-label>會員資料</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable @click="onItemClick">
+            <q-item v-close-popup clickable>
               <q-item-section>
-                <q-item-label>預約管理</q-item-label>
+                <q-item-label>我的預約</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable @click="onItemClick">
+            <q-item v-close-popup clickable>
               <q-item-section>
-                <q-item-label>活動管理</q-item-label>
+                <q-item-label>我的活動</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable @click="onItemClick">
+            <q-item v-close-popup clickable to="/shoppings">
               <q-item-section>
-                <q-item-label>訂單管理</q-item-label>
+                <q-item-label>我的訂單</q-item-label>
               </q-item-section>
             </q-item>
 
@@ -70,7 +70,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable @click="onItemClick">
+            <q-item v-close-popup clickable>
               <q-item-section>
                 <q-item-label>會員管理</q-item-label>
               </q-item-section>
@@ -82,25 +82,25 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable @click="onItemClick">
+            <q-item v-close-popup clickable>
               <q-item-section>
                 <q-item-label>預約管理</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable @click="onItemClick">
+            <q-item v-close-popup clickable>
               <q-item-section>
                 <q-item-label>活動管理</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable @click="onItemClick">
+            <q-item v-close-popup clickable to="/admin/shoppings">
               <q-item-section>
                 <q-item-label>訂單管理</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable @click="onItemClick">
+            <q-item v-close-popup clickable>
               <q-item-section>
                 <q-item-label>公告管理</q-item-label>
               </q-item-section>

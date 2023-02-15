@@ -82,7 +82,7 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
-  const editCart = async ({ _id, quantity, price }) => {
+  const editCart = async ({ _id, quantity, price, message }) => {
     if (token.value.length === 0) {
       Notify.create({
         position: 'top',
@@ -99,10 +99,30 @@ export const useUserStore = defineStore('user', () => {
       cart.value = data.result
       Notify.create({
         position: 'top',
-        message: '加入購物車成功',
+        message,
         color: 'secondary',
         avatar: `https://source.boringavatars.com/beam/256/${account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+      })
+    } catch (error) {
+      console.log(error)
+      Notify.create({
+        position: 'top',
+        message: error?.response?.data?.message || '發生錯誤',
+        color: 'negative',
+        avatar: `https://source.boringavatars.com/beam/256/${account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+      })
+    }
+  }
 
+  const checkout = async () => {
+    try {
+      await apiAuth.post('/shoppings')
+      cart.value = 0
+      Notify.create({
+        position: 'top',
+        message: '結帳成功',
+        color: 'secondary',
+        avatar: `https://source.boringavatars.com/beam/256/${account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
       })
     } catch (error) {
       Notify.create({
@@ -129,7 +149,8 @@ export const useUserStore = defineStore('user', () => {
     login,
     logout,
     getUser,
-    editCart
+    editCart,
+    checkout
   }
 }, {
   persist: {

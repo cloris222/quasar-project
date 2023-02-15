@@ -1,6 +1,7 @@
 <template>
   <div id="CartView">
     <div class="container q-mx-auto">
+      <!-- 標題 -->
       <div class="row q-mx-auto">
         <div class="col-12">
           <h4>購物車</h4>
@@ -8,91 +9,113 @@
       </div>
       <!-- 購物車表格 -->
       <div class="row q-mx-auto ">
-        <q-table
-          title="購物車"
-          :rows="cart"
-          :columns="columns"
-          row-key="name"
-          class="q-mt-lg"
-        >
-          <!-- 圖片 -->
-          <template #body-cell-images="props">
-            <q-td :props="props">
-              <div class="cart_img">
-                <img :props="props" :src="props.row.p_id.images[0]">
-              </div>
-            </q-td>
-          </template>
-
-          <!-- 品名 -->
-          <template #body-cell-name="props">
-            <q-td :props="props" class="text-center">
-              <div>
-                {{ props.row.p_id.name }}
-              </div>
-            </q-td>
-          </template>
-
-          <!-- 價錢 -->
-          <template #body-cell-price="props">
-            <q-td :props="props" class="text-center ">
-              <p class="cart_price">
-                {{ props.row.price }}
-              </p>
-            </q-td>
-          </template>
-
-          <!-- 數量 -->
-          <template #body-cell-quantity="props">
-            <q-td :props="props">
-              <div class="cart_quantity">
-                {{ props.row.quantity }}
-                <q-btn icon="remove" color="secondary" @click="updateCart(props.row.p_id._id,props.row.quantity-1,props.row.price)" />
-                <q-btn icon="add" color="secondary" @click="updateCart(props.row.p_id._id,props.row.quantity+1,props.row.price)" />
-              </div>
-            </q-td>
-          </template>
-
-          <!-- 小計 -->
-          <template #body-cell-subtotal="props">
-            <q-td :props="props">
-              <div class="cart_subtotal">
-                {{ props.row.quantity * props.row.price }}
-              </div>
-            </q-td>
-          </template>
-
-          <!-- 操作 -->
-          <template #body-cell-others="props">
-            <q-td :props="props">
-              <div class="productsOthers">
-                <q-btn square color="secondary" icon="edit" :props="props" @click="updateCart(props.row.p_id._id,props.row.quantity*-1,props.row.price)" />
-              </div>
-            </q-td>
-          </template>
-        </q-table>
-      </div>
-      <div class="row q-mx-auto">
         <div class="col-12">
-          {{ totalPrice }}
+          <q-table
+            :rows="cart"
+            :columns="columns"
+            row-key="name"
+            class="q-mt-lg"
+          >
+            <!-- 商品編號 -->
+            <template #body-cell-shopping_id="props">
+              <q-td :props="props">
+                <div class="cart_shopping_id">
+                  {{ props.row.p_id._id }}
+                </div>
+              </q-td>
+            </template>
+
+            <!-- 圖片 -->
+            <template #body-cell-images="props">
+              <q-td :props="props">
+                <div class="cart_img">
+                  <img :props="props" :src="props.row.p_id.images[0]">
+                </div>
+              </q-td>
+            </template>
+
+            <!-- 品名 -->
+            <template #body-cell-name="props">
+              <q-td :props="props" class="text-center">
+                <div>
+                  {{ props.row.p_id.name }}
+                </div>
+              </q-td>
+            </template>
+
+            <!-- 價錢 -->
+            <template #body-cell-price="props">
+              <q-td :props="props" class="text-center ">
+                <div class="cart_price">
+                  {{ props.row.price }}
+                </div>
+              </q-td>
+            </template>
+
+            <!-- 數量 -->
+            <template #body-cell-quantity="props">
+              <q-td :props="props">
+                <div class="cart_quantity">
+                  {{ props.row.quantity }}
+                  <q-btn round size="sm" icon="remove" color="secondary" @click="updateCart(props.row._id,props.row.quantity-1,props.row.price,'修改成功')" />
+                  <q-btn round size="sm" icon="add" color="secondary" @click="updateCart(props.row._id,props.row.quantity+1,props.row.price,'修改成功')" />
+                </div>
+              </q-td>
+            </template>
+
+            <!-- 小計 -->
+            <template #body-cell-subtotal="props">
+              <q-td :props="props">
+                <div class="cart_subtotal">
+                  {{ props.row.quantity * props.row.price }}
+                </div>
+              </q-td>
+            </template>
+
+            <!-- 操作 -->
+            <template #body-cell-others="props">
+              <q-td :props="props">
+                <div class="productsOthers">
+                  <q-btn square color="negative" icon="delete" :props="props" @click="updateCart(props.row._id,props.row.quantity*-1,props.row.price,'已將商品移除')" />
+                </div>
+              </q-td>
+            </template>
+          </q-table>
         </div>
       </div>
+      <!-- totalprice -->
+      <div class="row q-mx-auto q-mt-lg ">
+        <div class="col-12 text-right" style="font-size: 2em">
+          總金額:{{ totalPrice }}
+        </div>
+      </div>
+      <!-- btn_area -->
+      <div class="row q-mx-auto q-mt-lg justify-between">
+        <div class="col-6 ">
+          <q-btn square color="primary" icon="mdi-arrow-left" to="/shoppingMall" label="再去逛逛" />
+        </div>
+        <div class="col-6 text-right">
+          <q-btn square color="primary" icon="mdi-arrow-right" label="去結帳" :disabled="!canCheckout" @click="onCheckoutBtnClick" />
+        </div>
+      </div>
+      <!-- 結帳頁面 -->
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { useQuasar } from 'quasar'
 import { apiAuth } from '@/boot/axios.js'
 import { useUserStore } from '@/stores/users.js'
+import { useRouter } from 'vue-router'
 
 const columns = [
 
   {
     name: 'shopping_id',
     required: true,
-    label: '訂單編號',
+    label: '商品編號',
     align: 'left',
     field: row => row.name,
     sortable: true
@@ -100,7 +123,7 @@ const columns = [
     name: 'images',
     required: true,
     label: '商品圖片',
-    align: 'left',
+    align: 'center',
     field: row => row.name,
     sortable: true
   },
@@ -112,15 +135,33 @@ const columns = [
 ]
 
 const user = useUserStore()
-const { editCart } = user
+const { editCart, checkout } = user
 const cart = reactive([])
-const totalPrice = ref(0)
 const $q = useQuasar()
+const router = useRouter()
 
-const updateCart = async (_id, quantity, price) => {
-  const idx = cart.findIndex(_id)
-  await editCart({ id: cart[idx].p_id._id, quantity, price })
-  cart[idx].quantity += quantity
+// 總金額
+const totalPrice = computed(() => {
+  return cart.reduce((total, current) => {
+    return total + current.price * current.quantity
+  }, 0)
+})
+
+const canCheckout = computed(() => {
+  return cart.length > 0 && !cart.some(product => {
+    return !product.p_id.sell
+  })
+})
+
+const onCheckoutBtnClick = async () => {
+  await checkout()
+  router.push('/shoppings')
+}
+
+const updateCart = async (_id, quantity, price, message) => {
+  const idx = cart.findIndex((cart) => { return cart._id === _id })
+  await editCart({ _id: cart[idx].p_id._id, quantity, price, message })
+  cart[idx].quantity = quantity
   if (cart[idx].quantity <= 0) {
     cart.splice(idx, 1)
   }

@@ -21,12 +21,17 @@
 // 購物車
 @import '_CartView.scss';
 
+// 訂單
+@import '_shoppingsView.scss';
+
 // admin
 @import './admin/adminProducts';
 @import './admin/adminProductsShoppingMall';
+@import '../css/admin/adminShoppingsView';
 
 // components
 @import '../css/components/productCard';
+
 
 
 

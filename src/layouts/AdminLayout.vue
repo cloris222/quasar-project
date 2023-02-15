@@ -28,7 +28,7 @@
                   </q-item-section>
                 </q-item>
 
-                <q-item v-close-popup clickable>
+                <q-item v-close-popup clickable to="/admin/shoppings">
                   <q-item-section>
                     <q-item-label>訂單管理</q-item-label>
                   </q-item-section>

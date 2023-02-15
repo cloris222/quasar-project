@@ -53,6 +53,16 @@ const routes = [
           login: true,
           admin: false
         }
+      },
+      {
+        path: 'shoppings',
+        name: 'shoppings',
+        component: () => import('@/pages/FrontLayout/ShoppingsView.vue'),
+        meta: {
+          title: '桌下吧 | 我的訂單',
+          login: true,
+          admin: false
+        }
       }
 
     ]

@@ -203,7 +203,7 @@ const rules = {
 }
 
 const onSubmit = () => {
-  editCart({ _id: form.p_id, quantity: form.quantity, price: form.price })
+  editCart({ _id: form.p_id, quantity: form.quantity, price: form.price, message: '加入購物車成功' })
 }
 
 const filterPrice2 = computed(() => {
