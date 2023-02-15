@@ -25,7 +25,7 @@
               </q-item>
             </q-list>
           </q-btn-dropdown>
-          <q-route-tab name="consumeType" label="消費方式" />
+          <q-route-tab name="consumeType" label="立即預約" to="/orders" />
           <q-route-tab name="shoppingMall" label="二手專區" to="/shoppingMall" />
           <q-route-tab name="Q&A" label="常見Q&A" />
         </q-tabs>
@@ -37,7 +37,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable>
+            <q-item v-close-popup clickable to="/myOrders">
               <q-item-section>
                 <q-item-label>我的預約</q-item-label>
               </q-item-section>
@@ -49,7 +49,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable to="/shoppings">
+            <q-item v-close-popup clickable to="/myshoppings">
               <q-item-section>
                 <q-item-label>我的訂單</q-item-label>
               </q-item-section>

@@ -45,6 +45,16 @@ const routes = [
           admin: false
         }
       }, {
+        path: 'orders',
+        name: 'orders',
+        component: () => import('@/pages/FrontLayout/OrderView.vue'),
+        meta: {
+          title: '桌下吧 | 預約',
+          login: true,
+          admin: false
+        }
+      },
+      {
         path: 'cart',
         name: 'cart',
         component: () => import('@/pages/FrontLayout/CartView.vue'),
@@ -55,9 +65,18 @@ const routes = [
         }
       },
       {
-        path: 'shoppings',
-        name: 'shoppings',
-        component: () => import('@/pages/FrontLayout/ShoppingsView.vue'),
+        path: 'myshoppings',
+        name: 'myshoppings',
+        component: () => import('@/pages/FrontLayout/myShoppingsView.vue'),
+        meta: {
+          title: '桌下吧 | 我的訂單',
+          login: true,
+          admin: false
+        }
+      }, {
+        path: 'myOrders',
+        name: 'myOrders',
+        component: () => import('@/pages/FrontLayout/myOrdersView.vue'),
         meta: {
           title: '桌下吧 | 我的訂單',
           login: true,
