@@ -10,6 +10,12 @@
           {{ name }}
         </div>
       </q-card-section>
+      <q-card-section class="q-pt-none gamer_area">
+        <div class="row">
+          <q-icon name="diversity_3" color="primary" size="sm" class="q-mr-sm" />
+          <span style="font-size:16px">{{ gamer }}</span>
+        </div>
+      </q-card-section>
       <q-card-section class="q-pt-none">
         <q-chip v-for="(item,i) in category" :key="i" color="primary" text-color="white">
           {{ item }}
