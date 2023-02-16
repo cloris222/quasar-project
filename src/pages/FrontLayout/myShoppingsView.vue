@@ -58,7 +58,7 @@
           <q-card-section class="row items-center">
             <q-avatar icon="redeem" color="primary" text-color="white" />
             <span v-for="(shopping,i) in shoppings" :key="i" class="q-ml-lg q-mb-lg">
-              {{ shopping.products[i].p_id }}
+              {{ shopping.products[i] }}
             </span>
           </q-card-section>
 

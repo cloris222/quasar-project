@@ -36,13 +36,13 @@
               人數
             </div>
             <div class="col-6 q-mb-lg">
-              <q-slider
+              <q-range
                 v-model="filterCondition.gamer"
                 snap
                 markers
                 marker-labels
-                :min="0"
-                :max="10"
+                :min="1"
+                :max="20"
               />
             </div>
           </div>
@@ -212,17 +212,21 @@ const filterPrice2 = computed(() => {
 
 // 篩選條件filter
 const filterCondition = reactive({
-  gamer: 1,
-  category: ['其他遊戲', '暢銷遊戲'],
+  gamer: {
+    min: 1,
+    max: 5
+  },
+  category: ['暢銷遊戲'],
   price: filterPrice2
 })
 
 const filterFunc = computed(() => {
   return products.filter((product) => {
-    // console.log(_.intersection(product.category, filterCondition.category))
-    return product.gamer >= filterCondition.gamer &&
-            parseInt(_.intersection(product.category, filterCondition.category).length) !== 0 &&
-            product.price <= filterCondition.price
+    console.log(product.gamer.split('~').map(Number)[0], product.gamer.split('~').map(Number)[1])
+    return product.gamer.split('~').map(Number)[0] >= parseInt(filterCondition.gamer.min) &&
+    product.gamer.split('~').map(Number)[1] <= parseInt(filterCondition.gamer.max) &&
+    parseInt(_.intersection(product.category, filterCondition.category).length) !== 0 &&
+    product.price <= filterCondition.price
   })
 });
 
