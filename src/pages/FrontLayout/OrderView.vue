@@ -1,8 +1,8 @@
 <template>
   <div id="OrderView">
-    <div class="container">
+    <div class="container q-mx-auto q-mt-lg">
       <!-- 大圖 -->
-      <div class="row q-mx-auto">
+      <div class="row ">
         <div class="col-12 order_img">
           <img src="@/assets/undraw_game_day_ucx9.svg">
         </div>
@@ -28,124 +28,127 @@
       </div>
 
       <!-- 預約表單 -->
+
       <q-form
         class="q-gutter-md"
         @submit="onSubmit"
       >
-        <q-stepper
-          ref="stepper"
-          v-model="step"
-          alternative-labels
-          color="primary"
-          animated
-        >
-          <q-step
-            :name="1"
-            title="開始預約吧！"
-            icon="edit"
-            :done="step > 1"
-          >
-            For each ad campaign that you create, you can control how much you're willing to
-            spend on clicks and conversions, which networks and geographical locations you want
-            your ads to show on, and more.
-          </q-step>
+        <q-card>
+          <q-card-section horizontal="">
+            <div class="row left_area">
+              <q-card-section>
+                <div class="col-6 left_participant">
+                  <q-select v-model="form.participant" outlined :options="participantOptions" label="請選擇人數" />
+                </div>
+                <div class="col-6 left_orderDate">
+                  <q-input v-model="form.orderDate" outlined mask="date" :rules="['date']">
+                    <template #append>
+                      <q-icon name="event" class="cursor-pointer">
+                        <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                          <q-date v-model="form.orderDate">
+                            <div class="row items-center justify-end">
+                              <q-btn v-close-popup label="確認" color="primary" flat />
+                            </div>
+                          </q-date>
+                        </q-popup-proxy>
+                      </q-icon>
+                    </template>
+                  </q-input>
+                </div>
+              </q-card-section>
 
-          <q-step
-            :name="2"
-            title="確認預約資訊"
-            icon="info"
-            :done="step > 2"
-          >
-            An ad group contains one or more ads which target a shared set of keywords.
-          </q-step>
+              <q-card-section>
+                <div class="col-12 left_orderTime">
+                  <q-card-section>
+                    <div class="orderTimeTitle">
+                      <q-card-section>
+                        預約時段
+                        *灰色表示該時間已客滿，可點選檢視其他可訂位日期。欲預約非營業時間可洽FB粉專。
+                      </q-card-section>
+                    </div>
+                  </q-card-section>
+                  <q-card-section>
+                    <div class="orderTimeBtn">
+                      <q-btn v-for="(btn,i) in orderTimeBtn" :key="i" :label="btn.time" :disable="orderTimeBtn.available" @click="form.time=btn.time" />
+                    </div>
+                  </q-card-section>
+                </div>
+              </q-card-section>
 
-          <q-step
-            :name="3"
-            title="確認預約資訊"
-            icon="add_comment"
-          >
-            Try out different ad text to see what brings in the most customers, and learn how to
-            enhance your ads using features like ad extensions. If you run into any problems with
-            your ads, find out how to tell if they're running and how to resolve approval issues.
-          </q-step>
-
-          <template #navigation>
-            <q-stepper-navigation>
-              <q-btn color="primary" :label="step === 3 ? 'Finish' : 'Continue'" @click="$refs.stepper.next()" />
-              <q-btn v-if="step > 1" flat color="primary" label="Back" class="q-ml-sm" @click="$refs.stepper.previous()" />
-            </q-stepper-navigation>
-          </template>
-        </q-stepper>
-
-        <!-- 選擇人數 日期 -->
-        <div class="row">
-          <div id="chooseParticipant" class="col-4">
-            <q-select v-model="form.participant" outlined :options="participantOptions" label="請選擇人數" />
-          </div>
-          <div id="chooseorderDate" class="col-4">
-            <q-input v-model="form.orderDate" outlined mask="date" :rules="['date']">
-              <template #append>
-                <q-icon name="event" class="cursor-pointer">
-                  <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                    <q-date v-model="form.orderDate">
-                      <div class="row items-center justify-end">
-                        <q-btn v-close-popup label="確認" color="primary" flat />
+              <q-card-section>
+                <div class="left_orderHours">
+                  <q-select v-model="form.hours" outlined :options="orderHoursOptions" label="請選擇預約時數" />
+                </div>
+              </q-card-section>
+            </div>
+            <div class="row right_area">
+              <q-card-section>
+                <div class="col-12 right_title">
+                  確認預約資訊
+                </div>
+              </q-card-section>
+              <q-card-section>
+                <div class="col-10 right_checkInfo">
+                  <q-card>
+                    <div class="row rightCheckInfoCard">
+                      <div class="col-6">
+                        <q-card-section>
+                          <div class="rightInfo_name">
+                            預約者姓名
+                            {{ name }}
+                          </div>
+                        </q-card-section>
+                        <q-card-section>
+                          <div class="rightInfo_phone">
+                            預約者電話
+                            {{ phone }}
+                          </div>
+                        </q-card-section>
+                        <q-card-section>
+                          <div class="rightInfo_email">
+                            預約者信箱
+                            {{ email }}
+                          </div>
+                        </q-card-section>
                       </div>
-                    </q-date>
-                  </q-popup-proxy>
-                </q-icon>
-              </template>
-            </q-input>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-12">
-            <q-card>
-              <!-- 標題 -->
-              <q-card-section>
-                <q-card-section>
-                  預約時段
-                </q-card-section>
-                <q-card-section>
-                  *灰色表示該時間已客滿，可點選檢視其他可訂位日期。欲預約非營業時間可洽FB粉專。
-                </q-card-section>
+                      <div class="col-6">
+                        <q-card-section>
+                          <div class="checkOrder_participant">
+                            人數
+                            {{ form.participant }}
+                          </div>
+                        </q-card-section>
+                        <q-card-section>
+                          <div class="checkOrder_orderDate">
+                            日期
+                            {{ form.orderDate }}
+                          </div>
+                        </q-card-section>
+                        <q-card-section>
+                          <div class="checkOrder_orderTime">
+                            時段
+                            {{ form.time }}
+                          </div>
+                        </q-card-section>
+                        <q-card-section>
+                          <div class="checkOrder_orderHours">
+                            時數
+                            {{ form.hours }}
+                          </div>
+                        </q-card-section>
+                      </div>
+                    </div>
+                  </q-card>
+                </div>
               </q-card-section>
-              <!-- 選擇時段 -->
-              <q-card-section>
-                <q-btn v-for="(btn,i) in orderTimeBtn" :key="i" :label="btn.time" :disable="orderTimeBtn.available" @click="form.time=btn.time" />
-              </q-card-section>
-              <q-card-section>
-                如有訂位以外的需求，請撥打電話與我們聯繫
-                0223941157
-              </q-card-section>
-            </q-card>
-          </div>
-        </div>
-
-        <!-- 確認資訊 -->
-        <div class="column">
-          <div class="col-12">
-            <q-card>
-              <q-card-section>
-                您已選擇預約 桌下吧泰山店
-                <q-btn :label="`${form.participant}人`" to="#chooseParticipant" />
-                >
-                <q-btn :label="`${form.orderDate}`" to="#chooseorderDate" />
-                >
-                <q-btn :label="`${form.time}`" />
-              </q-card-section>
-            </q-card>
-          </div>
-          <div class="col-12">
-            <q-card>
               <q-card-section>
                 <div>
                   <q-btn label="Submit" type="submit" color="primary" />
                 </div>
               </q-card-section>
-            </q-card>
-          </div>
-        </div>
+            </div>
+          </q-card-section>
+        </q-card>
       </q-form>
 
       <!-- 聯絡我們 -->
@@ -175,12 +178,17 @@
 import { ref, reactive, watch } from 'vue'
 import { apiAuth } from '@/boot/axios.js'
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/users'
 
+const user = useUserStore()
+const { name, phone, email } = user
 const router = useRouter()
 const participant = ref(2)
 const date = new Date()
 
 const participantOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16']
+const orderHoursOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+
 const orderDate = ref(`${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`)
 const orderTimeBtn = reactive([
   { time: '13:00', available: true },
@@ -265,8 +273,7 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
 // onsubmit送出表單
 const onSubmit = async () => {
   try {
-    await apiAuth.post('/', ({
-      u_id: form.u_id,
+    await apiAuth.post('/orders', ({
       name: form.name,
       phone: form.phone,
       orderDate: form.orderDate,
