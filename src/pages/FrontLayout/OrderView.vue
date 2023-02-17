@@ -33,51 +33,69 @@
         class="q-gutter-md"
         @submit="onSubmit"
       >
-        <q-card>
-          <q-card-section horizontal="">
+        <q-card class="orderForm q-mx-auto">
+          <q-card-section horizontal>
             <div class="row left_area">
               <q-card-section>
-                <div class="col-6 left_participant">
-                  <q-select v-model="form.participant" outlined :options="participantOptions" label="請選擇人數" />
-                </div>
-                <div class="col-6 left_orderDate">
-                  <q-input v-model="form.orderDate" outlined mask="date" :rules="['date']">
-                    <template #append>
-                      <q-icon name="event" class="cursor-pointer">
-                        <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                          <q-date v-model="form.orderDate">
-                            <div class="row items-center justify-end">
-                              <q-btn v-close-popup label="確認" color="primary" flat />
-                            </div>
-                          </q-date>
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
+                <div class="row ">
+                  <div class="col-5 left_participant q-mr-lg">
+                    <div class="title">
+                      預約人數
+                    </div>
+                    <q-select v-model="form.participant" color="secondary" outlined :options="participantOptions" label="請選擇人數">
+                      <template #prepend>
+                        <q-icon name="supervisor_account" color="secondary" />
+                      </template>
+                    </q-select>
+                  </div>
+                  <div class="col-5 left_orderDate">
+                    <div class="title">
+                      預約日期
+                    </div>
+                    <q-input v-model="form.orderDate" color="secondary" outlined mask="date" :rules="['date']">
+                      <template #append>
+                        <q-icon name="event" class="cursor-pointer" color="secondary">
+                          <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                            <q-date v-model="form.orderDate">
+                              <div class="row items-center justify-end">
+                                <q-btn v-close-popup label="確認" color="primary" flat />
+                              </div>
+                            </q-date>
+                          </q-popup-proxy>
+                        </q-icon>
+                      </template>
+                    </q-input>
+                  </div>
                 </div>
               </q-card-section>
 
               <q-card-section>
                 <div class="col-12 left_orderTime">
-                  <q-card-section>
-                    <div class="orderTimeTitle">
-                      <q-card-section>
-                        預約時段
-                        *灰色表示該時間已客滿，可點選檢視其他可訂位日期。欲預約非營業時間可洽FB粉專。
-                      </q-card-section>
+                  <div class="orderTimeTitle">
+                    <div class="title">
+                      預約時段
                     </div>
-                  </q-card-section>
+                    <div class="caption">
+                      *灰色表示該時間已客滿，可點選檢視其他可訂位日期。欲預約非營業時間可洽FB粉專。
+                    </div>
+                  </div>
                   <q-card-section>
-                    <div class="orderTimeBtn">
-                      <q-btn v-for="(btn,i) in orderTimeBtn" :key="i" :label="btn.time" :disable="orderTimeBtn.available" @click="form.time=btn.time" />
+                    <div>
+                      <q-btn v-for="(btn,i) in orderTimeBtn" :key="i" :label="btn.time" :disable="orderTimeBtn.available" color="secondary" class="orderTimeBtn q-mr-lg q-mb-lg" push size="lg" @click="form.time=btn.time" />
                     </div>
                   </q-card-section>
                 </div>
               </q-card-section>
-
               <q-card-section>
                 <div class="left_orderHours">
-                  <q-select v-model="form.hours" outlined :options="orderHoursOptions" label="請選擇預約時數" />
+                  <div class="title">
+                    預約時數
+                  </div>
+                  <q-select v-model="form.hours" outlined color="secondary" :options="orderHoursOptions" label="請選擇預約時數">
+                    <template #prepend>
+                      <q-icon name="schedule" color="secondary" />
+                    </template>
+                  </q-select>
                 </div>
               </q-card-section>
             </div>

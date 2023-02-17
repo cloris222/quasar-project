@@ -2,6 +2,7 @@
 
     .container{
         width: 90%;
+        
 
         .row{
             width: 100%;
@@ -18,9 +19,43 @@
             }
         }
 
-        .order_area{
-            display: flex;
+        .orderForm{
+            background-color: $primary;
+            color: #fff;
+
+            .left_area{
+                width: 70%;
+    
+                .left_area{
+                    width: 50%;
+                }
+    
+                .q-card__section {
+                    width: 100%;
+                }
+
+                .title{
+                    font-size: 24px;
+                    font-weight: bolder;
+                }
+
+                .caption{
+                    font-size: 12px;
+                    color: lightgray;
+                }
+
+                
+            }
+    
+            .right_area{
+                width: 30%;
+                background-color: $secondary;
+
+
+            }
         }
+
+        
     }
 
 }
