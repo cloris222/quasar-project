@@ -1,16 +1,14 @@
 <template>
   <div id="OrderView">
-    <div class="container q-mx-auto q-mt-lg">
+    <div class="container q-mx-auto q-mt-lg q-mb-lg">
       <!-- 大圖 -->
-      <div class="row ">
-        <div class="col-12 order_img">
+      <div class="row q-my-xl ">
+        <div class="col-4 order_img">
           <img src="@/assets/undraw_game_day_ucx9.svg">
         </div>
-      </div>
-      <!-- 預約須知 -->
-      <div class="row">
-        <div class="col-12">
-          <ul>
+        <div class="col-8">
+          <!-- 預約須知 -->
+          <ul class="ordertoknow">
             <li>
               座位保留20分鐘，若會晚到超過20分鐘請電話告知。若不便前來，請取消預約。
             </li>
@@ -33,7 +31,7 @@
         class="q-gutter-md"
         @submit="onSubmit"
       >
-        <q-card class="orderForm q-mx-auto">
+        <q-card class="orderForm q-mx-auto q-mt-lg">
           <q-card-section horizontal>
             <div class="row left_area">
               <q-card-section>
@@ -42,9 +40,9 @@
                     <div class="title">
                       預約人數
                     </div>
-                    <q-select v-model="form.participant" color="secondary" outlined :options="participantOptions" label="請選擇人數">
+                    <q-select v-model="form.participant" rounded outlined bottom-slots color="white" :options="participantOptions" label="請選擇人數">
                       <template #prepend>
-                        <q-icon name="supervisor_account" color="secondary" />
+                        <q-icon name="supervisor_account" color="primary" />
                       </template>
                     </q-select>
                   </div>
@@ -52,9 +50,9 @@
                     <div class="title">
                       預約日期
                     </div>
-                    <q-input v-model="form.orderDate" color="secondary" outlined mask="date" :rules="['date']">
+                    <q-input v-model="form.orderDate" rounded outlined bottom-slots color="secondary" mask="date" :rules="['date']">
                       <template #append>
-                        <q-icon name="event" class="cursor-pointer" color="secondary">
+                        <q-icon name="event" class="cursor-pointer" color="primary">
                           <q-popup-proxy cover transition-show="scale" transition-hide="scale">
                             <q-date v-model="form.orderDate">
                               <div class="row items-center justify-end">
@@ -81,21 +79,23 @@
                   </div>
                   <q-card-section>
                     <div>
-                      <q-btn v-for="(btn,i) in orderTimeBtn" :key="i" :label="btn.time" :disable="orderTimeBtn.available" color="secondary" class="orderTimeBtn q-mr-lg q-mb-lg" push size="lg" @click="form.time=btn.time" />
+                      <q-btn v-for="(btn,i) in orderTimeBtn" :key="i" :label="btn.time" color="primary" class="orderTimeBtn q-mr-lg q-mb-lg" outline size="lg" :disable="!btn.available" @click="form.time=btn.time" />
                     </div>
                   </q-card-section>
                 </div>
               </q-card-section>
               <q-card-section>
-                <div class="left_orderHours">
-                  <div class="title">
-                    預約時數
+                <div class="row left_orderHours">
+                  <div class="col-5">
+                    <div class="title">
+                      預約時數
+                    </div>
+                    <q-select v-model="form.hours" color="secondary" :options="orderHoursOptions" label="請選擇預約時數" rounded outlined bottom-slots>
+                      <template #prepend>
+                        <q-icon name="schedule" color="primary" />
+                      </template>
+                    </q-select>
                   </div>
-                  <q-select v-model="form.hours" outlined color="secondary" :options="orderHoursOptions" label="請選擇預約時數">
-                    <template #prepend>
-                      <q-icon name="schedule" color="secondary" />
-                    </template>
-                  </q-select>
                 </div>
               </q-card-section>
             </div>
@@ -107,24 +107,27 @@
               </q-card-section>
               <q-card-section>
                 <div class="col-10 right_checkInfo">
-                  <q-card>
-                    <div class="row rightCheckInfoCard">
+                  <q-card class="rightCheckInfoCard">
+                    <div class="row">
                       <div class="col-6">
                         <q-card-section>
                           <div class="rightInfo_name">
-                            預約者姓名
+                            姓名：
+                            <br>
                             {{ name }}
                           </div>
                         </q-card-section>
                         <q-card-section>
                           <div class="rightInfo_phone">
-                            預約者電話
+                            電話：
+                            <br>
                             {{ phone }}
                           </div>
                         </q-card-section>
                         <q-card-section>
                           <div class="rightInfo_email">
-                            預約者信箱
+                            信箱：
+                            <br>
                             {{ email }}
                           </div>
                         </q-card-section>
@@ -132,19 +135,19 @@
                       <div class="col-6">
                         <q-card-section>
                           <div class="checkOrder_participant">
-                            人數
+                            人數：
                             {{ form.participant }}
                           </div>
                         </q-card-section>
                         <q-card-section>
                           <div class="checkOrder_orderDate">
-                            日期
+                            日期：
                             {{ form.orderDate }}
                           </div>
                         </q-card-section>
                         <q-card-section>
                           <div class="checkOrder_orderTime">
-                            時段
+                            時段：
                             {{ form.time }}
                           </div>
                         </q-card-section>
@@ -160,9 +163,7 @@
                 </div>
               </q-card-section>
               <q-card-section>
-                <div>
-                  <q-btn label="Submit" type="submit" color="primary" />
-                </div>
+                <q-btn label="Submit" type="submit" color="secondary" class="q-mx-auto" />
               </q-card-section>
             </div>
           </q-card-section>
@@ -197,9 +198,14 @@ import { ref, reactive, watch } from 'vue'
 import { apiAuth } from '@/boot/axios.js'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/users'
+import { useOrdersStore } from '@/stores/orders'
+import { storeToRefs } from 'pinia'
 
 const user = useUserStore()
 const { name, phone, email } = user
+
+const orders = useOrdersStore()
+const { editOrders } = storeToRefs(orders)
 const router = useRouter()
 const participant = ref(2)
 const date = new Date()
@@ -207,7 +213,6 @@ const date = new Date()
 const participantOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16']
 const orderHoursOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
 
-const orderDate = ref(`${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`)
 const orderTimeBtn = reactive([
   { time: '13:00', available: true },
   { time: '13:30', available: true },
@@ -230,8 +235,8 @@ const form = reactive({
   u_id: '',
   name: '',
   phone: '',
-  orderDate,
-  orderonDate: new Date(),
+  orderDate: '',
+  orderonDate: '',
   participant,
   time: '',
   hours: 0,
@@ -246,6 +251,7 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
     if (!form.orderDate) {
       orderTimeBtn.forEach(btn => {
         btn.available = false
+        console.log(btn.available)
         return btn
       })
       return
@@ -254,15 +260,19 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
     // 使按鈕全部恢復成available狀態
     orderTimeBtn.forEach(btn => {
       btn.available = true
+      console.log(btn.available)
       return btn
     })
+
+    console.log(orderTimeBtn)
 
     form.time = ''
     form.hours = 0
 
-    const orderTimeandHour = reactive([])
+    const orderTimeandHour = []
     // 使用者選擇日期發出請求
     const { data } = await apiAuth.post('/orders/getDate', { orderDate: newValue })
+    console.log(data.result)
     // 將從後端發送回來的(time&hours)push進orderTimeandHour
     orderTimeandHour.push((data.result).forEach((info) => {
       orderTimeandHour.time = info.time
@@ -273,35 +283,27 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
     // orderTimeandHour 做forEach 將被預約的btn.available = false
     orderTimeandHour.forEach((info) => {
       const idx = orderTimeBtn.findIndex((btn) => {
+        console.log(info)
         return btn.time === info.time
       })
       // 從該被預約按鈕開始往後hours的按鈕改為disable
-      for (let i = idx; i < idx + info.hours; i++) {
+      for (let i = idx; i <= idx + info.hours; i++) {
         orderTimeBtn[i].available = false
         // 迴圈跑到最後一個按鈕時return
         if (orderTimeBtn[i] === orderTimeBtn[(orderTimeBtn.length) - 1]) return
       }
-      orderTimeBtn[idx].available = false
     })
-  } catch (error) {
 
+    console.log(orderTimeBtn)
+  } catch (error) {
+    console.log(error)
   }
 }, { deep: true })
 
 // onsubmit送出表單
-const onSubmit = async () => {
+const onSubmit = async (form) => {
   try {
-    await apiAuth.post('/orders', ({
-      name: form.name,
-      phone: form.phone,
-      orderDate: form.orderDate,
-      orderonDate: form.orderonDate,
-      participant: form.participant,
-      time: form.time,
-      hours: form.hours,
-      others: form.others,
-      message: '預約成功'
-    }))
+    await editOrders(form)
     router.push('/')
   } catch (error) {
 
@@ -320,4 +322,5 @@ const onSubmit = async () => {
 //   } else return 7 // 總共 7 個時段
 // })
 
+form.orderDate = ref(`${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`)
 </script>

@@ -23,7 +23,17 @@ export const useOrdersStore = defineStore('orders', () => {
     try {
       // form._id 為orders的_id
       if (form._id === '') {
-        const { data } = await apiAuth.post('/', form)
+        const { data } = await apiAuth.post('/orders', ({
+          name: form.name,
+          phone: form.phone,
+          orderDate: form.orderDate,
+          orderonDate: form.orderonDate,
+          participant: form.participant,
+          time: form.time,
+          hours: form.hours,
+          others: form.others,
+          message: '預約成功'
+        }))
         ordersData.push(...data.result)
         Notify.create({
           position: 'top',

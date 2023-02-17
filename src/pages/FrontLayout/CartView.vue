@@ -56,8 +56,8 @@
             <template #body-cell-quantity="props">
               <q-td :props="props">
                 <div class="cart_quantity">
-                  {{ props.row.quantity }}
                   <q-btn round size="sm" icon="remove" color="secondary" @click="updateCart(props.row._id,props.row.quantity-1,props.row.price,'修改成功')" />
+                  {{ props.row.quantity }}
                   <q-btn round size="sm" icon="add" color="secondary" @click="updateCart(props.row._id,props.row.quantity+1,props.row.price,'修改成功')" />
                 </div>
               </q-td>
@@ -92,7 +92,7 @@
       <!-- btn_area -->
       <div class="row q-mx-auto q-mt-lg justify-between">
         <div class="col-6 ">
-          <q-btn square color="primary" icon="mdi-arrow-left" to="/shoppingMall" label="再去逛逛" />
+          <q-btn square color="primary" outline icon="mdi-arrow-left" to="/shoppingMall" label="再去逛逛" />
         </div>
         <div class="col-6 text-right">
           <q-btn square color="primary" icon="mdi-arrow-right" label="去結帳" :disabled="!canCheckout" @click="onCheckoutBtnClick" />
@@ -155,7 +155,7 @@ const canCheckout = computed(() => {
 
 const onCheckoutBtnClick = async () => {
   await checkout()
-  router.push('/shoppings')
+  router.push('/myshoppings')
 }
 
 const updateCart = async (_id, quantity, price, message) => {

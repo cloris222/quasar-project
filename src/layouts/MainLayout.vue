@@ -6,7 +6,8 @@
         notice shrink property since we are placing it
         as child of QToolbar
       -->
-        <q-btn flat round color="white" icon="home" to="/" />
+        <q-btn flat round color="white" icon="mdi-dice-3" to="/" size="xl" />
+        <h4>桌下吧</h4>
         <q-tabs v-model="tab" shrink class="q-mx-auto">
           <q-route-tab name="news" label="最新公告" />
           <q-route-tab name="events" label="活動訊息" />
@@ -25,7 +26,7 @@
               </q-item>
             </q-list>
           </q-btn-dropdown>
-          <q-route-tab name="consumeType" label="立即預約" to="/orders" />
+          <q-route-tab name="orders" label="立即預約" to="/orders" />
           <q-route-tab name="shoppingMall" label="二手專區" to="/shoppingMall" />
           <q-route-tab name="Q&A" label="常見Q&A" />
         </q-tabs>

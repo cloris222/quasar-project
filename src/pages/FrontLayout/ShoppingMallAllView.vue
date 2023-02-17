@@ -222,7 +222,7 @@ const filterCondition = reactive({
 
 const filterFunc = computed(() => {
   return products.filter((product) => {
-    console.log(product.gamer.split('~').map(Number)[0], product.gamer.split('~').map(Number)[1])
+    // console.log(product.gamer.split('~').map(Number)[0], product.gamer.split('~').map(Number)[1])
     return product.gamer.split('~').map(Number)[0] >= parseInt(filterCondition.gamer.min) &&
     product.gamer.split('~').map(Number)[1] <= parseInt(filterCondition.gamer.max) &&
     parseInt(_.intersection(product.category, filterCondition.category).length) !== 0 &&
