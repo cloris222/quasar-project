@@ -2,14 +2,14 @@ import { defineStore } from 'pinia'
 import { reactive } from 'vue'
 import { Notify } from 'quasar'
 import { apiAuth } from '@/boot/axios.js'
-import { useUserStore } from '@/stores/uses.js'
+import { useUserStore } from '@/stores/users.js'
 
 export const useOrdersStore = defineStore('orders', () => {
   const ordersData = reactive([])
   const user = useUserStore()
 
   const editOrders = async (form) => {
-    if (user.token.value.length === 0) {
+    if (user.token.length === 0) {
       Notify.create({
         position: 'top',
         message: '請先登入',
@@ -23,9 +23,8 @@ export const useOrdersStore = defineStore('orders', () => {
     try {
       // form._id 為orders的_id
       if (form._id === '') {
+        console.log(form)
         const { data } = await apiAuth.post('/orders', ({
-          name: form.name,
-          phone: form.phone,
           orderDate: form.orderDate,
           orderonDate: form.orderonDate,
           participant: form.participant,

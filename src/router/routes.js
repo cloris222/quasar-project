@@ -49,7 +49,7 @@ const routes = [
         name: 'orders',
         component: () => import('@/pages/FrontLayout/OrderView.vue'),
         meta: {
-          title: '桌下吧 | 預約',
+          title: '桌下吧 | 立即預約',
           login: true,
           admin: false
         }
@@ -78,7 +78,7 @@ const routes = [
         name: 'myOrders',
         component: () => import('@/pages/FrontLayout/myOrdersView.vue'),
         meta: {
-          title: '桌下吧 | 我的訂單',
+          title: '桌下吧 | 我的預約',
           login: true,
           admin: false
         }

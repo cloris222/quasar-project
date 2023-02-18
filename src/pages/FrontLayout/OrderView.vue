@@ -163,7 +163,7 @@
                 </div>
               </q-card-section>
               <q-card-section>
-                <q-btn label="Submit" type="submit" color="secondary" class="q-mx-auto" />
+                <q-btn label="Submit" type="submit" color="secondary" class="q-mx-auto" :loading="form.loading" />
               </q-card-section>
             </div>
           </q-card-section>
@@ -198,14 +198,14 @@ import { ref, reactive, watch } from 'vue'
 import { apiAuth } from '@/boot/axios.js'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/users'
-import { useOrdersStore } from '@/stores/orders'
-import { storeToRefs } from 'pinia'
+
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
 
 const user = useUserStore()
 const { name, phone, email } = user
 
-const orders = useOrdersStore()
-const { editOrders } = storeToRefs(orders)
 const router = useRouter()
 const participant = ref(2)
 const date = new Date()
@@ -241,7 +241,8 @@ const form = reactive({
   time: '',
   hours: 0,
   others: '',
-  message: ''
+  message: '',
+  loading: false
 })
 
 // 使用者選擇日期後發送請求取得該天預約情況
@@ -272,23 +273,35 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
     const orderTimeandHour = []
     // 使用者選擇日期發出請求
     const { data } = await apiAuth.post('/orders/getDate', { orderDate: newValue })
-    console.log(data.result)
+    // console.log(data.result)
     // 將從後端發送回來的(time&hours)push進orderTimeandHour
-    orderTimeandHour.push((data.result).forEach((info) => {
-      orderTimeandHour.time = info.time
-      orderTimeandHour.hours = info.hours
-    }))
-    console.log(orderTimeandHour)
+    if (data.result.length > 0) {
+      orderTimeandHour.push((data.result).forEach((info) => {
+        orderTimeandHour.time = info.time
+        orderTimeandHour.hours = info.hours
+      }))
+    } else {
+      orderTimeandHour.push({
+        time: '',
+        hours: 0
+      })
+    }
+
+    // console.log(orderTimeandHour)
+    // console.log(Array.isArray(orderTimeandHour))
 
     // orderTimeandHour 做forEach 將被預約的btn.available = false
     orderTimeandHour.forEach((info) => {
       const idx = orderTimeBtn.findIndex((btn) => {
-        console.log(info)
+        // console.log(info)
         return btn.time === info.time
       })
       // 從該被預約按鈕開始往後hours的按鈕改為disable
-      for (let i = idx; i <= idx + info.hours; i++) {
-        orderTimeBtn[i].available = false
+      for (let i = idx; i <= Math.min(idx + info.hours, orderTimeBtn.length - 1); i++) {
+        // console.log(orderTimeBtn)
+        if (orderTimeBtn[i]) {
+          orderTimeBtn[i].available = false
+        }
         // 迴圈跑到最後一個按鈕時return
         if (orderTimeBtn[i] === orderTimeBtn[(orderTimeBtn.length) - 1]) return
       }
@@ -301,12 +314,34 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
 }, { deep: true })
 
 // onsubmit送出表單
-const onSubmit = async (form) => {
+const onSubmit = async () => {
+  form.loading = true
   try {
-    await editOrders(form)
-    router.push('/')
+    // form._id 為orders的_id
+    console.log(form)
+    await apiAuth.post('/orders', ({
+      orderDate: form.orderDate,
+      orderonDate: form.orderonDate,
+      participant: form.participant,
+      time: form.time,
+      hours: form.hours,
+      others: form.others
+    }))
+    form.message = '預約成功'
+    form.loading = false
+    $q.notify({
+      position: 'top',
+      message: form.message,
+      color: 'secondary',
+      avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+    })
+    router.push('/myOrders')
   } catch (error) {
-
+    $q.notify({
+      position: 'top',
+      message: error?.response?.data?.message || '操作失敗',
+      color: 'secondary'
+    })
   }
 }
 
