@@ -50,7 +50,7 @@
                     <div class="title">
                       預約日期
                     </div>
-                    <q-input v-model="form.orderDate" rounded outlined bottom-slots color="secondary" mask="date" :rules="['date']">
+                    <q-input v-model="form.orderDate" rounded outlined label="請選擇預約日期">
                       <template #append>
                         <q-icon name="event" class="cursor-pointer" color="primary">
                           <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -276,10 +276,12 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
     // console.log(data.result)
     // 將從後端發送回來的(time&hours)push進orderTimeandHour
     if (data.result.length > 0) {
-      orderTimeandHour.push((data.result).forEach((info) => {
-        orderTimeandHour.time = info.time
-        orderTimeandHour.hours = info.hours
-      }))
+      data.result.forEach((info) => {
+        orderTimeandHour.push({
+          time: info.time,
+          hours: info.hours
+        })
+      })
     } else {
       orderTimeandHour.push({
         time: '',
@@ -287,13 +289,13 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
       })
     }
 
-    // console.log(orderTimeandHour)
+    console.log(orderTimeandHour)
     // console.log(Array.isArray(orderTimeandHour))
 
     // orderTimeandHour 做forEach 將被預約的btn.available = false
     orderTimeandHour.forEach((info) => {
       const idx = orderTimeBtn.findIndex((btn) => {
-        // console.log(info)
+        console.log(info)
         return btn.time === info.time
       })
       // 從該被預約按鈕開始往後hours的按鈕改為disable
