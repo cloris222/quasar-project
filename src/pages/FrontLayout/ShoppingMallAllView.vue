@@ -2,7 +2,7 @@
   <div id="shoppingMall">
     <div class="container">
       <!-- 麵包屑和搜尋 -->
-      <div class="row justify-evenly q-mt-lg">
+      <div class="row q-mt-lg">
         <div class="col-3">
           <q-breadcrumbs class="text-primary" active-color="grey">
             <template #separator>
@@ -16,12 +16,6 @@
             <q-breadcrumbs-el label="二手專區" icon="mdi-bookshelf" />
           </q-breadcrumbs>
         </div>
-        <div class="col-3" />
-        <q-input v-model="filter" standard dense debounce="300" placeholder="Search">
-          <template #append>
-            <q-icon name="search" />
-          </template>
-        </q-input>
       </div>
 
       <!-- 人數slider -->
@@ -33,16 +27,20 @@
         <div class="toolSection">
           <div class="row justify-center q-mt-lg q-mx-auto">
             <div class="col-1 title_area">
+              <q-icon name="diversity_3" size="sm" />
               人數
             </div>
-            <div class="col-6 q-mb-lg">
+            <div class="col-5 q-mb-lg">
+              <q-radio v-model="gamerradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="less" label="10人以下" />
+              <q-radio v-model="gamerradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="more" label="10人以上" />
               <q-range
                 v-model="filterCondition.gamer"
+                :disable="gamerradio === 'more'"
                 snap
                 markers
                 marker-labels
                 :min="1"
-                :max="20"
+                :max="10"
               />
             </div>
           </div>
@@ -50,9 +48,10 @@
           <!-- 標籤 -->
           <div class="row justify-center q-mx-auto">
             <div class="col-1 title_area">
+              <q-icon name="sell" size="sm" />
               標籤
             </div>
-            <div class="col-3 q-mb-lg">
+            <div class="col-2 q-mb-lg">
               <q-select
                 v-model="filterCondition.category"
                 filled
@@ -77,9 +76,10 @@
           <!-- price slider -->
           <div class="row justify-center q-mx-auto">
             <div class="col-1 title_area">
+              <q-icon name="monetization_on" size="sm" />
               價格
             </div>
-            <div class="col-12 col-lg-6 q-mb-lg">
+            <div class="col-12 col-lg-5 q-mb-lg">
               <q-slider
                 v-model="filterPrice"
                 markers
@@ -156,8 +156,8 @@ const chips = ref([])
 const expanded = ref(true)
 const cartDialog = ref(false)
 const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
-const filter = ref([])
 const filterPrice = ref(1)
+const gamerradio = ref('less')
 
 // 存資料的form
 const form = reactive({
@@ -183,8 +183,8 @@ const tagToChip = () => {
 }
 
 const delChip = (idx) => {
-  console.log(idx)
-  console.log(chips.value)
+  // console.log(idx)
+  // console.log(chips.value)
   chips.value.splice(idx, 1)
   filterCondition.category.splice(idx, 1)
 }
@@ -222,11 +222,19 @@ const filterCondition = reactive({
 
 const filterFunc = computed(() => {
   return products.filter((product) => {
-    console.log(product.gamer.split('~').map(Number)[0], product.gamer.split('~').map(Number)[1])
-    return product.gamer.split('~').map(Number)[0] >= parseInt(filterCondition.gamer.min) &&
+    if (gamerradio.value === 'less') {
+      // 回傳10人以下桌遊
+      // console.log(product.gamer.split('~').map(Number)[0], product.gamer.split('~').map(Number)[1])
+      return product.gamer.split('~').map(Number)[0] >= parseInt(filterCondition.gamer.min) &&
     product.gamer.split('~').map(Number)[1] <= parseInt(filterCondition.gamer.max) &&
     parseInt(_.intersection(product.category, filterCondition.category).length) !== 0 &&
     product.price <= filterCondition.price
+    } else {
+      // 回傳10人以上桌遊
+      return product.gamer.split('~').map(Number)[1] > 10 &&
+    parseInt(_.intersection(product.category, filterCondition.category).length) !== 0 &&
+    product.price <= filterCondition.price
+    }
   })
 });
 
