@@ -211,23 +211,23 @@ const participant = ref(2)
 const date = new Date()
 
 const participantOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16']
-const orderHoursOptions = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+let options = 1
+const orderHoursOptions = ref([])
 
 const orderTimeBtn = reactive([
+  { time: '10:00', available: true },
+  { time: '11:00', available: true },
+  { time: '12:00', available: true },
   { time: '13:00', available: true },
-  { time: '13:30', available: true },
   { time: '14:00', available: true },
-  { time: '14:30', available: true },
   { time: '15:00', available: true },
-  { time: '15:30', available: true },
   { time: '16:00', available: true },
-  { time: '16:30', available: true },
   { time: '17:00', available: true },
-  { time: '17:30', available: true },
   { time: '18:00', available: true },
-  { time: '18:30', available: true },
   { time: '19:00', available: true },
-  { time: '19:30', available: true }
+  { time: '20:00', available: true },
+  { time: '21:00', available: true },
+  { time: '22:00', available: true }
 ])
 
 // 收資料的form
@@ -358,6 +358,34 @@ const onSubmit = async () => {
 //     return (i - startIdx)
 //   } else return 7 // 總共 7 個時段
 // })
+
+watch(() => form.time, async (newValue, oldValue) => {
+  console.log('form.orderTime 變更', newValue, oldValue)
+  try {
+    orderHoursOptions.value = []
+    options = 1
+    const startIdx = orderTimeBtn.findIndex(btn => btn.time === form.time)
+    if (startIdx > -1) {
+      let i = startIdx
+      while (orderTimeBtn[i] && orderTimeBtn[i].available) {
+        i++
+      }
+      for (let e = 1; e <= (i - startIdx); e++) {
+        orderHoursOptions.value.push(options)
+        options++
+      }
+      return orderHoursOptions.value
+    } else {
+      for (let e = 1; e <= 12; e++) {
+        orderHoursOptions.value.push(options)
+        options++
+      }
+      return orderHoursOptions.value
+    }// 總共 12 個時段
+  } catch (error) {
+    console.log(error)
+  }
+})
 
 form.orderDate = ref(`${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`)
 </script>
