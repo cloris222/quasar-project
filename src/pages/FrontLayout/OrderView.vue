@@ -176,7 +176,7 @@
                 </div>
               </q-card-section>
               <q-card-actions align="right">
-                <q-btn label="Submit" type="submit" color="secondary" class="q-mx-auto" :loading="form.loading" />
+                <q-btn label="送出預約" type="submit" color="secondary" class="q-mx-auto" :loading="form.loading" size="lg" />
               </q-card-actions>
             </div>
           </q-card-section>

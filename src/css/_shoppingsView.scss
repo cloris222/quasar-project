@@ -4,11 +4,33 @@
     .container{
         width: 60%;
 
+        .bigTitle{
+            font-size: 30px;
+            font-weight: bolder;
+            position: relative;
+            letter-spacing: 4px;
+
+            &::after{
+                content: '';
+                width: 100px;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid $primary;
+                position: absolute;
+                bottom: 28%;
+                left: 2%;
+            }
+        }
+
         .row{
             width: 100%;
 
             .q-table__bottom-item{
                 width: 100px;
+            }
+
+            ul{
+                list-style: none;
+                padding: 0;
             }
         }
     }
