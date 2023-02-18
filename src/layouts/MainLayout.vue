@@ -83,7 +83,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable>
+            <q-item v-close-popup clickable to="/admin/orders">
               <q-item-section>
                 <q-item-label>預約管理</q-item-label>
               </q-item-section>

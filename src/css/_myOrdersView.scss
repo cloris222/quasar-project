@@ -1,0 +1,15 @@
+#myOrdersView{
+    width: 100%;
+
+    .container{
+        width: 60%;
+
+        .row{
+            width: 100%;
+
+            .q-table__bottom-item{
+                width: 100px;
+            }
+        }
+    }
+}

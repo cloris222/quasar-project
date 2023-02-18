@@ -86,7 +86,7 @@
               </q-card-section>
               <q-card-section>
                 <div class="row left_orderHours">
-                  <div class="col-5">
+                  <div class="col-5 q-mr-lg">
                     <div class="title">
                       預約時數
                     </div>
@@ -95,6 +95,17 @@
                         <q-icon name="schedule" color="primary" />
                       </template>
                     </q-select>
+                  </div>
+                  <div class="col-5">
+                    <div class="title">
+                      備註
+                    </div>
+                    <q-input
+                      v-model="form.others"
+                      outlined
+                      autogrow
+                      type="textarea"
+                    />
                   </div>
                 </div>
               </q-card-section>
@@ -360,7 +371,7 @@ const onSubmit = async () => {
 // })
 
 watch(() => form.time, async (newValue, oldValue) => {
-  console.log('form.orderTime 變更', newValue, oldValue)
+  // console.log('form.orderTime 變更', newValue, oldValue)
   try {
     orderHoursOptions.value = []
     options = 1
@@ -381,7 +392,7 @@ watch(() => form.time, async (newValue, oldValue) => {
         options++
       }
       return orderHoursOptions.value
-    }// 總共 12 個時段
+    }// 總共 12 個時段，可預約到23點
   } catch (error) {
     console.log(error)
   }

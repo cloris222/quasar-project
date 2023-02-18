@@ -1,10 +1,10 @@
 <template>
-  <div id="myOrdersView">
+  <div id="adminOrdersView">
     <div class="container q-mx-auto">
       <!-- 標題 -->
       <div class="row q-mx-auto">
         <div class="col-12">
-          <h4>我的預約</h4>
+          <h4>所有預約</h4>
         </div>
       </div>
       <!-- 預約表格 -->
@@ -16,11 +16,20 @@
             row-key="name"
             class="q-mt-lg"
           >
-            <!-- 訂單編號 -->
+            <!-- 預約編號 -->
             <template #body-cell-orders_id="props">
               <q-td :props="props">
                 <div class="orders_id">
                   {{ props.row._id }}
+                </div>
+              </q-td>
+            </template>
+
+            <!-- 預約人 -->
+            <template #body-cell-orders_u_id="props">
+              <q-td :props="props">
+                <div class="orders_id">
+                  {{ props.row.name }}
                 </div>
               </q-td>
             </template>
@@ -82,12 +91,21 @@ import { apiAuth } from '@/boot/axios.js'
 import { useQuasar } from 'quasar'
 
 const $q = useQuasar()
+
 const columns = [
 
   {
     name: 'orders_id',
     required: true,
     label: '預約編號',
+    align: 'left',
+    field: row => row.name,
+    sortable: true
+  },
+  {
+    name: 'orders_u_id',
+    required: true,
+    label: '預約人',
     align: 'left',
     field: row => row.name,
     sortable: true
@@ -110,7 +128,7 @@ const orders = reactive([]);
 
 (async () => {
   try {
-    const { data } = await apiAuth.get('/orders')
+    const { data } = await apiAuth.get('/orders/all')
     console.log(data)
     orders.push(...data.result)
   } catch (error) {

@@ -7,7 +7,7 @@
           <h4>我的訂單</h4>
         </div>
       </div>
-      <!-- 購物車表格 -->
+      <!-- 訂單表格 -->
       <div class="row q-mx-auto ">
         <div class="col-12">
           <q-table

@@ -24,6 +24,9 @@
 // 訂單
 @import '_shoppingsView.scss';
 
+// 預約
+@import '_myOrdersView.scss';
+
 // 預約頁面
 @import '_OrderView.scss';
 
@@ -31,6 +34,7 @@
 @import './admin/adminProducts';
 @import './admin/adminProductsShoppingMall';
 @import '../css/admin/adminShoppingsView';
+@import '../css/admin/adminOrdersView';
 
 // components
 @import '../css/components/productCard';
