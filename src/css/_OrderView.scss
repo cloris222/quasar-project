@@ -2,9 +2,28 @@
 
     .container{
         width: 60%;
+        padding-bottom: 2rem;
+
+        .bigTitle{
+            font-size: 30px;
+            font-weight: bolder;
+            text-align: center;
+            position: relative;
+            letter-spacing: 1.5px;
+
+            &::after{
+                content: '';
+                width: 100px;
+                border-bottom: 2px solid $primary;
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%); 
+            }
+        }
 
         .ordertoknow{
-            font-size: 20px;
+            font-size: 18px;
             line-height: 3rem;
         }
         
@@ -83,17 +102,29 @@
                         font-size: 20px;
                         font-weight: bolder;
                         color: #fff;
-                    
+                        border: 2px solid #fff;
                     }
                 }
 
-                .q-btn{
-                    margin-left: 70%;
-                }
-
-                
-
             }
+        }
+
+        .info_map{
+            overflow: hidden;
+
+            iframe{
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .infoTitle{
+            font-size: 18px;
+            font-weight: bolder;
+        }
+
+        .infoContent{
+            font-size: 16px;
         }
 
         

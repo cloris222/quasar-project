@@ -1,6 +1,9 @@
 <template>
   <div id="OrderView">
     <div class="container q-mx-auto q-mt-lg q-mb-lg">
+      <div class="col-12 q-mt-xl bigTitle">
+        預約須知
+      </div>
       <!-- 大圖 -->
       <div class="row q-my-xl ">
         <div class="col-4 order_img">
@@ -26,7 +29,6 @@
       </div>
 
       <!-- 預約表單 -->
-
       <q-form
         class="q-gutter-md"
         @submit="onSubmit"
@@ -54,7 +56,7 @@
                       <template #append>
                         <q-icon name="event" class="cursor-pointer" color="primary">
                           <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                            <q-date v-model="form.orderDate">
+                            <q-date v-model="form.orderDate" today-btn>
                               <div class="row items-center justify-end">
                                 <q-btn v-close-popup label="確認" color="primary" flat />
                               </div>
@@ -118,7 +120,7 @@
               </q-card-section>
               <q-card-section>
                 <div class="col-10 right_checkInfo">
-                  <q-card class="rightCheckInfoCard">
+                  <q-card flat bordered class="rightCheckInfoCard">
                     <div class="row">
                       <div class="col-6">
                         <q-card-section>
@@ -173,9 +175,9 @@
                   </q-card>
                 </div>
               </q-card-section>
-              <q-card-section>
+              <q-card-actions align="right">
                 <q-btn label="Submit" type="submit" color="secondary" class="q-mx-auto" :loading="form.loading" />
-              </q-card-section>
+              </q-card-actions>
             </div>
           </q-card-section>
         </q-card>
@@ -183,19 +185,65 @@
 
       <!-- 聯絡我們 -->
       <div class="row q-mx-auto">
-        <!-- 店面地址 -->
+        <div class="col-12 q-my-xl bigTitle">
+          聯絡我們
+        </div>
+        <div class="col-6 info_map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.702153836036!2d121.41499892414457!3d25.04418003268764!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a7bed3dc9b59%3A0x57e6439a2db0fa2a!2zMjQz5paw5YyX5biC5rOw5bGx5Y2A6LK05a2Q6YeM6Ie06YGg5paw5p2RNTXkuYsx6Jmf5rOw5bGx6IG36KiT5Lit5b-D!5e0!3m2!1szh-TW!2stw!4v1676725849680!5m2!1szh-TW!2stw" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" />
+        </div>
         <div class="col-6">
-          <q-card>
+          <q-card flat bordered>
             <q-card-section>
-              <q-icon name="pin_drop" />
-              <q-card-section>
-                <div class="card_title">
-                  店面地址
-                </div>
-                <div class="card_content">
-                  新北市泰山區貴子里致遠新村55之1號
-                </div>
-              </q-card-section>
+              <div class="info_location">
+                <q-card-section>
+                  <div class="infoTitle">
+                    <q-icon name="mdi-map-marker" color="primary" />
+                    地址
+                  </div>
+                  <div class="infoContent">
+                    新北市泰山區貴子里致遠新村55之1號
+                  </div>
+                </q-card-section>
+              </div>
+            </q-card-section>
+            <q-card-section>
+              <div class="info_phone">
+                <q-card-section>
+                  <div class="infoTitle">
+                    <q-icon name="mdi-phone" color="primary" />
+                    電話
+                  </div>
+                  <div class="infoContent">
+                    02-23941157
+                  </div>
+                </q-card-section>
+              </div>
+            </q-card-section>
+            <q-card-section>
+              <div class="info_time">
+                <q-card-section>
+                  <div class="infoTitle">
+                    <q-icon name="mdi-clock-time-four" color="primary" />
+                    營業時間
+                  </div>
+                  <div class="infoContent">
+                    早上10:00至晚上23:00
+                  </div>
+                </q-card-section>
+              </div>
+            </q-card-section>
+            <q-card-section>
+              <div class="info_camption">
+                <q-card-section>
+                  <div class="infoTitle">
+                    <q-icon name="mdi-information" color="primary" />
+                    外食規定
+                  </div>
+                  <div class="infoContent">
+                    提供含酒精飲品及多種軟性飲料 （可攜帶外食，自備酒品酌收$200開瓶費）
+                  </div>
+                </q-card-section>
+              </div>
             </q-card-section>
           </q-card>
         </div>
