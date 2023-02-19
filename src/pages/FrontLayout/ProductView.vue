@@ -1,19 +1,16 @@
 <template>
   <div id="productView">
     <div class="container q-mt-lg">
-      <div class="row img_area">
-        <div class="col-10 q-mx-auto">
+      <div class="row img_area bg-primary">
+        <div class="col-8 q-mx-auto q-pt-lg">
           <!-- 輪播圖 -->
-          <div id="slideshow">
-            <div v-for="(img,i) in product.images" :key="i" class="bigimage">
-              <img :src="img">
+          <div class="slideshow">
+            <div v-for="(slide, index) in product.images" :key="index" class="slide" :class="{ active: currentSlide === index }">
+              <img :src="slide">
             </div>
           </div>
-
-          <div id="thumbnails">
-            <div v-for="(img,i) in product.images" :key="i" class="smallimage">
-              <img :src="img">
-            </div>
+          <div class="thumbnails">
+            <img v-for="(thumbnail, index) in product.images" :key="index" :src="thumbnail" :class="{ active: currentSlide === index }" @click="handleThumbnailClick(index)">
           </div>
         </div>
       </div>
@@ -115,7 +112,10 @@ const $q = useQuasar()
 const user = useUserStore()
 
 // carousel
-const slide = ref(1)
+const currentSlide = ref(0)
+const handleThumbnailClick = (index) => {
+  currentSlide.value = index
+}
 
 // 購物車
 const cartDialog = ref(false)
