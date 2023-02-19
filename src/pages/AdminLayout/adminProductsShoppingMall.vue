@@ -134,7 +134,7 @@
           <q-input
             v-model="form.gamer"
             outlined
-            type="number"
+            type="text"
             label="請選擇遊戲人數 *"
             lazy-rules
             :rules="[ rules.required]"
@@ -170,9 +170,9 @@
           <q-toggle v-model="form.sell" label="是否上架" />
 
           <div>
-            <q-card-section>
-              <q-btn label="Submit" type="submit" color="primary" @click="submit" />
-            </q-card-section>
+            <q-card-actions align="center">
+              <q-btn label="確認" type="submit" color="primary" :loading="form.loading" size="md" />
+            </q-card-actions>
           </div>
         </q-form>
       </q-card>
@@ -264,7 +264,8 @@ const form = reactive({
   price: 0,
   sell: false,
   dialog: false,
-  idx: -1
+  idx: -1,
+  loading: false
 })
 
 const openDialog = async (idx) => {
@@ -295,8 +296,9 @@ const openDialog = async (idx) => {
   form.dialog = true
 }
 
-const submit = async () => {
+const onSubmit = async () => {
   // fd.append(key, value)
+  form.loading = true
   const fd = new FormData()
   fd.append('name', form.name)
   console.log(form.images)
