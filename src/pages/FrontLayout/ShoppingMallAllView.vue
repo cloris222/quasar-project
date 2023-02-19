@@ -129,7 +129,7 @@
                   />
                 </q-card-section>
                 <q-card-section>
-                  <q-btn label="Submit" type="submit" color="primary" />
+                  <q-btn label="確認" type="submit" color="primary" :loading="form.loading" />
                 </q-card-section>
               </q-form>
             </q-card>
@@ -164,7 +164,8 @@ const form = reactive({
   p_id: '',
   quantity: 0,
   price: 0,
-  name: ''
+  name: '',
+  loading: false
 })
 
 const openDialog = (product) => {
@@ -202,8 +203,10 @@ const rules = {
   }
 }
 
-const onSubmit = () => {
-  editCart({ _id: form.p_id, quantity: form.quantity, price: form.price, message: '加入購物車成功' })
+const onSubmit = async () => {
+  form.loading = true
+  await editCart({ _id: form.p_id, quantity: form.quantity, price: form.price, message: '加入購物車成功' })
+  cartDialog.value = false
 }
 
 const filterPrice2 = computed(() => {
