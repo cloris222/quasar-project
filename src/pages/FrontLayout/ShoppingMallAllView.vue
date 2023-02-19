@@ -1,7 +1,7 @@
 <template>
   <div id="shoppingMall">
     <div class="container">
-      <!-- 麵包屑和搜尋 -->
+      <!-- 麵包屑 -->
       <div class="row q-mt-lg">
         <div class="col-3">
           <q-breadcrumbs class="text-primary" active-color="grey">
@@ -12,7 +12,7 @@
                 color="primary"
               />
             </template>
-            <q-breadcrumbs-el label="首頁" icon="home" />
+            <q-breadcrumbs-el label="首頁" icon="home" to="/" />
             <q-breadcrumbs-el label="二手專區" icon="mdi-bookshelf" />
           </q-breadcrumbs>
         </div>

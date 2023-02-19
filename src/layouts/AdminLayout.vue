@@ -5,9 +5,12 @@
         <q-toolbar class="justify-between">
           <div class="left_area">
             <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
-            <q-btn flat round color="white" icon="home" to="/" />
+            <q-btn flat round color="white" icon="home" to="/" size="lg" />
           </div>
           <div class="right_area">
+            <q-btn flat round icon="mdi-door-open" size="lg" @click="logout" />
+          </div>
+          <!-- <div class="right_area">
             <q-btn-dropdown color="secondary" label="會員專區" class="q-mr-md" icon="mdi-account">
               <q-list>
                 <q-item v-close-popup clickable>
@@ -19,12 +22,6 @@
                 <q-item v-close-popup clickable>
                   <q-item-section>
                     <q-item-label>預約管理</q-item-label>
-                  </q-item-section>
-                </q-item>
-
-                <q-item v-close-popup clickable>
-                  <q-item-section>
-                    <q-item-label>活動管理</q-item-label>
                   </q-item-section>
                 </q-item>
 
@@ -67,12 +64,6 @@
                   </q-item-section>
                 </q-item>
 
-                <q-item v-close-popup clickable to="/admin/events">
-                  <q-item-section>
-                    <q-item-label>活動管理</q-item-label>
-                  </q-item-section>
-                </q-item>
-
                 <q-item v-close-popup clickable to="/admin/shoppings">
                   <q-item-section>
                     <q-item-label>訂單管理</q-item-label>
@@ -92,7 +83,7 @@
                 </q-item>
               </q-list>
             </q-btn-dropdown>
-          </div>
+          </div> -->
         </q-toolbar>
       </q-header>
 
@@ -133,16 +124,6 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-ripple clickable to="/admin/events" active-class="bg-primary">
-              <q-item-section avatar>
-                <q-icon name="festival" color="secondary" />
-              </q-item-section>
-
-              <q-item-section>
-                活動管理
-              </q-item-section>
-            </q-item>
-
             <q-item v-ripple clickable to="/admin/shoppings" active-class="bg-primary">
               <q-item-section avatar>
                 <q-icon name="list_alt" color="secondary" />
@@ -180,6 +161,12 @@
       <q-page-container>
         <router-view />
       </q-page-container>
+
+      <q-footer elevated class="bg-primary text-white">
+        <div class="copyright">
+          Copyright © 2023 Yung Chien Yang. All rights reserved.
+        </div>
+      </q-footer>
     </q-layout>
   </div>
 </template>

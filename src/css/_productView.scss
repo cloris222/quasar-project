@@ -1,13 +1,17 @@
 #productView{
     width: 100%;
-    padding-top: 6rem;
+    padding-top: 3rem;
     padding-bottom: 2rem;
 
-        .container{
-            width: 90%;
+    .container{
+        width: 90%;
+
+    }
+
+        .gameInfo{
+            width: 100%;
             display: flex;
-            flex-flow: row wrap;
-            margin: auto;
+            flex-flow: row-reverse wrap;
 
             .info_area{
                 width: 100%;
@@ -95,6 +99,7 @@
                     cursor: pointer;
                     width: 80px;
                     height: 80px;
+                    object-fit: cover;
                   }
                 }
             }

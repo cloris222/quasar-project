@@ -148,15 +148,6 @@ const routes = [
           admin: true
         }
       }, {
-        path: 'events',
-        name: 'admin-events',
-        component: () => import('@/pages/AdminLayout/adminEvents.vue'),
-        meta: {
-          title: '桌下吧 | 活動管理',
-          login: true,
-          admin: true
-        }
-      }, {
         path: 'shoppings',
         name: 'admin-shoppings',
         component: () => import('@/pages/AdminLayout/adminShoppings.vue'),
