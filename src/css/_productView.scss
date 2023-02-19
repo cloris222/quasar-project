@@ -1,15 +1,73 @@
 #productView{
     width: 100%;
-    padding-top: 2rem;
+    padding-top: 6rem;
     padding-bottom: 2rem;
 
         .container{
             width: 90%;
             display: flex;
             flex-flow: row wrap;
+            margin: auto;
 
-            .row{
+            .info_area{
                 width: 100%;
+
+                .q-chip{
+                    width: 80px;
+                }
+
+                .info_name{
+                    font-size: 30px;
+                    font-weight: bolder;
+                    position: relative;
+                    letter-spacing: 1.5px;
+        
+                    &::after{
+                        content: '';
+                        width: 100%;
+                        padding-bottom: 1rem;
+                        border-bottom: 2px solid $primary;
+                        position: absolute;
+                        bottom: 4%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+                }
+
+                .info_rules{
+                    line-height: 2rem;
+                }
+
+                .info_priceandbtn{
+                    display: flex;
+                    justify-content: space-between;
+                }
+
+                .info_price{
+                    font-size: 24px;
+                    font-weight: bolder;
+                    letter-spacing: 1px;
+                }
+            }
+
+            .img_area{
+                width: 50%;
+
+                .q-carousel{
+                    width: 100%;
+                    height: 100%;
+                    // overflow-y: visible;
+
+                    .q-carousel__slide{
+                        height: 50%;
+
+                    }
+
+
+                    .q-carousel__control{
+                        bottom: -50%;
+                    }
+                }
             }
 
         }
@@ -21,22 +79,15 @@
                 margin: auto;
                 flex-flow: row-reverse nowrap;
 
-                .row{
-                    width: 50%!important;
-
-
-                    .swiperBigImg{
-                        height: 500px;
-                        margin: auto;
-                        margin-top: 2rem;
-
-                        img{
-                            width: 100%;
-                            height: 100%;
-                            object-fit: cover;
-                        }
-                    }
+                .img_area{
+                    width: 50%;
                 }
+
+                .info_area{
+                    width: 50%;
+                }
+
+                
             }
         }
 }

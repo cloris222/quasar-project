@@ -1,97 +1,101 @@
 <template>
   <div id="productView">
-    <div class="container">
-      <div class="row">
-        <div class="col-10 q-px-lg">
-          <!-- 圖片輪播 -->
-          <q-carousel
-            v-model="slide"
-            swipeable
-            animated
-            thumbnails
-            infinite
-          >
-            <q-carousel-slide v-for="(img,i) in product.images" :key="i" :name="i+1" :img-src="img" />
-          </q-carousel>
+    <div class="container q-mt-lg">
+      <div class="row img_area">
+        <div class="col-10 q-mx-auto">
+          <!-- 輪播圖 -->
+          <div id="slideshow">
+            <div v-for="(img,i) in product.images" :key="i" class="bigimage">
+              <img :src="img">
+            </div>
+          </div>
+
+          <div id="thumbnails">
+            <div v-for="(img,i) in product.images" :key="i" class="smallimage">
+              <img :src="img">
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- 桌遊資訊 -->
-      <div class="row bg-secondary">
-        <!-- tags -->
-        <div class="col-10">
-          <q-chip v-for="(chip,i) in product.category" :key="i" color="primary" class="text-white">
-            {{ chip }}
-          </q-chip>
-        </div>
-        <div class="col-10">
-          <q-card flat boarded>
+      <div class="row info_area">
+        <q-card>
+          <!-- tags -->
+          <q-card-section>
+            <div class="q-pt-lg">
+              <q-chip v-for="(chip,i) in product.category" :key="i" color="primary" class="text-white ">
+                {{ chip }}
+              </q-chip>
+            </div>
+          </q-card-section>
+          <!-- info content -->
+          <q-card-section>
+            <!-- title -->
             <q-card-section>
-              <!-- title -->
-              <q-card-section>
-                <div class="info_name">
-                  {{ product.name }}
-                </div>
-              </q-card-section>
-              <!-- rules -->
-              <q-card-section>
-                <div class="info_rules">
-                  {{ product.rules }}
-                </div>
-              </q-card-section>
-              <!-- price -->
-              <q-card-section>
-                <div class="info_price">
-                  {{ product.price }}
-                </div>
-              </q-card-section>
-            </q-card-section>
-          </q-card>
-        </div>
-        <div class="col-10">
-          <q-btn icon="mdi-cart-outline" flat class="icon_cart" @click="openDialog(product)" />
-        </div>
-      </div>
-
-      <div class="row q-mx-auto justify-center">
-        <!-- 加入cart -->
-        <q-dialog v-model="cartDialog" persistent>
-          <q-card class="q-px-md">
-            <q-card-section class="row items-center q-pb-md">
-              <div class="text-h6">
-                購物車
+              <div class="info_name">
+                {{ product.name }}
               </div>
-              <q-space />
-              <q-btn v-close-popup icon="close" flat round dense />
             </q-card-section>
+            <!-- rules -->
+            <q-card-section>
+              <div class="info_rules">
+                {{ product.rules }}
+              </div>
+            </q-card-section>
+            <!-- price -->
+            <q-card-section>
+              <div class="info_priceandbtn">
+                <div class="info_price">
+                  ${{ product.price }}
+                </div>
+                <div class="info_btn">
+                  <q-btn size="lg" push round color="secondary" icon="mdi-cart-outline" @click="openDialog(product)" />
+                </div>
+              </div>
+            </q-card-section>
+          </q-card-section>
+        </q-card>
+        <div class="col-10">
+          <!-- 加入cart -->
+          <q-dialog v-model="cartDialog" persistent>
+            <q-card class="q-px-md">
+              <q-card-section class="row items-center q-pb-md">
+                <div class="text-h6">
+                  購物車
+                </div>
+                <q-space />
+                <q-btn v-close-popup icon="close" flat round dense />
+              </q-card-section>
 
-            <q-form
-              class="q-gutter-md"
-              :style="{width:'500px'}"
-              @submit="onSubmit"
-            >
-              <q-card-section>
-                品名:{{ form.name }}
-              </q-card-section>
-              <q-card-section>
-                價錢:{{ form.price }}
-              </q-card-section>
-              <q-card-section>
-                <q-input
-                  v-model="form.quantity"
-                  outlined
-                  type="number"
-                  label="請選擇商品數量 *"
-                  lazy-rules
-                  :rules="[ rules.required,rules.number]"
-                />
-              </q-card-section>
-              <q-card-section>
-                <q-btn label="確認" type="submit" color="primary" :loading="form.loading" />
-              </q-card-section>
-            </q-form>
-          </q-card>
-        </q-dialog>
+              <q-form
+                class="q-gutter-md"
+                :style="{width:'500px'}"
+                @submit="onSubmit"
+              >
+                <q-card-section>
+                  品名:{{ form.name }}
+                </q-card-section>
+                <q-card-section>
+                  價錢:{{ form.price }}
+                </q-card-section>
+                <q-card-section>
+                  <q-input
+                    v-model="form.quantity"
+                    outlined
+                    type="number"
+                    label="請選擇商品數量 *"
+                    lazy-rules
+                    :rules="[ rules.required,rules.number]"
+                  />
+                </q-card-section>
+                <q-card-section>
+                  <q-btn label="確認" type="submit" color="primary" :loading="form.loading" />
+                </q-card-section>
+              </q-form>
+            </q-card>
+          </q-dialog>
+        </div>
       </div>
     </div>
   </div>
