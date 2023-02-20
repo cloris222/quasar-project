@@ -122,7 +122,7 @@ const routes = [
       {
         path: 'boardGameList',
         name: 'admin-boardGameList',
-        component: () => import('@/pages/AdminLayout/adminBoardGameList.vue'),
+        component: () => import('@/pages/AdminLayout/adminboardGameList.vue'),
         meta: {
           title: '桌下吧 | 上架管理 | 桌遊清單',
           login: true,
