@@ -31,7 +31,7 @@ const router = useRouter()
 const hover = ref(false)
 
 const toList = () => {
-  router.push('/admin/products_list')
+  router.push('/admin/boardGameList')
 }
 
 const toShoppings = () => {

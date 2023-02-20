@@ -33,14 +33,20 @@
 // admin
 @import './admin/adminProducts';
 @import './admin/adminProductsShoppingMall';
+@import './admin/adminBoardGameList';
 @import '../css/admin/adminShoppingsView';
 @import '../css/admin/adminOrdersView';
 @import '../css/admin/adminUsers';
 
+// user
+@import './userHome';
+
 // components
 @import '../css/components/productCard';
+@import '../css/components/boardGameListCard';
 // 桌遊個別資訊頁面
 @import '_productView.scss';
+@import 'boardGameList_idView.scss';
 
 
 

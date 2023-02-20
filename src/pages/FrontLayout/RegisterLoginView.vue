@@ -156,9 +156,6 @@ const rules = {
   phone (value) {
     return validator.isMobilePhone(value, 'zh-TW') || '格式錯誤'
   },
-  // return phoneValidate
-  // return value === [/^[0-9]{10}$/] || '格式錯誤'
-  //   },
   required (value) {
     return !!value || '欄位必填'
   },

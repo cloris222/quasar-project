@@ -35,6 +35,26 @@ const routes = [
           login: false,
           admin: false
         }
+      },
+      {
+        path: 'boardGameList',
+        name: 'boardGameList',
+        component: () => import('@/pages/FrontLayout/boardGameListView.vue'),
+        meta: {
+          title: '桌下吧 | 店內桌遊',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: 'boardGameList/:id',
+        name: 'boardGameList-id',
+        component: () => import('@/pages/FrontLayout/boardGameList_idView.vue'),
+        meta: {
+          title: '桌下吧 | 桌遊',
+          login: false,
+          admin: false
+        }
       }, {
         path: 'products/:id',
         name: 'product',
@@ -60,25 +80,6 @@ const routes = [
         component: () => import('@/pages/FrontLayout/CartView.vue'),
         meta: {
           title: '桌下吧 | 購物車',
-          login: true,
-          admin: false
-        }
-      },
-      {
-        path: 'myshoppings',
-        name: 'myshoppings',
-        component: () => import('@/pages/FrontLayout/myShoppingsView.vue'),
-        meta: {
-          title: '桌下吧 | 我的訂單',
-          login: true,
-          admin: false
-        }
-      }, {
-        path: 'myOrders',
-        name: 'myOrders',
-        component: () => import('@/pages/FrontLayout/myOrdersView.vue'),
-        meta: {
-          title: '桌下吧 | 我的預約',
           login: true,
           admin: false
         }
@@ -119,9 +120,9 @@ const routes = [
         }
       },
       {
-        path: 'products_list',
-        name: 'admin-products-list',
-        component: () => import('@/pages/AdminLayout/adminProductsList.vue'),
+        path: 'boardGameList',
+        name: 'admin-boardGameList',
+        component: () => import('@/pages/AdminLayout/adminBoardGameList.vue'),
         meta: {
           title: '桌下吧 | 上架管理 | 桌遊清單',
           login: true,
@@ -164,6 +165,40 @@ const routes = [
           title: '桌下吧 | 公告管理',
           login: true,
           admin: true
+        }
+      }
+    ]
+  }, {
+    path: '/user',
+    component: () => import('@/layouts/UserLayout.vue'),
+    children: [
+      {
+        path: '',
+        name: 'user-home',
+        component: () => import('@/pages/UserLayout/UserHome.vue'),
+        meta: {
+          title: '桌下吧 | 會員資料',
+          login: true,
+          admin: false
+        }
+      }, {
+        path: 'orders',
+        name: 'users-orders',
+        component: () => import('@/pages/UserLayout/myOrdersView.vue'),
+        meta: {
+          title: '桌下吧 | 我的預約',
+          login: true,
+          admin: false
+        }
+      },
+      {
+        path: 'shoppings',
+        name: 'users-shoppings',
+        component: () => import('@/pages/UserLayout/myShoppingsView.vue'),
+        meta: {
+          title: '桌下吧 | 我的訂單',
+          login: true,
+          admin: false
         }
       }
     ]

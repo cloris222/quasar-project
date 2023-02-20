@@ -21,52 +21,32 @@
       >
         <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
           <q-list padding>
-            <q-item v-ripple clickable to="/admin/users" active-class="bg-primary">
+            <q-item v-ripple clickable to="/user">
               <q-item-section avatar>
                 <q-icon name="face" color="secondary" />
               </q-item-section>
               <q-item-section>
-                會員管理
+                會員資料
               </q-item-section>
             </q-item>
 
-            <q-item v-ripple clickable to="/admin/products" active-class="bg-primary">
+            <q-item v-ripple clickable to="/user/orders">
               <q-item-section avatar>
                 <q-icon name="star" color="secondary" />
               </q-item-section>
 
               <q-item-section>
-                上架管理
+                我的預約
               </q-item-section>
             </q-item>
 
-            <q-item v-ripple clickable to="/admin/orders" active-class="bg-primary">
+            <q-item v-ripple clickable to="/user/shoppings">
               <q-item-section avatar>
                 <q-icon name="event_available" color="secondary" />
               </q-item-section>
 
               <q-item-section>
-                預約管理
-              </q-item-section>
-            </q-item>
-
-            <q-item v-ripple clickable to="/admin/shoppings" active-class="bg-primary">
-              <q-item-section avatar>
-                <q-icon name="list_alt" color="secondary" />
-              </q-item-section>
-
-              <q-item-section>
-                訂單管理
-              </q-item-section>
-            </q-item>
-
-            <q-item v-ripple clickable to="/admin/news" active-class="bg-primary">
-              <q-item-section avatar>
-                <q-icon name="campaign" color="secondary" />
-              </q-item-section>
-
-              <q-item-section>
-                公告管理
+                我的訂單
               </q-item-section>
             </q-item>
           </q-list>
@@ -78,7 +58,9 @@
               <img :src="avatar">
             </q-avatar>
             <div class="text-weight-bold">
-              Admin
+              {{ user.name }}
+              <br>
+              {{ user.account }}
             </div>
           </div>
         </q-img>
@@ -111,10 +93,10 @@ const toggleLeftDrawer = () => {
 
 </script>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
 
 .bg-primary{
         color: #fff;
     }
 
-</style>
+</style> -->

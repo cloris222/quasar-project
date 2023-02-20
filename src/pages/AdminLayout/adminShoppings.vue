@@ -54,8 +54,14 @@
 
             <!-- 商品細項 -->
             <template #body-cell-detail="props">
-              <q-td :props="props">
-                <q-btn label="詳情" color="secondary" @click="opendialog" />
+              <q-td :props="props" class="text-center ">
+                <div class="cart_detail">
+                  <ul>
+                    <li v-for="(product,i) in props.row.products" :key="i">
+                      {{ product.p_id.name+' X '+product.quantity }}
+                    </li>
+                  </ul>
+                </div>
               </q-td>
             </template>
           </q-table>
