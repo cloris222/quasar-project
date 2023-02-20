@@ -11,25 +11,26 @@
         <q-tabs v-model="tab" shrink class="q-mx-auto">
           <q-route-tab name="news" label="最新公告" />
           <q-route-tab name="about" label="關於我們" />
+          <q-route-tab name="boardGameList" label="店內桌遊" to="/boardGameList" />
           <q-route-tab name="shoppingMall" label="二手專區" to="/shoppingMall" />
           <q-route-tab name="Q&A" label="常見Q&A" />
           <q-route-tab name="orders" label="立即預約" to="/orders" />
         </q-tabs>
         <q-btn-dropdown v-if="isLogin" color="secondary" label="會員專區" class="q-mr-md" icon="mdi-account">
           <q-list>
-            <q-item v-close-popup clickable>
+            <q-item v-close-popup clickable to="/users">
               <q-item-section>
                 <q-item-label>會員資料</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable to="/myOrders">
+            <q-item v-close-popup clickable to="/users/orders">
               <q-item-section>
                 <q-item-label>我的預約</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable to="/myshoppings">
+            <q-item v-close-popup clickable to="/users/shoppings">
               <q-item-section>
                 <q-item-label>我的訂單</q-item-label>
               </q-item-section>
@@ -50,7 +51,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable>
+            <q-item v-close-popup clickable to="/admin/users">
               <q-item-section>
                 <q-item-label>會員管理</q-item-label>
               </q-item-section>

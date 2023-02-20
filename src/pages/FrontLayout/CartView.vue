@@ -155,7 +155,7 @@ const canCheckout = computed(() => {
 
 const onCheckoutBtnClick = async () => {
   await checkout()
-  router.push('/myshoppings')
+  router.push('/users/shoppings')
 }
 
 const updateCart = async (_id, quantity, price, message) => {

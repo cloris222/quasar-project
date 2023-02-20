@@ -155,6 +155,7 @@
                         <q-card-section>
                           <div class="checkOrder_orderDate">
                             日期：
+                            <br>
                             {{ form.orderDate }}
                           </div>
                         </q-card-section>
@@ -396,7 +397,7 @@ const onSubmit = async () => {
       color: 'secondary',
       avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
     })
-    router.push('/myOrders')
+    router.push('/users/orders')
   } catch (error) {
     $q.notify({
       position: 'top',
