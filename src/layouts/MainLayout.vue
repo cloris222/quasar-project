@@ -18,7 +18,7 @@
         </q-tabs>
         <q-btn-dropdown v-if="isLogin" color="secondary" label="會員專區" class="q-mr-md" icon="mdi-account">
           <q-list>
-            <q-item v-close-popup clickable to="/users">
+            <q-item v-close-popup clickable to="/user">
               <q-item-section>
                 <q-item-label>會員資料</q-item-label>
               </q-item-section>

@@ -10,11 +10,14 @@
 
         .gameInfo{
             width: 100%;
+            height: 500px;
             display: flex;
             flex-flow: row-reverse wrap;
 
             .info_area{
                 width: 100%;
+                height: 100%;
+                
 
                 .q-card{
                     width: 100%;
@@ -51,6 +54,7 @@
 
             .img_area{
                 width: 50%;
+                height: 500px;
 
                 .active {
                     border: 3px solid $secondary;
@@ -59,7 +63,9 @@
                 .slideshow{
                     position: relative;
                     width: 100%;
-                    height:300px;
+                    height:280px;
+                    box-shadow: 10px 10px 0px rgba(255,255,255,0.5);
+                    margin-top: 2rem;
                     overflow: hidden;
 
                     .slide{
@@ -80,12 +86,14 @@
                     .slide.active{
                         display: block;
                         border: none;
+                        
                     }
                 }
 
                 .thumbnails{
                   display: flex;
                   justify-content: center;
+                  margin-top: 3rem;
                   
                       
                       

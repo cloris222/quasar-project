@@ -169,13 +169,13 @@ const routes = [
       }
     ]
   }, {
-    path: '/users',
-    component: () => import('@/layouts/UsersLayout.vue'),
+    path: '/user',
+    component: () => import('@/layouts/UserLayout.vue'),
     children: [
       {
         path: '',
-        name: 'users-home',
-        component: () => import('@/pages/UsersLayout/UsersHome.vue'),
+        name: 'user-home',
+        component: () => import('@/pages/UserLayout/UserHome.vue'),
         meta: {
           title: '桌下吧 | 會員資料',
           login: true,
@@ -184,7 +184,7 @@ const routes = [
       }, {
         path: 'orders',
         name: 'users-orders',
-        component: () => import('@/pages/UsersLayout/myOrdersView.vue'),
+        component: () => import('@/pages/UserLayout/myOrdersView.vue'),
         meta: {
           title: '桌下吧 | 我的預約',
           login: true,
@@ -194,7 +194,7 @@ const routes = [
       {
         path: 'shoppings',
         name: 'users-shoppings',
-        component: () => import('@/pages/UsersLayout/myShoppingsView.vue'),
+        component: () => import('@/pages/UserLayout/myShoppingsView.vue'),
         meta: {
           title: '桌下吧 | 我的訂單',
           login: true,

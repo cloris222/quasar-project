@@ -21,7 +21,7 @@
       >
         <q-scroll-area style="height: calc(100% - 150px); margin-top: 150px; border-right: 1px solid #ddd">
           <q-list padding>
-            <q-item v-ripple clickable to="/users">
+            <q-item v-ripple clickable to="/user">
               <q-item-section avatar>
                 <q-icon name="face" color="secondary" />
               </q-item-section>
@@ -30,7 +30,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-ripple clickable to="/users/orders">
+            <q-item v-ripple clickable to="/user/orders">
               <q-item-section avatar>
                 <q-icon name="star" color="secondary" />
               </q-item-section>
@@ -40,7 +40,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-ripple clickable to="/users/shoppings">
+            <q-item v-ripple clickable to="/user/shoppings">
               <q-item-section avatar>
                 <q-icon name="event_available" color="secondary" />
               </q-item-section>
