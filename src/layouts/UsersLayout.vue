@@ -59,6 +59,8 @@
             </q-avatar>
             <div class="text-weight-bold">
               {{ user.name }}
+              <br>
+              {{ user.account }}
             </div>
           </div>
         </q-img>
