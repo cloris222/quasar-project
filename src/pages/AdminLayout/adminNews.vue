@@ -3,35 +3,44 @@
     <div class="q-pa-md">
       <q-table
         v-model:selected="selected"
-        title="商品清單"
-        :rows="products"
+        title="公告清單"
+        :rows="news"
         :columns="columns"
         row-key="name"
         class="q-mt-lg"
       >
+        <!-- 公告日期 -->
+        <template #body-cell-date="props">
+          <q-td :props="props">
+            <div>
+              {{ new Date(props.row.date).toLocaleDateString() }}
+            </div>
+          </q-td>
+        </template>
+
+        <!-- 標題 -->
+        <template #body-cell-title="props">
+          <q-td :props="props" class="text-center ">
+            <p class="title_area">
+              {{ props.row.title }}
+            </p>
+          </q-td>
+        </template>
+
         <!-- 圖片 -->
         <template #body-cell-images="props">
           <q-td :props="props">
-            <div class="adminProductsImages">
+            <div class="newsImg">
               <img :props="props" :src="props.row.images[0]">
             </div>
           </q-td>
         </template>
 
-        <!-- 標籤 -->
-        <template #body-cell-category="props">
-          <q-td :props="props" class="text-center">
-            <div>
-              <q-chip v-for="(item,i) in props.row.category" :key="i" color="primary" :label="item" text-color="white" />
-            </div>
-          </q-td>
-        </template>
-
-        <!-- 說明 -->
-        <template #body-cell-rules="props">
+        <!-- 公告內文 -->
+        <template #body-cell-description="props">
           <q-td :props="props" class="text-center ">
-            <p class="rules_area">
-              {{ props.row.rules }}
+            <p class="description_area">
+              {{ props.row.description }}
             </p>
           </q-td>
         </template>
@@ -39,7 +48,7 @@
         <!-- 上架狀態 -->
         <template #body-cell-sell="props">
           <q-td :props="props">
-            <div class="productsSell">
+            <div class="newsSell">
               <q-toggle
                 v-model="props.row.sell"
                 :props="props"
@@ -53,8 +62,8 @@
         <!-- 操作 -->
         <template #body-cell-others="props">
           <q-td :props="props">
-            <div class="productsOthers">
-              <q-btn square color="secondary" icon="edit" :props="props" @click="openDialog(products.findIndex(item=>item._id===props.row._id))" />
+            <div class="newsOthers">
+              <q-btn square color="secondary" icon="edit" :props="props" @click="openDialog(news.findIndex(item=>item._id===props.row._id))" />
             </div>
           </q-td>
         </template>
@@ -73,7 +82,7 @@
       <q-card class="q-px-md">
         <q-card-section class="row items-center q-pb-md">
           <div class="text-h6">
-            {{ form._id.length > 0 ? '編輯商品' : '新增商品' }}
+            {{ form._id.length > 0 ? '編輯公告' : '新增公告' }}
           </div>
           <q-space />
           <q-btn v-close-popup icon="close" flat round dense />
@@ -83,17 +92,33 @@
           class="q-gutter-md"
           :style="{width:'500px'}"
           @submit="onSubmit"
-          @reset="onReset"
         >
+          <!-- 日期 -->
+          <q-input v-model="form.date" outlined label="請選擇公告日期">
+            <template #append>
+              <q-icon name="event" class="cursor-pointer" color="primary">
+                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                  <q-date v-model="form.date" today-btn>
+                    <div class="row items-center justify-end">
+                      <q-btn v-close-popup label="確認" color="primary" flat />
+                    </div>
+                  </q-date>
+                </q-popup-proxy>
+              </q-icon>
+            </template>
+          </q-input>
+
+          <!-- 標題 -->
           <q-input
-            v-model="form.name"
+            v-model="form.title"
             type="text"
             outlined
-            label="請輸入商品名稱 *"
+            label="請輸入公告標題 *"
             lazy-rules
             :rules="[ rules.required]"
           />
 
+          <!-- 圖片 -->
           <q-file
             v-model="form.images"
             label="請選擇要上傳的圖片"
@@ -109,64 +134,15 @@
             </template>
           </q-file>
 
-          <q-select
-            v-model="form.category"
-            outlined
-            use-input
-            multiple
-            input-debounce="0"
-            label="請選擇標籤"
-            :options="options"
-            style="width: 250px"
-            behavior="menu"
-            :rules="[ rules.required]"
-            @filter="filterFn"
-          >
-            <template #no-option>
-              <q-item>
-                <q-item-section class="text-grey">
-                  No results
-                </q-item-section>
-              </q-item>
-            </template>
-          </q-select>
-
+          <!-- 公告內容 -->
           <q-input
-            v-model="form.gamer"
+            v-model="form.description"
             outlined
             type="text"
-            label="請選擇遊戲人數 *"
+            label="請輸入公告內容 *"
             lazy-rules
             :rules="[ rules.required]"
           />
-
-          <q-input
-            v-model="form.age"
-            outlined
-            type="number"
-            label="請輸入適玩年齡 *"
-            lazy-rules
-            :rules="[ rules.required]"
-          />
-
-          <q-input
-            v-model="form.rules"
-            outlined
-            type="textarea"
-            label="請輸入遊戲說明 *"
-            lazy-rules
-            :rules="[ rules.required]"
-          />
-
-          <q-input
-            v-model="form.price"
-            outlined
-            type="number"
-            label="請輸入商品售價 *"
-            lazy-rules
-            :rules="[ rules.required,rules.price]"
-          />
-
           <q-toggle v-model="form.sell" label="是否上架" />
 
           <div>
@@ -194,74 +170,36 @@ const selected = ref([])
 // 行(橫))
 const columns = [
   {
-    name: 'name',
+    name: 'date',
     required: true,
-    label: '商品名稱',
+    label: '公告日期',
     align: 'left',
     field: row => row.name,
-    sortable: true
+    sortable: true,
+    sort: (a, b) => parseInt(a, 10) - parseInt(b, 10)
   },
-  { name: 'images', align: 'center', label: '圖片', field: row => row.images, sortable: true },
-  { name: 'category', align: 'center', label: '標籤', field: row => row.category, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'gamer', align: 'center', label: '遊戲人數', field: row => row.gamer, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'age', align: 'center', label: '適玩年齡', field: row => row.age, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'rules', align: 'center', label: '遊戲說明', field: row => row.rules, classes: 'rules_area' },
-  { name: 'price', align: 'center', label: '商品價格', field: row => row.price, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'sell', align: 'center', label: '上架狀態', field: row => row.sell },
+  { name: 'title', align: 'center', label: '公告標題', field: row => row.name },
+  { name: 'images', align: 'center', label: '圖片', field: row => row.name },
+  { name: 'description', align: 'center', label: '公告內文', field: row => row.name },
+  { name: 'sell', align: 'center', label: '上架狀態', field: row => row.name },
   { name: 'others', align: 'center', label: '操作', field: row => row.others }
 ]
-
-// 列(縱)
-// const rows = reactive([
-//   {
-//     name: '妙語說書人',
-//     images: ['../../../../網站資料與圖/桌遊列表/妙語說書人/妙語說書人-1.jpg', '../../../../網站資料與圖/桌遊列表/妙語說書人/妙語說書人-2.jpg'],
-//     category: ['熱門遊戲', '八成新'],
-//     gamer: 4,
-//     age: 6,
-//     rules: 12345,
-//     price: 50,
-//     sell: true,
-//     others: ''
-//   }
-// ])
-
-// 類別選擇filter
-const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
-const options = ref(categories)
-
-const filterFn = (val, update) => {
-  if (val === '') {
-    update(() => {
-      options.value = categories
-    })
-    return
-  }
-  update(() => {
-    const needle = val.toLowerCase()
-    options.value = categories.filter(v => v.toLowerCase().indexOf(needle) > -1)
-  })
-}
 
 const rules = {
   required (value) {
     return !!value || '欄位必填'
-  },
-  price (value) {
-    return value >= 0 || '價格錯誤'
   }
 }
-const products = reactive([])
+const news = reactive([])
+
+const date = new Date()
 
 const form = reactive({
   _id: '',
-  name: '',
+  date,
+  title: '',
   images: [],
-  category: [],
-  gamer: 0,
-  age: 0,
-  rules: '',
-  price: 0,
+  description: '',
   sell: false,
   dialog: false,
   idx: -1,
@@ -272,25 +210,19 @@ const openDialog = async (idx) => {
   // 新增
   if (idx === -1) {
     form._id = ''
-    form.name = ''
+    form.date = ''
+    form.title = ''
     form.images = []
-    form.category = []
-    form.gamer = 0
-    form.age = 0
-    form.rules = ''
-    form.price = 0
+    form.description = ''
     form.sell = false
     form.idx = -1
   } else {
-    form._id = products[idx]._id
-    form.name = products[idx].name
-    form.images = products[idx].images
-    form.category = products[idx].category
-    form.gamer = products[idx].gamer
-    form.age = products[idx].age
-    form.rules = products[idx].rules
-    form.price = products[idx].price
-    form.sell = products[idx].sell
+    form._id = news[idx]._id
+    form.date = news[idx].date
+    form.title = news[idx].title
+    form.images = news[idx].images
+    form.description = news[idx].description
+    form.sell = news[idx].sell
     form.idx = idx
   }
   form.dialog = true
@@ -300,24 +232,19 @@ const onSubmit = async () => {
   // fd.append(key, value)
   form.loading = true
   const fd = new FormData()
-  fd.append('name', form.name)
-  console.log(form.images)
+  fd.append('date', form.date)
   for (const image of form.images) {
     fd.append('images', image)
   }
-  for (const item of form.category) {
-    fd.append('category', item)
-  }
-  fd.append('gamer', form.gamer)
+  fd.append('title', form.title)
   fd.append('age', form.age)
-  fd.append('rules', form.rules)
-  fd.append('price', form.price)
+  fd.append('description', form.description)
   fd.append('sell', form.sell)
 
   try {
     if (form._id.length === 0) {
-      const { data } = await apiAuth.post('/products', fd)
-      products.push(data.result)
+      const { data } = await apiAuth.post('/news', fd)
+      news.push(data.result)
       $q.notify({
         position: 'top',
         message: '新增成功',
@@ -325,8 +252,8 @@ const onSubmit = async () => {
         avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
       })
     } else {
-      const { data } = await apiAuth.patch('/products/' + form._id, fd)
-      products[form.idx] = data.result
+      const { data } = await apiAuth.patch('/news/' + form._id, fd)
+      news[form.idx] = data.result
       $q.notify({
         position: 'top',
         message: '編輯成功',
@@ -347,10 +274,12 @@ const onSubmit = async () => {
   form.loading = false
 }
 
+form.date = ref(`${date.getFullYear()}-0${date.getMonth() + 1}-${date.getDate()}`);
+
 (async () => {
   try {
-    const { data } = await apiAuth.get('/products/all')
-    products.push(...data.result)
+    const { data } = await apiAuth.get('/news/all')
+    news.push(...data.result)
   } catch (error) {
     console.log(error)
   }
