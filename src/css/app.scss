@@ -40,8 +40,10 @@
 
 // components
 @import '../css/components/productCard';
+@import '../css/components/boardGameListCard';
 // 桌遊個別資訊頁面
 @import '_productView.scss';
+@import 'boardGameList_idView.scss';
 
 
 

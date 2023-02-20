@@ -1,0 +1,122 @@
+#boardGameList_idView{
+    width: 100%;
+    padding-top: 3rem;
+    padding-bottom: 2rem;
+
+    .container{
+        width: 90%;
+
+    }
+
+        .gameInfo{
+            width: 100%;
+            display: flex;
+            flex-flow: row-reverse wrap;
+
+            .info_area{
+                width: 100%;
+
+                .q-card{
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .q-chip{
+                    width: 80px;
+                }
+
+                .info_name{
+                    font-size: 30px;
+                    font-weight: bolder;
+                    position: relative;
+                    letter-spacing: 1.5px;
+        
+                    &::after{
+                        content: '';
+                        width: 100%;
+                        padding-bottom: 1rem;
+                        border-bottom: 2px solid $primary;
+                        position: absolute;
+                        bottom: 4%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                    }
+                }
+
+                .info_rules{
+                    line-height: 2rem;
+                }
+
+            }
+
+            .img_area{
+                width: 50%;
+
+                .active {
+                    border: 3px solid $secondary;
+                  }
+
+                .slideshow{
+                    position: relative;
+                    width: 100%;
+                    height:300px;
+                    overflow: hidden;
+
+                    .slide{
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height:280px;
+                        display: none;
+
+                        img{
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                    }
+
+                    .slide.active{
+                        display: block;
+                        border: none;
+                    }
+                }
+
+                .thumbnails{
+                  display: flex;
+                  justify-content: center;
+                  
+                      
+                      
+                  img {
+                    margin: 0 10px;
+                    cursor: pointer;
+                    width: 80px;
+                    height: 80px;
+                    object-fit: cover;
+                  }
+                }
+            }
+
+        }
+
+        @include lg{
+
+            .container{
+                width: 60%;
+                margin: auto;
+                flex-flow: row-reverse nowrap;
+
+                .img_area{
+                    width: 50%;
+                }
+
+                .info_area{
+                    width: 50%;
+                }
+
+                
+            }
+        }
+}

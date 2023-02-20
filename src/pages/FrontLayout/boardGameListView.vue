@@ -77,7 +77,7 @@
 
       <div class="row q-mx-auto justify-center">
         <div v-for="(game,i) in filterFunc" :key="i" class="col-6 col-lg-3 q-mb-lg">
-          <ProductCard v-bind="game" />
+          <boardGameListcard v-bind="game" />
         </div>
       </div>
     </div>
@@ -89,7 +89,7 @@ import { ref, reactive, computed } from 'vue'
 import { api } from '../../boot/axios.js'
 import { useQuasar } from 'quasar'
 import _ from 'lodash'
-import ProductCard from '../../components/ProductCard.vue'
+import boardGameListcard from '../../components/boardGameListcard.vue'
 
 const $q = useQuasar()
 const boardGameList = reactive([])

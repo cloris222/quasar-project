@@ -41,7 +41,17 @@ const routes = [
         name: 'boardGameList',
         component: () => import('@/pages/FrontLayout/boardGameListView.vue'),
         meta: {
-          title: '桌下吧 | 桌遊清單',
+          title: '桌下吧 | 店內桌遊',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: 'boardGameList/:id',
+        name: 'boardGameList-id',
+        component: () => import('@/pages/FrontLayout/boardGameList_idView.vue'),
+        meta: {
+          title: '桌下吧 | 桌遊',
           login: false,
           admin: false
         }
