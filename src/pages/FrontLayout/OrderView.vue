@@ -5,7 +5,7 @@
         預約須知
       </div>
       <!-- 大圖 -->
-      <div class="row q-my-xl ">
+      <div class="row bigimg q-my-xl ">
         <div class="col-4 order_img">
           <img src="@/assets/undraw_game_day_ucx9.svg">
         </div>
@@ -42,7 +42,7 @@
                     <div class="title">
                       預約人數
                     </div>
-                    <q-select v-model="form.participant" rounded outlined bottom-slots color="white" :options="participantOptions" label="請選擇人數">
+                    <q-select v-model="form.participant" rounded outlined bottom-slots color="white" :options="participantOptions">
                       <template #prepend>
                         <q-icon name="supervisor_account" color="primary" />
                       </template>
@@ -52,7 +52,7 @@
                     <div class="title">
                       預約日期
                     </div>
-                    <q-input v-model="form.orderDate" rounded outlined label="請選擇預約日期">
+                    <q-input v-model="form.orderDate" rounded outlined>
                       <template #append>
                         <q-icon name="event" class="cursor-pointer" color="primary">
                           <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -92,7 +92,7 @@
                     <div class="title">
                       預約時數
                     </div>
-                    <q-select v-model="form.hours" color="secondary" :options="orderHoursOptions" label="請選擇預約時數" rounded outlined bottom-slots>
+                    <q-select v-model="form.hours" color="secondary" :options="orderHoursOptions" rounded outlined bottom-slots>
                       <template #prepend>
                         <q-icon name="schedule" color="primary" />
                       </template>
@@ -122,7 +122,7 @@
                 <div class="col-10 right_checkInfo">
                   <q-card flat bordered class="rightCheckInfoCard">
                     <div class="row">
-                      <div class="col-6">
+                      <div class="col-5 q-mr-xl">
                         <q-card-section>
                           <div class="rightInfo_name">
                             姓名：
@@ -145,7 +145,7 @@
                           </div>
                         </q-card-section>
                       </div>
-                      <div class="col-6">
+                      <div class="col-5">
                         <q-card-section>
                           <div class="checkOrder_participant">
                             人數：
@@ -176,9 +176,13 @@
                   </q-card>
                 </div>
               </q-card-section>
-              <q-card-actions align="right">
-                <q-btn label="送出預約" type="submit" color="secondary" class="q-mx-auto" :loading="form.loading" size="lg" />
-              </q-card-actions>
+              <q-card-section>
+                <div class="checkBtn">
+                  <q-btn
+                    label="送出預約" type="submit" color="secondary" :loading="form.loading" size="lg" class="checkBtn" style="margin-left: 35%"
+                  />
+                </div>
+              </q-card-section>
             </div>
           </q-card-section>
         </q-card>

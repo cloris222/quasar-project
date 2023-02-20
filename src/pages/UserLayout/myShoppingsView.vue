@@ -47,7 +47,6 @@
             <template #body-cell-detail="props">
               <q-td :props="props" class="text-center ">
                 <div class="cart_detail">
-                  <!-- {{ props.row }} -->
                   <ul>
                     <li v-for="(product,i) in props.row.products" :key="i">
                       {{ product.p_id.name+' X '+product.quantity }}
