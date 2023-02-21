@@ -122,7 +122,7 @@
                 <div class="col-10 right_checkInfo">
                   <q-card flat bordered class="rightCheckInfoCard">
                     <div class="row">
-                      <div class="col-5 ">
+                      <div class="col-5 q-mr-xl">
                         <q-card-section>
                           <div class="rightInfo_name">
                             姓名：
