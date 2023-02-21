@@ -4,7 +4,7 @@
       <!-- 標題 -->
       <div class="row q-mx-auto">
         <div class="col-12 bigTitle">
-          <h4>我的訂單</h4>
+          我的訂單
         </div>
       </div>
       <!-- 訂單表格 -->

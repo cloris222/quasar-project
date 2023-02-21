@@ -4,7 +4,7 @@
       <!-- 標題 -->
       <div class="row q-mx-auto">
         <div class="col-12 bigTitle">
-          <h4>我的預約</h4>
+          我的預約
         </div>
       </div>
       <!-- 預約表格 -->
