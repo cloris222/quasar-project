@@ -14,7 +14,7 @@
 import { reactive } from 'vue'
 import { api } from '@/boot/axios.js'
 import { useQuasar } from 'quasar'
-import NewsCard from '../../components/newsCard.vue'
+import NewsCard from '@/components/newsCard.vue'
 
 const $q = useQuasar()
 const news = reactive([]);
