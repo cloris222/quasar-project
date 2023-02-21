@@ -1,158 +1,162 @@
 <template>
   <div id="adminNews">
-    <div class="q-pa-md">
-      <q-table
-        v-model:selected="selected"
-        title="公告清單"
-        :rows="news"
-        :columns="columns"
-        row-key="name"
-        class="q-mt-lg"
-      >
-        <!-- 公告日期 -->
-        <template #body-cell-date="props">
-          <q-td :props="props">
-            <div>
-              {{ new Date(props.row.date).toLocaleDateString() }}
-            </div>
-          </q-td>
-        </template>
+    <div class="container q-mx-auto">
+      <div class="row">
+        <div class="col-12">
+          <q-table
+            v-model:selected="selected"
+            title="公告清單"
+            :rows="news"
+            :columns="columns"
+            row-key="name"
+            class="q-mt-lg"
+          >
+            <!-- 公告日期 -->
+            <template #body-cell-date="props">
+              <q-td :props="props">
+                <div>
+                  {{ new Date(props.row.date).toLocaleDateString() }}
+                </div>
+              </q-td>
+            </template>
 
-        <!-- 標題 -->
-        <template #body-cell-title="props">
-          <q-td :props="props" class="text-center ">
-            <p class="title_area">
-              {{ props.row.title }}
-            </p>
-          </q-td>
-        </template>
+            <!-- 標題 -->
+            <template #body-cell-title="props">
+              <q-td :props="props" class="text-center ">
+                <p class="title_area">
+                  {{ props.row.title }}
+                </p>
+              </q-td>
+            </template>
 
-        <!-- 圖片 -->
-        <template #body-cell-images="props">
-          <q-td :props="props">
-            <div class="newsImg">
-              <img :props="props" :src="props.row.images[0]">
-            </div>
-          </q-td>
-        </template>
+            <!-- 圖片 -->
+            <template #body-cell-images="props">
+              <q-td :props="props">
+                <div class="newsImg">
+                  <img :props="props" :src="props.row.images[0]">
+                </div>
+              </q-td>
+            </template>
 
-        <!-- 公告內文 -->
-        <template #body-cell-description="props">
-          <q-td :props="props" class="text-center ">
-            <p class="description_area">
-              {{ props.row.description }}
-            </p>
-          </q-td>
-        </template>
+            <!-- 公告內文 -->
+            <template #body-cell-description="props">
+              <q-td :props="props" class="text-center ">
+                <p class="description_area">
+                  {{ props.row.description }}
+                </p>
+              </q-td>
+            </template>
 
-        <!-- 上架狀態 -->
-        <template #body-cell-sell="props">
-          <q-td :props="props">
-            <div class="newsSell">
-              <q-toggle
-                v-model="props.row.sell"
-                :props="props"
-                :label="sell"
-                color="primary"
-              />
-            </div>
-          </q-td>
-        </template>
+            <!-- 上架狀態 -->
+            <template #body-cell-sell="props">
+              <q-td :props="props">
+                <div class="newsSell">
+                  <q-toggle
+                    v-model="props.row.sell"
+                    :props="props"
+                    :label="sell"
+                    color="primary"
+                  />
+                </div>
+              </q-td>
+            </template>
 
-        <!-- 操作 -->
-        <template #body-cell-others="props">
-          <q-td :props="props">
-            <div class="newsOthers">
-              <q-btn square color="secondary" icon="edit" :props="props" @click="openDialog(news.findIndex(item=>item._id===props.row._id))" />
-            </div>
-          </q-td>
-        </template>
-      </q-table>
+            <!-- 操作 -->
+            <template #body-cell-others="props">
+              <q-td :props="props">
+                <div class="newsOthers">
+                  <q-btn square color="secondary" icon="edit" :props="props" @click="openDialog(news.findIndex(item=>item._id===props.row._id))" />
+                </div>
+              </q-td>
+            </template>
+          </q-table>
 
-      <!-- 新增按鈕 -->
-      <q-btn round color="primary" icon="add" class="addBtn q-mt-md " size="lg" @click="openDialog(-1)" />
+          <!-- 新增按鈕 -->
+          <q-btn round color="primary" icon="add" class="addBtn q-mt-md " size="lg" @click="openDialog(-1)" />
 
-      <!-- <div class="q-mt-md">
+          <!-- <div class="q-mt-md">
         Selected: {{ JSON.stringify(selected) }}
       </div> -->
+        </div>
+
+        <!-- dialog -->
+        <q-dialog v-model="form.dialog" persistent>
+          <q-card class="q-px-md">
+            <q-card-section class="row items-center q-pb-md">
+              <div class="text-h6">
+                {{ form._id.length > 0 ? '編輯公告' : '新增公告' }}
+              </div>
+              <q-space />
+              <q-btn v-close-popup icon="close" flat round dense />
+            </q-card-section>
+
+            <q-form
+              class="q-gutter-md"
+              :style="{width:'500px'}"
+              @submit="onSubmit"
+            >
+              <!-- 日期 -->
+              <q-input v-model="form.date" outlined label="請選擇公告日期">
+                <template #append>
+                  <q-icon name="event" class="cursor-pointer" color="primary">
+                    <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                      <q-date v-model="form.date" today-btn>
+                        <div class="row items-center justify-end">
+                          <q-btn v-close-popup label="確認" color="primary" flat />
+                        </div>
+                      </q-date>
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
+
+              <!-- 標題 -->
+              <q-input
+                v-model="form.title"
+                type="text"
+                outlined
+                label="請輸入公告標題 *"
+                lazy-rules
+                :rules="[ rules.required]"
+              />
+
+              <!-- 圖片 -->
+              <q-file
+                v-model="form.images"
+                label="請選擇要上傳的圖片"
+                outlined
+                counter
+                max-files="10"
+                multiple
+                style="max-width: 300px"
+                :rules="[ rules.required]"
+              >
+                <template #prepend>
+                  <q-icon name="add" />
+                </template>
+              </q-file>
+
+              <!-- 公告內容 -->
+              <q-input
+                v-model="form.description"
+                outlined
+                type="text"
+                label="請輸入公告內容 *"
+                lazy-rules
+                :rules="[ rules.required]"
+              />
+              <q-toggle v-model="form.sell" label="是否上架" />
+
+              <div>
+                <q-card-actions align="center">
+                  <q-btn label="確認" type="submit" color="primary" :loading="form.loading" size="md" />
+                </q-card-actions>
+              </div>
+            </q-form>
+          </q-card>
+        </q-dialog>
+      </div>
     </div>
-
-    <!-- dialog -->
-    <q-dialog v-model="form.dialog" persistent>
-      <q-card class="q-px-md">
-        <q-card-section class="row items-center q-pb-md">
-          <div class="text-h6">
-            {{ form._id.length > 0 ? '編輯公告' : '新增公告' }}
-          </div>
-          <q-space />
-          <q-btn v-close-popup icon="close" flat round dense />
-        </q-card-section>
-
-        <q-form
-          class="q-gutter-md"
-          :style="{width:'500px'}"
-          @submit="onSubmit"
-        >
-          <!-- 日期 -->
-          <q-input v-model="form.date" outlined label="請選擇公告日期">
-            <template #append>
-              <q-icon name="event" class="cursor-pointer" color="primary">
-                <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                  <q-date v-model="form.date" today-btn>
-                    <div class="row items-center justify-end">
-                      <q-btn v-close-popup label="確認" color="primary" flat />
-                    </div>
-                  </q-date>
-                </q-popup-proxy>
-              </q-icon>
-            </template>
-          </q-input>
-
-          <!-- 標題 -->
-          <q-input
-            v-model="form.title"
-            type="text"
-            outlined
-            label="請輸入公告標題 *"
-            lazy-rules
-            :rules="[ rules.required]"
-          />
-
-          <!-- 圖片 -->
-          <q-file
-            v-model="form.images"
-            label="請選擇要上傳的圖片"
-            outlined
-            counter
-            max-files="10"
-            multiple
-            style="max-width: 300px"
-            :rules="[ rules.required]"
-          >
-            <template #prepend>
-              <q-icon name="add" />
-            </template>
-          </q-file>
-
-          <!-- 公告內容 -->
-          <q-input
-            v-model="form.description"
-            outlined
-            type="text"
-            label="請輸入公告內容 *"
-            lazy-rules
-            :rules="[ rules.required]"
-          />
-          <q-toggle v-model="form.sell" label="是否上架" />
-
-          <div>
-            <q-card-actions align="center">
-              <q-btn label="確認" type="submit" color="primary" :loading="form.loading" size="md" />
-            </q-card-actions>
-          </div>
-        </q-form>
-      </q-card>
-    </q-dialog>
   </div>
 </template>
 

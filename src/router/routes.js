@@ -75,6 +75,36 @@ const routes = [
         }
       },
       {
+        path: 'news',
+        name: 'news',
+        component: () => import('@/pages/FrontLayout/newsView.vue'),
+        meta: {
+          title: '桌下吧 | 最新公告',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: 'orders',
+        name: 'orders',
+        component: () => import('@/pages/FrontLayout/OrderView.vue'),
+        meta: {
+          title: '桌下吧 | 關於我們',
+          login: false,
+          admin: false
+        }
+      },
+      {
+        path: 'orders',
+        name: 'orders',
+        component: () => import('@/pages/FrontLayout/OrderView.vue'),
+        meta: {
+          title: '桌下吧 | 常見Q&A',
+          login: false,
+          admin: false
+        }
+      },
+      {
         path: 'cart',
         name: 'cart',
         component: () => import('@/pages/FrontLayout/CartView.vue'),

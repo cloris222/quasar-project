@@ -9,7 +9,7 @@
         <q-btn flat round color="white" icon="mdi-dice-3" to="/" size="xl" />
         <h4>桌下吧</h4>
         <q-tabs v-model="tab" shrink class="q-mx-auto">
-          <q-route-tab name="news" label="最新公告" />
+          <q-route-tab name="news" label="最新公告" to="/news" />
           <q-route-tab name="about" label="關於我們" />
           <q-route-tab name="boardGameList" label="店內桌遊" to="/boardGameList" />
           <q-route-tab name="shoppingMall" label="二手專區" to="/shoppingMall" />

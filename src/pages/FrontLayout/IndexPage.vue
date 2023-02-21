@@ -67,7 +67,7 @@
     </div>
     <!-- 最新公告 -->
     <div id="section02" class="section">
-      <newsModle />
+      <newsModle :news="news" />
     </div>
     <!-- 活動訊息 -->
     <div id="section03" class="section">
@@ -94,7 +94,11 @@
 
 <script setup>
 import newsModle from '../../components/newsModel.vue'
-import { ref, onMounted } from 'vue'
+import { ref, reactive, onMounted } from 'vue'
+import { api } from '@/boot/axios.js'
+import { useQuasar } from 'quasar'
+
+const $q = useQuasar()
 
 // 處理大圖動畫
 const bgArea = ref(null)
@@ -105,6 +109,21 @@ const block3 = ref(null)
 onMounted(() => {
   console.log(bgArea.value.style.backgroundImage)
 })
+
+// 載入最新公告
+const news = reactive([]);
+(async () => {
+  try {
+    const { data } = await api.get('/news')
+    news.push(...data.result)
+  } catch (error) {
+    $q.notify({
+      position: 'top',
+      message: error?.response?.data?.message || '發生錯誤',
+      color: 'negative'
+    })
+  }
+})()
 
 // const imgs = reactive([
 //   { src: '../assets/amusement-g9784a5c17_1920.jpg' },

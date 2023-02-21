@@ -1,0 +1,40 @@
+#adminNews{
+    width: 100%;
+    padding: 5rem 0;
+
+    .container{
+        width: 60%;
+
+        .row{
+
+            .description_area{
+                width: 150px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow:hidden
+            }
+
+            .newsImg{
+                width: 100px;
+                height:100px;
+        
+                img{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+        
+            .addBtn{
+                margin-top: 4%;
+                margin-left: 94%;
+            }
+
+
+
+            .q-table__bottom-item{
+                width: 100px;
+            }
+        }
+    }
+}

@@ -8,6 +8,9 @@
 
 // 區塊結構
 
+// 註冊/登入頁面
+@import './registerlogin';
+
 // 首頁
 @import '_navbar.scss';
 @import './indexpage/section01';
@@ -24,11 +27,11 @@
 // 訂單
 @import '_shoppingsView.scss';
 
-// 預約
-@import '_myOrdersView.scss';
-
 // 預約頁面
 @import '_OrderView.scss';
+
+// 最新公告
+@import './newsView';
 
 // admin
 @import './admin/adminProducts';
@@ -37,19 +40,18 @@
 @import '../css/admin/adminShoppingsView';
 @import '../css/admin/adminOrdersView';
 @import '../css/admin/adminUsers';
+@import '../css/admin/adminNews';
 
 // user
 @import './userHome';
+@import '_myOrdersView.scss';
 
 // components
 @import '../css/components/productCard';
 @import '../css/components/boardGameListCard';
+@import '../css/components/NewsCard';
+
 // 桌遊個別資訊頁面
 @import '_productView.scss';
 @import 'boardGameList_idView.scss';
 
-
-
-
-// 註冊/登入頁面
-@import './registerlogin'
