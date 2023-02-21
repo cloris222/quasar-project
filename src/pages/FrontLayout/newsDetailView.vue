@@ -12,7 +12,7 @@
             {{ news.title }}
           </div>
           <div class="date_area">
-            {{ news.date }}
+            {{ new Date(news.date).toLocaleDateString() }}
           </div>
           <div class="description_area">
             {{ news.description }}

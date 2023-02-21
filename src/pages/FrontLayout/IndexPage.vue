@@ -81,25 +81,25 @@
           </div>
         </div>
       </div>
-      <!-- 活動訊息 -->
-      <div id="section03" class="section">
-        <h1>活動訊息</h1>
-      </div>
       <!-- 關於我們 -->
-      <div id="section04" class="section">
+      <div id="section03" class="section">
         <h1>關於我們</h1>
       </div>
       <!-- 消費方式 -->
-      <div id="section05" class="section">
-        <h1>消費方式</h1>
+      <div id="section04" class="section">
+        <h1>店內桌遊</h1>
       </div>
       <!-- 二手專區 -->
-      <div id="section06" class="section">
+      <div id="section05" class="section">
         <h1>二手專區</h1>
       </div>
       <!-- 常見Q&A -->
-      <div id="section07" class="section">
+      <div id="section06" class="section">
         <h1>常見Q&A</h1>
+      </div>
+      <!-- 立即預約 -->
+      <div id="section07" class="section">
+        <h1>立即預約</h1>
       </div>
     </q-page>
   </div>

@@ -6,7 +6,7 @@
       :modules="modules"
       class="mySwiper"
     >
-      <swiper-slide v-for="(item,i) in news" :key="i">
+      <swiper-slide v-for="(item,i) in news.slice(0,5)" :key="i">
         <q-card>
           <!-- img -->
           <div class="img_area">
@@ -21,11 +21,19 @@
             <div class="date_area">
               {{ new Date(item.date).toLocaleDateString() }}
             </div>
-            <div class="btn_area">
+            <!-- <div class="btn_area">
               <q-btn round color="secondary" icon="more_horiz" size="sm" :to="'/news/' + item._id" />
-            </div>
+            </div> -->
           </q-card-section>
         </q-card>
+      </swiper-slide>
+      <swiper-slide>
+        <div class="btn_area">
+          <q-btn flat size="xl">
+            <q-icon name="mdi-arrow-right-bold-circle" color="secondary" />
+            MORE
+          </q-btn>
+        </div>
       </swiper-slide>
     </swiper>
   </div>

@@ -1,18 +1,20 @@
 <template>
   <div id="NewsCard">
     <div class="container">
-      <div class="row card_area">
-        <div class="col-6 img_area">
+      <div class="row body">
+        <div class="date_area">
+          {{ formattedDate[0] }}
+          {{ formattedDate[1] }}
+          {{ formattedDate[2] }}
+        </div>
+        <div class="img_area">
           <img :src="images[0]">
         </div>
-        <div class="col-6 info_area">
-          <div class="news_title">
+        <div class="info_area">
+          <div class="info_title">
             {{ title }}
           </div>
-          <div class="news_date">
-            {{ new Date(date).toLocaleDateString() }}
-          </div>
-          <div class="news_description">
+          <div class="info_description">
             {{ description }}
           </div>
         </div>
@@ -23,7 +25,9 @@
 
 <script setup>
 
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   /* eslint-disable */
   _id: {
     type: String,
@@ -52,6 +56,9 @@ defineProps({
     type: Boolean,
     default: false
   }
+})
 
+const formattedDate = computed(() => {
+  return new Date(props.date).toLocaleDateString().split('/')
 })
 </script>
