@@ -119,7 +119,7 @@
                 </div>
               </q-card-section>
               <q-card-section>
-                <div class="col-10 right_checkInfo">
+                <div class="col-11 right_checkInfo">
                   <q-card flat bordered class="rightCheckInfoCard">
                     <div class="row">
                       <div class="col-5 q-mr-xl">
