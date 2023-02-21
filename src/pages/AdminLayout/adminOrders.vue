@@ -34,6 +34,15 @@
               </q-td>
             </template>
 
+            <!-- 預約人電話 -->
+            <template #body-cell-orders_phone="props">
+              <q-td :props="props">
+                <div class="orders_phone">
+                  {{ props.row.phone }}
+                </div>
+              </q-td>
+            </template>
+
             <!-- 預約日期 -->
             <template #body-cell-date="props">
               <q-td :props="props">
@@ -106,6 +115,14 @@ const columns = [
     name: 'orders_u_id',
     required: true,
     label: '預約人',
+    align: 'left',
+    field: row => row.name,
+    sortable: true
+  },
+  {
+    name: 'orders_phone',
+    required: true,
+    label: '預約人電話',
     align: 'left',
     field: row => row.name,
     sortable: true

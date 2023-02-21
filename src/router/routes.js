@@ -85,6 +85,16 @@ const routes = [
         }
       },
       {
+        path: 'news/:id',
+        name: 'news',
+        component: () => import('@/pages/FrontLayout/newsDetailView.vue'),
+        meta: {
+          title: '桌下吧 | 個別公告',
+          login: false,
+          admin: false
+        }
+      },
+      {
         path: 'orders',
         name: 'orders',
         component: () => import('@/pages/FrontLayout/OrderView.vue'),

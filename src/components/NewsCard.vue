@@ -10,7 +10,7 @@
             {{ title }}
           </div>
           <div class="news_date">
-            {{ date }}
+            {{ new Date(date).toLocaleDateString() }}
           </div>
           <div class="news_description">
             {{ description }}
@@ -31,7 +31,7 @@ defineProps({
   },
   /* eslint-enable */
   date: {
-    type: Date,
+    type: String,
     default: ''
   },
   title: {

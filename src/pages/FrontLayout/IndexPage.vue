@@ -67,7 +67,18 @@
     </div>
     <!-- 最新公告 -->
     <div id="section02" class="section">
-      <newsModle :news="news" />
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="bigTitle">
+              最新公告
+            </div>
+          </div>
+          <div class="col-12">
+            <newsModle :news="news" />
+          </div>
+        </div>
+      </div>
     </div>
     <!-- 活動訊息 -->
     <div id="section03" class="section">

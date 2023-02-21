@@ -127,21 +127,21 @@
                           <div class="rightInfo_name">
                             姓名：
                             <br>
-                            {{ name }}
+                            {{ form.name }}
                           </div>
                         </q-card-section>
                         <q-card-section>
                           <div class="rightInfo_phone">
                             電話：
                             <br>
-                            {{ phone }}
+                            {{ form.phone }}
                           </div>
                         </q-card-section>
                         <q-card-section>
                           <div class="rightInfo_email">
                             信箱：
                             <br>
-                            {{ email }}
+                            {{ form.email }}
                           </div>
                         </q-card-section>
                       </div>
@@ -177,11 +177,69 @@
                 </div>
               </q-card-section>
               <q-card-section>
-                <div class="checkBtn">
-                  <q-btn
-                    label="送出預約" type="submit" color="secondary" :loading="form.loading" size="lg" class="checkBtn" style="margin-left: 35%"
-                  />
+                <div class="btn_area">
+                  <div class="edit_btn">
+                    <q-btn icon="edit" color="secondary" size="lg" label="修改資料" @click="form.dialog = true" />
+                  </div>
+                  <div class="order_btn">
+                    <q-btn
+                      icon="today"
+                      label="送出預約" type="submit" color="secondary" :loading="form.loading" size="lg" class="checkBtn"
+                    />
+                  </div>
                 </div>
+                <q-dialog v-model="form.dialog " persistent>
+                  <q-card class="q-px-md">
+                    <q-card-section class="row items-center q-pb-md">
+                      <div class="text-h6">
+                        修改預約資料
+                      </div>
+                      <q-space />
+                      <q-btn v-close-popup icon="close" flat round dense />
+                    </q-card-section>
+
+                    <q-form
+                      ref="editForm"
+                      class="q-gutter-md"
+                      :style="{width:'500px'}"
+                      @submit.prevent="onEditBtnClick"
+                    >
+                      <q-card-section>
+                        <q-input
+                          v-model="editData.name"
+                          outlined
+                          type="text"
+                          label="請輸入姓名 *"
+                          lazy-rules
+                          :rules="[ rules.required]"
+                        />
+                      </q-card-section>
+                      <q-card-section>
+                        <q-input
+                          v-model="editData.phone"
+                          outlined
+                          type="text"
+                          label="請輸入電話 *"
+                          lazy-rules
+                          :rules="[ rules.required,rules.phone]"
+                        />
+                      </q-card-section>
+                      <q-card-section>
+                        <q-input
+                          v-model="editData.email"
+                          outlined
+                          type="email"
+                          label="請輸入信箱 *"
+                          lazy-rules
+                          :rules="[ rules.required,rules.email]"
+                        />
+                      </q-card-section>
+                      <q-card-section>
+                        <q-btn label="確認" color="primary" type="submit" />
+                      </q-card-section>
+                    </q-form>
+                  </q-card>
+                </q-dialog>
               </q-card-section>
             </div>
           </q-card-section>
@@ -262,6 +320,7 @@ import { ref, reactive, watch } from 'vue'
 import { apiAuth } from '@/boot/axios.js'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/users'
+import validator from 'validator'
 
 import { useQuasar } from 'quasar'
 
@@ -297,8 +356,9 @@ const orderTimeBtn = reactive([
 // 收資料的form
 const form = reactive({
   u_id: '',
-  name: '',
-  phone: '',
+  name,
+  phone,
+  email,
   orderDate: '',
   orderonDate: '',
   participant,
@@ -306,8 +366,51 @@ const form = reactive({
   hours: 0,
   others: '',
   message: '',
+  dialog: false,
   loading: false
 })
+
+const rules = {
+  email (value) {
+    return validator.isEmail(value) || '格式錯誤'
+  },
+  phone (value) {
+    return validator.isMobilePhone(value, 'zh-TW') || '格式錯誤'
+  },
+  required (value) {
+    return !!value || '欄位必填'
+  }
+}
+
+// 跑編輯表單驗證
+
+const editForm = ref(null)
+const editData = reactive({
+  name,
+  phone,
+  email
+})
+
+const onEditBtnClick = async () => {
+  editForm.value.validate()
+  try {
+    if (!editForm.value.validate()) {
+      return
+    }
+    form.name = editData.name
+    form.phone = editData.phone
+    form.email = editData.email
+    form.dialog = false
+    $q.notify({
+      position: 'top',
+      message: '修改成功',
+      color: 'secondary',
+      avatar: `https://source.boringavatars.com/beam/256/${user.account.value}?colors=#ffad08,#edd75a,#73b06f,#0c8f8f,#405059`
+    })
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 // 使用者選擇日期後發送請求取得該天預約情況
 watch(() => form.orderDate, async (newValue, oldValue) => {
@@ -386,6 +489,9 @@ const onSubmit = async () => {
     // form._id 為orders的_id
     console.log(form)
     await apiAuth.post('/orders', ({
+      name: form.name,
+      phone: form.phone,
+      email: form.email,
       orderDate: form.orderDate,
       orderonDate: form.orderonDate,
       participant: form.participant,

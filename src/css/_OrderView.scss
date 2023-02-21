@@ -104,14 +104,18 @@
                         color: #fff;
                         border: 2px solid #fff;
                     }
+                }
 
-                    .checkBtn{
-                        width: 100%;
-                        display: flex;
-                        justify-content: center;
+                .btn_area{
+                    width: 80%;
+                    margin-left: 30%;
+                    display: flex;
+                    flex-flow: column wrap;
+                    justify-content: center;
+
+                    .edit_btn{
+                        margin-bottom: 1rem;
                     }
-
-                    
                 }
 
             }
