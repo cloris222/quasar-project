@@ -2,7 +2,7 @@
   <div id="newsModel">
     <swiper
       :slides-per-view="3"
-      :space-between="50"
+      :space-between="15"
       :modules="modules"
       class="mySwiper"
     >

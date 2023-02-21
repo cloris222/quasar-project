@@ -8,6 +8,7 @@
         .bigTitle{
             font-size: 30px;
             font-weight: bolder;
+            text-align: left;
             position: relative;
             letter-spacing: 4px;
 
@@ -17,8 +18,9 @@
                 padding-bottom: 1rem;
                 border-bottom: 2px solid $primary;
                 position: absolute;
-                bottom: 28%;
-                left: 2%;
+                bottom: -8%;
+                left: 10%;
+                transform: translateX(-50%); 
             }
         }
 

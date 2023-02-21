@@ -75,8 +75,8 @@ const routes = [
         }
       },
       {
-        path: 'news',
-        name: 'news',
+        path: 'newsView',
+        name: 'newsView',
         component: () => import('@/pages/FrontLayout/newsView.vue'),
         meta: {
           title: '桌下吧 | 最新公告',
