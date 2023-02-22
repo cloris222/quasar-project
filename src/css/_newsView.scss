@@ -2,11 +2,15 @@
     padding: 5rem 0;
 
     .container{
-        width: 70%;
+        width: 60%;
         margin: auto;
 
-        .row{
-            margin: auto;
+        .section{
+            width: 100%;
+        }
+
+        .col-12{
+            background-color: lighten($color: #38786f, $amount: 9);
         }
     }
 }

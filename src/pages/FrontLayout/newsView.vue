@@ -1,8 +1,21 @@
 <template>
   <div id="newsView">
     <div class="container">
-      <div class="row">
-        <div v-for="(item,i) in news" :key="i" in news>
+      <div class="row section">
+        <div class="col-12 bg-white">
+          <q-breadcrumbs class="text-primary" active-color="grey">
+            <template #separator>
+              <q-icon
+                size="1.5em"
+                name="chevron_right"
+                color="primary"
+              />
+            </template>
+            <q-breadcrumbs-el label="首頁" icon="home" to="/" />
+            <q-breadcrumbs-el label="最新公告" icon="mdi-newspaper-variant-outline" />
+          </q-breadcrumbs>
+        </div>
+        <div v-for="(item,i) in news" :key="i" in news class="col-12  q-my-lg">
           <NewsCard v-bind="item" />
         </div>
       </div>

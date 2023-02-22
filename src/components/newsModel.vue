@@ -29,7 +29,7 @@
       </swiper-slide>
       <swiper-slide>
         <div class="btn_area">
-          <q-btn flat size="xl">
+          <q-btn flat size="xl" to="/newsView">
             <q-icon name="mdi-arrow-right-bold-circle" color="secondary" />
             MORE
           </q-btn>
