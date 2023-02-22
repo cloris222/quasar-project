@@ -13,7 +13,7 @@
           <q-route-tab name="about" label="關於我們" />
           <q-route-tab name="boardGameList" label="店內桌遊" to="/boardGameList" />
           <q-route-tab name="shoppingMall" label="二手專區" to="/shoppingMall" />
-          <q-route-tab name="Q&A" label="常見Q&A" />
+          <q-route-tab name="Q&A" label="常見Q&A" to="/QA" />
           <q-route-tab name="orders" label="立即預約" to="/orders" />
         </q-tabs>
         <q-btn-dropdown v-if="isLogin" color="secondary" label="會員專區" class="q-mr-md" icon="mdi-account">

@@ -6,7 +6,7 @@
       :modules="modules"
       class="mySwiper"
     >
-      <swiper-slide v-for="(item,i) in news.slice(0,5)" :key="i">
+      <swiper-slide v-for="(item,i) in reversedItem" :key="i">
         <q-card>
           <!-- img -->
           <div class="img_area">
@@ -47,7 +47,13 @@ import { Swiper, SwiperSlide } from 'swiper/vue'
 // Import Swiper styles
 import 'swiper/css'
 
-defineProps({
+import { computed } from 'vue'
+
+const reversedItem = computed(() => {
+  return [...props.news].reverse().slice(0, 5)
+})
+
+const props = defineProps({
   news: {
     type: Array,
     default: () => []

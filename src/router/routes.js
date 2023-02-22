@@ -105,9 +105,9 @@ const routes = [
         }
       },
       {
-        path: 'orders',
-        name: 'orders',
-        component: () => import('@/pages/FrontLayout/OrderView.vue'),
+        path: 'QA',
+        name: 'QA',
+        component: () => import('@/pages/FrontLayout/QAView.vue'),
         meta: {
           title: '桌下吧 | 常見Q&A',
           login: false,

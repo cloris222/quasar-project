@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row section">
         <div class="col-12 bg-white">
-          <q-breadcrumbs class="text-primary" active-color="grey">
+          <q-breadcrumbs class="text-primary q-mb-lg" active-color="grey">
             <template #separator>
               <q-icon
                 size="1.5em"
@@ -15,7 +15,7 @@
             <q-breadcrumbs-el label="最新公告" icon="mdi-newspaper-variant-outline" />
           </q-breadcrumbs>
         </div>
-        <div v-for="(item,i) in news" :key="i" in news class="col-12  q-my-lg">
+        <div v-for="(item,i) in reversedItems" :key="i" class="col-12  q-my-lg">
           <NewsCard v-bind="item" />
         </div>
       </div>
@@ -24,13 +24,19 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, computed } from 'vue'
 import { api } from '@/boot/axios.js'
 import { useQuasar } from 'quasar'
 import NewsCard from '@/components/NewsCard.vue'
 
 const $q = useQuasar()
-const news = reactive([]);
+const news = reactive([])
+
+const reversedItems = computed(() => {
+  return [...news].reverse()
+})
+
+console.log(reversedItems);
 
 (async () => {
   try {
