@@ -209,10 +209,31 @@
         </div>
       </div>
     </div>
-
-    <!-- footer -->
-    <div class="footer bg-primary">
+  </div>
+  <!-- footer -->
+  <div id="footer">
+    <div class="container">
       <div class="row">
+        <div class="col-12">
+          <div class="info_area">
+            地址 : 新北市泰山區貴子里致遠新村55之1號
+            <br>
+            電話 : 02-23941157
+            <br>
+            E-mail : admin@gmail.com
+            <br>
+            營業時間 : 早上10:00至晚上23:00 每週三公休
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12">
+          <div class="btn_area">
+            <q-btn icon="mdi-facebook" outline rounded color="secondary" class="q-mr-lg" />
+            <q-btn icon="mdi-instagram" outline rounded color="secondary" class="q-mr-lg" />
+            <q-btn icon="mdi-twitter" outline rounded color="secondary" />
+          </div>
+        </div>
         <div class="col-12">
           <div class="copyright">
             Copyright © 2023 Yung Chien Yang. All rights reserved.

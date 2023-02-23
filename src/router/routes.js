@@ -95,16 +95,6 @@ const routes = [
         }
       },
       {
-        path: 'orders',
-        name: 'orders',
-        component: () => import('@/pages/FrontLayout/OrderView.vue'),
-        meta: {
-          title: '桌下吧 | 關於我們',
-          login: false,
-          admin: false
-        }
-      },
-      {
         path: 'QA',
         name: 'QA',
         component: () => import('@/pages/FrontLayout/QAView.vue'),
