@@ -153,7 +153,6 @@
                 <div class="answer">
                   <div class="answer_text">
                     不論是要開會、打SWITCH或是喝酒聊天都很適合喔。
-                    <br>
                     桌下吧隨時歡迎您的到來！
                   </div>
                   <div class="answer_avatar">
