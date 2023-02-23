@@ -85,5 +85,11 @@
         line-height: 50px;
         color: #fff;
     }
+
+    @include lg{
+        .phone_footer{
+            bottom: -94%;
+        }  
+    }
 }
 
