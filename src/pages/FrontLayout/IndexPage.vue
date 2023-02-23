@@ -136,21 +136,63 @@
           </div>
         </div>
       </div>
-      <!-- 消費方式 -->
+      <!-- 店內桌遊&二手專區 -->
       <div id="section04" class="section">
-        <h1>店內桌遊</h1>
+        <q-parallax
+          src="@/assets/qa/qabg7.jpg"
+        >
+          <div class="container">
+            <div class="row">
+              <div class="col-6">
+                <div class="boardGameList">
+                  <div class="bigTitle">
+                    店內桌遊
+                  </div>
+                  <div class="content_area">
+                    老闆精心挑選近300款桌遊
+                    <br>
+                    熱門爆款通通都有
+                    <br>
+                    不會玩不用擔心
+                    <br>
+                    老闆全都會教
+                  </div>
+                  <div class="btn_area">
+                    <q-btn label="店內桌遊" to="/boardGameList" ouline size="lg" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-6">
+                <div class="shopping">
+                  <div class="bigTitle">
+                    二手專區
+                  </div>
+                  <div class="content_area">
+                    疫情期間害怕出去人擠人
+                    <br>
+                    但是又好想玩桌遊嗎
+                    <br>
+                    現在就下單你喜歡的遊戲
+                    <br>
+                    安心在家享受桌遊時刻
+                  </div>
+                  <div class="btn_area">
+                    <q-btn label="二手專區" to="/shoppingMall" ouline size="lg" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </q-parallax>
       </div>
-      <!-- 二手專區 -->
+
+      <!-- 聯絡我們 -->
       <div id="section05" class="section">
-        <h1>二手專區</h1>
+        <h1>聯絡我們</h1>
       </div>
-      <!-- 常見Q&A -->
-      <div id="section06" class="section">
-        <h1>常見Q&A</h1>
-      </div>
-      <!-- 立即預約 -->
-      <div id="section07" class="section">
-        <h1>立即預約</h1>
+      <!-- footer -->
+      <div id="footer">
+        <h1>footer</h1>
       </div>
     </q-page>
   </div>

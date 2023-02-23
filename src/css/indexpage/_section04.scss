@@ -1,3 +1,46 @@
 #section04{
     width: 100%;
+    
+
+    .container{
+        width: 70%;
+        margin: auto;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+
+        .content_area{
+            font-size: 18px;
+            text-align: center;
+            line-height: 2;
+            margin-bottom: 2rem;
+            letter-spacing: 2px;
+        }
+
+        .btn_area{
+            text-align: center;
+            width: 50%;
+            margin: auto;
+        }
+
+        .bigTitle{
+            font-size: 35px;
+            font-weight: bolder;
+            text-align: center;
+            position: relative;
+            letter-spacing: 4px;
+            margin-bottom: 2rem;
+    
+            &::after{
+                content: '';
+                width: 100px;
+                padding-bottom: 1rem;
+                border-bottom: 2px solid $primary;
+                position: absolute;
+                bottom: -8%;
+                left: 50%;
+                transform: translateX(-50%); 
+            }
+        }
+
+    }
 }
