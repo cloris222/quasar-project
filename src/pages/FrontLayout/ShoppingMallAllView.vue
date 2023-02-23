@@ -80,21 +80,17 @@
               價格
             </div>
             <div class="col-12 col-lg-5 q-mb-lg">
-              <q-slider
-                v-model="filterPrice"
-                markers
-                :marker-labels="priceMarkerLabel"
-                :min="0"
-                :max="10"
-                snap
-              />
+              <div class="btn_area">
+                <q-radio v-model="priceradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="0" label="由低到高" />
+                <q-radio v-model="priceradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="1" label="由高到低" />
+              </div>
             </div>
           </div>
         </div>
       </q-expansion-item>
 
       <div class="row q-mx-auto justify-center">
-        <div v-for="(product,i) in filterFunc" :key="i" class="col-6 col-lg-3 q-mb-lg">
+        <div v-for="(product,i) in filterResult" :key="i" class="col-6 col-lg-4 q-mb-lg">
           <ProductCard v-bind="product" @open-cart-dialog="openDialog(product)" />
           <!-- 加入cart -->
           <q-dialog v-model="cartDialog" persistent>
@@ -188,8 +184,8 @@ const chips = ref([])
 const expanded = ref(true)
 const cartDialog = ref(false)
 const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
-const filterPrice = ref(1)
 const gamerradio = ref('less')
+const priceradio = ref('0')
 
 // 存資料的form
 const form = reactive({
@@ -222,9 +218,8 @@ const delChip = (idx) => {
   filterCondition.category.splice(idx, 1)
 }
 
-const priceMarkerLabel = (value) => {
-  return `$${100 * value}`
-}
+// 價格由高到低
+// 價格由低到高
 
 const rules = {
   required (value) {
@@ -241,18 +236,13 @@ const onSubmit = async () => {
   cartDialog.value = false
 }
 
-const filterPrice2 = computed(() => {
-  return filterPrice.value * 100
-})
-
 // 篩選條件filter
 const filterCondition = reactive({
   gamer: {
     min: 1,
     max: 5
   },
-  category: ['暢銷遊戲'],
-  price: filterPrice2
+  category: ['暢銷遊戲']
 })
 
 const filterFunc = computed(() => {
@@ -262,15 +252,29 @@ const filterFunc = computed(() => {
       // console.log(product.gamer.split('~').map(Number)[0], product.gamer.split('~').map(Number)[1])
       return product.gamer.split('~').map(Number)[0] >= parseInt(filterCondition.gamer.min) &&
     product.gamer.split('~').map(Number)[1] <= parseInt(filterCondition.gamer.max) &&
-    parseInt(_.intersection(product.category, filterCondition.category).length) !== 0 &&
-    product.price <= filterCondition.price
+    parseInt(_.intersection(product.category, filterCondition.category).length) !== 0
     } else {
       // 回傳10人以上桌遊
       return product.gamer.split('~').map(Number)[1] > 10 &&
-    parseInt(_.intersection(product.category, filterCondition.category).length) !== 0 &&
-    product.price <= filterCondition.price
+    parseInt(_.intersection(product.category, filterCondition.category).length) !== 0
     }
   })
+}
+)
+
+const filterArray = ref(filterFunc)
+
+const filterResult = computed(() => {
+  // 價格由低到高
+  if (priceradio.value === '0') {
+    return filterArray.value.slice().sort((a, b) => {
+      return a.price - b.price
+    })
+  } else {
+    return filterArray.value.slice().sort((a, b) => {
+      return b.price - a.price
+    })
+  }
 });
 
 (async () => {

@@ -80,22 +80,21 @@ const columns = [
     name: 'id',
     required: true,
     label: '會員編號',
-    align: 'left',
+    align: 'center',
     field: row => row.name
   },
   {
     name: 'account',
     required: true,
     label: '會員帳號',
-    align: 'left',
+    align: 'center',
     field: row => row.name
   }, {
     name: 'name',
     required: true,
     label: '會員姓名',
     align: 'center',
-    field: row => row.name,
-    sortable: true
+    field: row => row.name
   },
   { name: 'email', align: 'center', label: '會員信箱', field: row => row.name },
   { name: 'phone', align: 'center', label: '會員電話', field: row => row.name }

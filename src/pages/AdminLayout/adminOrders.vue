@@ -2,9 +2,9 @@
   <div id="adminOrdersView">
     <div class="container q-mx-auto">
       <!-- 標題 -->
-      <div class="row q-mx-auto">
-        <div class="col-12">
-          <h4>所有預約</h4>
+      <div class="row ">
+        <div class="col-12 bigTitle">
+          預約管理
         </div>
       </div>
       <!-- 預約表格 -->

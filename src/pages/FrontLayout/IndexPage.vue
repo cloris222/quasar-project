@@ -11,7 +11,7 @@
                   #1
                 </div>
                 <div class="text_title">
-                  關於我們
+                  立即預約
                 </div>
               </div>
               <div class="infoarea q-mx-auto">
@@ -19,7 +19,7 @@
                   桌上遊戲，讓我們拉近人與人的距離。
                 </div>
                 <div class="info_btn q-mx-auto">
-                  <q-btn color="secondary" label="了解更多" />
+                  <q-btn color="secondary" label="來去預約" to="/orders" />
                 </div>
               </div>
             </div>
@@ -31,15 +31,15 @@
                   #2
                 </div>
                 <div class="text_title">
-                  立即預約
+                  二手專區
                 </div>
               </div>
               <div class="infoarea q-mx-auto">
                 <div class="info_description">
-                  桌上遊戲，讓我們拉近人與人的距離。
+                  想玩的，想看的，這裡通通有
                 </div>
                 <div class="info_btn q-mx-auto">
-                  <q-btn color="secondary" label="了解更多" />
+                  <q-btn color="secondary" label="來去逛逛" to="/shoppingMall" />
                 </div>
               </div>
             </div>
@@ -51,15 +51,15 @@
                   #3
                 </div>
                 <div class="text_title">
-                  二手專區
+                  常見Q&A
                 </div>
               </div>
               <div class="infoarea q-mx-auto">
                 <div class="info_description">
-                  桌上遊戲，讓我們拉近人與人的距離。
+                  疑難雜症懶人包，請安心服用
                 </div>
                 <div class="info_btn q-mx-auto">
-                  <q-btn color="secondary" label="了解更多" />
+                  <q-btn color="secondary" label="我有疑問" to="/QA" />
                 </div>
               </div>
             </div>

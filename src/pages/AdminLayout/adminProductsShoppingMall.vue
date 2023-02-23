@@ -1,182 +1,190 @@
 <template>
   <div id="adminProductsShoppingMall">
-    <div class="q-pa-md">
-      <q-table
-        v-model:selected="selected"
-        title="商品清單"
-        :rows="products"
-        :columns="columns"
-        row-key="name"
-        class="q-mt-lg"
-      >
-        <!-- 圖片 -->
-        <template #body-cell-images="props">
-          <q-td :props="props">
-            <div class="adminProductsImages">
-              <img :props="props" :src="props.row.images[0]">
-            </div>
-          </q-td>
-        </template>
+    <div class="container">
+      <div class="row ">
+        <div class="col-12 bigTitle">
+          商品清單
+        </div>
+      </div>
 
-        <!-- 標籤 -->
-        <template #body-cell-category="props">
-          <q-td :props="props" class="text-center">
-            <div>
-              <q-chip v-for="(item,i) in props.row.category" :key="i" color="primary" :label="item" text-color="white" />
-            </div>
-          </q-td>
-        </template>
+      <div>
+        <q-table
+          v-model:selected="selected"
+          title="商品清單"
+          :rows="products"
+          :columns="columns"
+          row-key="name"
+          class="q-mt-lg"
+        >
+          <!-- 圖片 -->
+          <template #body-cell-images="props">
+            <q-td :props="props">
+              <div class="adminProductsImages">
+                <img :props="props" :src="props.row.images[0]">
+              </div>
+            </q-td>
+          </template>
 
-        <!-- 說明 -->
-        <template #body-cell-rules="props">
-          <q-td :props="props" class="text-center ">
-            <p class="rules_area">
-              {{ props.row.rules }}
-            </p>
-          </q-td>
-        </template>
+          <!-- 標籤 -->
+          <template #body-cell-category="props">
+            <q-td :props="props" class="text-center">
+              <div>
+                <q-chip v-for="(item,i) in props.row.category" :key="i" color="primary" :label="item" text-color="white" />
+              </div>
+            </q-td>
+          </template>
 
-        <!-- 上架狀態 -->
-        <template #body-cell-sell="props">
-          <q-td :props="props">
-            <div class="productsSell">
-              <q-toggle
-                v-model="props.row.sell"
-                :props="props"
-                :label="sell"
-                color="primary"
-              />
-            </div>
-          </q-td>
-        </template>
+          <!-- 說明 -->
+          <template #body-cell-rules="props">
+            <q-td :props="props" class="text-center ">
+              <p class="rules_area">
+                {{ props.row.rules }}
+              </p>
+            </q-td>
+          </template>
 
-        <!-- 操作 -->
-        <template #body-cell-others="props">
-          <q-td :props="props">
-            <div class="productsOthers">
-              <q-btn square color="secondary" icon="edit" :props="props" @click="openDialog(products.findIndex(item=>item._id===props.row._id))" />
-            </div>
-          </q-td>
-        </template>
-      </q-table>
+          <!-- 上架狀態 -->
+          <template #body-cell-sell="props">
+            <q-td :props="props">
+              <div class="productsSell">
+                <q-toggle
+                  v-model="props.row.sell"
+                  :props="props"
+                  :label="sell"
+                  color="primary"
+                />
+              </div>
+            </q-td>
+          </template>
 
-      <!-- 新增按鈕 -->
-      <q-btn round color="primary" icon="add" class="addBtn q-mt-md " size="lg" @click="openDialog(-1)" />
+          <!-- 操作 -->
+          <template #body-cell-others="props">
+            <q-td :props="props">
+              <div class="productsOthers">
+                <q-btn square color="secondary" icon="edit" :props="props" @click="openDialog(products.findIndex(item=>item._id===props.row._id))" />
+              </div>
+            </q-td>
+          </template>
+        </q-table>
 
-    <!-- <div class="q-mt-md">
+        <!-- 新增按鈕 -->
+        <q-btn round color="primary" icon="add" class="addBtn q-mt-md " size="lg" @click="openDialog(-1)" />
+
+        <!-- <div class="q-mt-md">
       Selected: {{ JSON.stringify(selected) }}
     </div> -->
+      </div>
+
+      <!-- dialog -->
+      <q-dialog v-model="form.dialog" persistent>
+        <q-card class="q-px-md">
+          <q-card-section class="row items-center q-pb-md">
+            <div class="text-h6">
+              {{ form._id.length > 0 ? '編輯商品' : '新增商品' }}
+            </div>
+            <q-space />
+            <q-btn v-close-popup icon="close" flat round dense />
+          </q-card-section>
+
+          <q-form
+            class="q-gutter-md"
+            :style="{width:'500px'}"
+            @submit="onSubmit"
+            @reset="onReset"
+          >
+            <q-input
+              v-model="form.name"
+              type="text"
+              outlined
+              label="請輸入商品名稱 *"
+              lazy-rules
+              :rules="[ rules.required]"
+            />
+
+            <q-file
+              v-model="form.images"
+              label="請選擇要上傳的圖片"
+              outlined
+              counter
+              max-files="10"
+              multiple
+              style="max-width: 300px"
+              :rules="[ rules.required]"
+            >
+              <template #prepend>
+                <q-icon name="add" />
+              </template>
+            </q-file>
+
+            <q-select
+              v-model="form.category"
+              outlined
+              use-input
+              multiple
+              input-debounce="0"
+              label="請選擇標籤"
+              :options="options"
+              style="width: 250px"
+              behavior="menu"
+              :rules="[ rules.required]"
+              @filter="filterFn"
+            >
+              <template #no-option>
+                <q-item>
+                  <q-item-section class="text-grey">
+                    No results
+                  </q-item-section>
+                </q-item>
+              </template>
+            </q-select>
+
+            <q-input
+              v-model="form.gamer"
+              outlined
+              type="text"
+              label="請選擇遊戲人數 *"
+              lazy-rules
+              :rules="[ rules.required]"
+            />
+
+            <q-input
+              v-model="form.age"
+              outlined
+              type="number"
+              label="請輸入適玩年齡 *"
+              lazy-rules
+              :rules="[ rules.required]"
+            />
+
+            <q-input
+              v-model="form.rules"
+              outlined
+              type="textarea"
+              label="請輸入遊戲說明 *"
+              lazy-rules
+              :rules="[ rules.required]"
+            />
+
+            <q-input
+              v-model="form.price"
+              outlined
+              type="number"
+              label="請輸入商品售價 *"
+              lazy-rules
+              :rules="[ rules.required,rules.price]"
+            />
+
+            <q-toggle v-model="form.sell" label="是否上架" />
+
+            <div>
+              <q-card-actions align="center">
+                <q-btn label="確認" type="submit" color="primary" :loading="form.loading" size="md" />
+              </q-card-actions>
+            </div>
+          </q-form>
+        </q-card>
+      </q-dialog>
     </div>
-
-    <!-- dialog -->
-    <q-dialog v-model="form.dialog" persistent>
-      <q-card class="q-px-md">
-        <q-card-section class="row items-center q-pb-md">
-          <div class="text-h6">
-            {{ form._id.length > 0 ? '編輯商品' : '新增商品' }}
-          </div>
-          <q-space />
-          <q-btn v-close-popup icon="close" flat round dense />
-        </q-card-section>
-
-        <q-form
-          class="q-gutter-md"
-          :style="{width:'500px'}"
-          @submit="onSubmit"
-          @reset="onReset"
-        >
-          <q-input
-            v-model="form.name"
-            type="text"
-            outlined
-            label="請輸入商品名稱 *"
-            lazy-rules
-            :rules="[ rules.required]"
-          />
-
-          <q-file
-            v-model="form.images"
-            label="請選擇要上傳的圖片"
-            outlined
-            counter
-            max-files="10"
-            multiple
-            style="max-width: 300px"
-            :rules="[ rules.required]"
-          >
-            <template #prepend>
-              <q-icon name="add" />
-            </template>
-          </q-file>
-
-          <q-select
-            v-model="form.category"
-            outlined
-            use-input
-            multiple
-            input-debounce="0"
-            label="請選擇標籤"
-            :options="options"
-            style="width: 250px"
-            behavior="menu"
-            :rules="[ rules.required]"
-            @filter="filterFn"
-          >
-            <template #no-option>
-              <q-item>
-                <q-item-section class="text-grey">
-                  No results
-                </q-item-section>
-              </q-item>
-            </template>
-          </q-select>
-
-          <q-input
-            v-model="form.gamer"
-            outlined
-            type="text"
-            label="請選擇遊戲人數 *"
-            lazy-rules
-            :rules="[ rules.required]"
-          />
-
-          <q-input
-            v-model="form.age"
-            outlined
-            type="number"
-            label="請輸入適玩年齡 *"
-            lazy-rules
-            :rules="[ rules.required]"
-          />
-
-          <q-input
-            v-model="form.rules"
-            outlined
-            type="textarea"
-            label="請輸入遊戲說明 *"
-            lazy-rules
-            :rules="[ rules.required]"
-          />
-
-          <q-input
-            v-model="form.price"
-            outlined
-            type="number"
-            label="請輸入商品售價 *"
-            lazy-rules
-            :rules="[ rules.required,rules.price]"
-          />
-
-          <q-toggle v-model="form.sell" label="是否上架" />
-
-          <div>
-            <q-card-actions align="center">
-              <q-btn label="確認" type="submit" color="primary" :loading="form.loading" size="md" />
-            </q-card-actions>
-          </div>
-        </q-form>
-      </q-card>
-    </q-dialog>
   </div>
 </template>
 
@@ -201,12 +209,12 @@ const columns = [
     field: row => row.name,
     sortable: true
   },
-  { name: 'images', align: 'center', label: '圖片', field: row => row.images, sortable: true },
-  { name: 'category', align: 'center', label: '標籤', field: row => row.category, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'gamer', align: 'center', label: '遊戲人數', field: row => row.gamer, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'age', align: 'center', label: '適玩年齡', field: row => row.age, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
-  { name: 'rules', align: 'center', label: '遊戲說明', field: row => row.rules, classes: 'rules_area' },
-  { name: 'price', align: 'center', label: '商品價格', field: row => row.price, sortable: true, sort: (a, b) => parseInt(a, 10) - parseInt(b, 10) },
+  { name: 'images', align: 'center', label: '圖片', field: row => row.images },
+  { name: 'category', align: 'center', label: '標籤', field: row => row.category },
+  { name: 'gamer', align: 'center', label: '遊戲人數', field: row => row.gamer },
+  { name: 'age', align: 'center', label: '適玩年齡', field: row => row.age },
+  { name: 'rules', align: 'center', label: '遊戲說明', field: row => row.rules },
+  { name: 'price', align: 'center', label: '商品價格', field: row => row.price },
   { name: 'sell', align: 'center', label: '上架狀態', field: row => row.sell },
   { name: 'others', align: 'center', label: '操作', field: row => row.others }
 ]

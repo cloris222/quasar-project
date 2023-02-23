@@ -127,7 +127,7 @@ const $q = useQuasar()
 const boardGameList = reactive([])
 const chips = ref([])
 const expanded = ref(true)
-const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
+const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '熱門遊戲', '最新遊戲', '新手友善']
 const gamerradio = ref('less')
 
 // 存資料的form

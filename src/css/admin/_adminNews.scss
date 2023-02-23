@@ -1,9 +1,29 @@
 #adminNews{
     width: 100%;
-    padding: 5rem 0;
 
     .container{
-        width: 60%;
+        width: 75%;
+        margin: auto;
+        padding-top: 5rem;
+        padding-bottom: 3rem;
+
+        .bigTitle{
+            font-size: 30px;
+            font-weight: bolder;
+            position: relative;
+            letter-spacing: 4px;
+            padding-left: 1.5rem;
+
+            &::after{
+                content: '';
+                width: 10px;
+                height: 50px;
+                background-color: $primary;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
 
         .row{
 
@@ -26,7 +46,7 @@
             }
         
             .addBtn{
-                margin-top: 4%;
+                margin-top: 1%;
                 margin-left: 94%;
             }
 

@@ -36,6 +36,15 @@ export default route(function (/* { store, ssrContext } */) {
     if (from === START_LOCATION) {
       await useUserStore().getUser()
     }
+
+    // 處理管理員登入跳頁問題
+    // if (user.isLogin && user.isAdmin) {
+    //   if (to.path !== '/admin/users') {
+    //     next('/admin/users')
+    //   } else {
+    //     next()
+    //   }
+    // } else
     if (user.isLogin && (to.path === '/register' || to.path === '/login')) {
       next('/')
     } else if (to.meta.login && !user.isLogin) {

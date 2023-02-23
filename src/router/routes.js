@@ -122,15 +122,6 @@ const routes = [
     component: () => import('@/layouts/AdminLayout.vue'),
     children: [
       {
-        path: '',
-        name: 'admin-home',
-        component: () => import('@/pages/AdminLayout/adminHome.vue'),
-        meta: {
-          title: '桌下吧 | 管理',
-          login: true,
-          admin: true
-        }
-      }, {
         path: 'users',
         name: 'admin-users',
         component: () => import('@/pages/AdminLayout/adminUsers.vue'),

@@ -8,8 +8,14 @@
       <q-card-section>
         <div class="row text-h6">
           {{ name }}
-          <q-icon name="diversity_3" color="primary" size="sm" class="q-mr-sm" />
-          <span style="font-size:16px">{{ gamer }}</span>
+          <div class="gamer">
+            <div class="gamer_icon">
+              <q-icon name="diversity_3" color="primary" size="sm" class="q-mr-sm " />
+            </div>
+            <div class="gamer_number">
+              {{ gamer }}
+            </div>
+          </div>
         </div>
       </q-card-section>
       <q-card-section class="q-pt-none">
@@ -21,7 +27,7 @@
         ${{ price }}
       </q-card-section>
       <q-card-section class="q-pt-none btn_area flex justify-center no-wrap">
-        <q-btn icon="mdi-cart-outline" flat class="icon_cart" @click="onBtnClick" />
+        <q-btn icon="mdi-cart-outline" flat class="icon_cart " @click="onBtnClick" />
         <!-- <q-btn icon="mdi-heart" flat class="icon_favorite" /> -->
       </q-card-section>
     </q-card>

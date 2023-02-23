@@ -34,7 +34,7 @@
       </div>
 
       <!-- Q&A -->
-      <q-parallax :height="1800" :speed="0.5">
+      <q-parallax :height="1950" :speed="0.5">
         <template #media>
           <img src="@/assets/qa/qabg7.jpg" class="parallaxImg">
         </template>
@@ -196,7 +196,7 @@
       </q-parallax>
 
       <!-- phone_footer -->
-      <div class="row phone_footer">
+      <!-- <div class="row phone_footer">
         <div class="col-12  bg-primary text-white">
           <div class="left">
             <q-icon name="mdi-plus" size="md" class="q-mr-sm" />
@@ -207,7 +207,7 @@
             <q-icon name="mdi-microphone" class="q-ml-auto" size="md" />
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <!-- footer -->

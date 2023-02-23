@@ -1,7 +1,9 @@
 #adminUsersView{
+   
 
     .container{
-        width: 60%;
+        width: 70%;
+         padding-top: 5rem;
         padding-bottom: 2rem;
 
         .bigTitle{
@@ -9,16 +11,16 @@
             font-weight: bolder;
             position: relative;
             letter-spacing: 4px;
+            padding-left: 1.5rem;
 
             &::after{
                 content: '';
-                width: 100px;
-                padding-bottom: 1rem;
-                border-bottom: 2px solid $primary;
+                width: 10px;
+                height: 50px;
+                background-color: $primary;
                 position: absolute;
-                bottom: 25%;
-                left: 8%;
-                transform: translateX(-50%); 
+                top: 0;
+                left: 0;
             }
         }
         

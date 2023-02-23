@@ -15,7 +15,7 @@
           <q-route-tab name="Q&A" label="常見Q&A" to="/QA" />
           <q-route-tab name="orders" label="立即預約" to="/orders" />
         </q-tabs>
-        <q-btn-dropdown v-if="isLogin" color="secondary" label="會員專區" class="q-mr-md" icon="mdi-account">
+        <q-btn-dropdown v-if="isLogin && !isAdmin" color="secondary" label="會員專區" class="q-mr-md" icon="mdi-account">
           <q-list>
             <q-item v-close-popup clickable to="/user">
               <q-item-section>
@@ -23,33 +23,21 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable to="/users/orders">
+            <q-item v-close-popup clickable to="/user/orders">
               <q-item-section>
                 <q-item-label>我的預約</q-item-label>
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable to="/users/shoppings">
+            <q-item v-close-popup clickable to="/user/shoppings">
               <q-item-section>
                 <q-item-label>我的訂單</q-item-label>
-              </q-item-section>
-            </q-item>
-
-            <q-item v-close-popup clickable @click="logout">
-              <q-item-section>
-                <q-item-label>登出</q-item-label>
               </q-item-section>
             </q-item>
           </q-list>
         </q-btn-dropdown>
         <q-btn-dropdown v-if="isLogin && isAdmin" color="secondary" label="管理" icon="settings">
           <q-list>
-            <q-item v-close-popup clickable to="/admin" @click="onItemClick">
-              <q-item-section>
-                <q-item-label>管理員專區</q-item-label>
-              </q-item-section>
-            </q-item>
-
             <q-item v-close-popup clickable to="/admin/users">
               <q-item-section>
                 <q-item-label>會員管理</q-item-label>
@@ -74,7 +62,7 @@
               </q-item-section>
             </q-item>
 
-            <q-item v-close-popup clickable>
+            <q-item v-close-popup clickable to="/admin/news">
               <q-item-section>
                 <q-item-label>公告管理</q-item-label>
               </q-item-section>
@@ -83,11 +71,12 @@
         </q-btn-dropdown>
 
         <q-btn v-if="!isLogin" flat round color="white" icon="account_circle" to="/registerlogin" />
-        <q-btn v-if="isLogin" flat round color="white" icon="shopping_cart" class="icon_cart" to="/cart">
+        <q-btn v-if="isLogin & !isAdmin" flat round color="white" icon="shopping_cart" class="icon_cart" to="/cart">
           <q-badge color="red" floating>
             {{ cart }}
           </q-badge>
         </q-btn>
+        <q-btn v-if="isLogin" flat round icon="mdi-door-open" size="lg" @click="logout" />
         <!-- <q-input v-model="ph" filled label="Label" placeholder="Placeholder" hint="With placeholder" :dense="dense" /> -->
       </q-toolbar>
     </q-header>

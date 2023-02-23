@@ -1,6 +1,11 @@
 <template>
   <div id="adminNews">
     <div class="container q-mx-auto">
+      <div class="row ">
+        <div class="col-12 bigTitle">
+          公告管理
+        </div>
+      </div>
       <div class="row">
         <div class="col-12">
           <q-table

@@ -2,9 +2,9 @@
   <div id="adminShoppingsView">
     <div class="container q-mx-auto">
       <!-- 標題 -->
-      <div class="row q-mx-auto">
-        <div class="col-12">
-          <h4>所有訂單</h4>
+      <div class="row ">
+        <div class="col-12 bigTitle">
+          訂單管理
         </div>
       </div>
       <!-- 購物車表格 -->

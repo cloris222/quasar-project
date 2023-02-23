@@ -9,6 +9,12 @@
         &:hover{
             cursor: pointer;
         }
+
+        .gamer{
+            display: flex;
+            margin-top: -4px;
+            margin-left: 4px;
+        }
         
 
         .cardImage{
@@ -61,7 +67,9 @@
         .btn_area{
             position: absolute;
             top: 86%;
-            left: 60%;
+            left: 70%;
+
+            
         }
     }
 }
