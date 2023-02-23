@@ -1,3 +1,36 @@
 #section05{
     width: 100%;
+
+    .container{
+        width: 70%;
+        margin: auto;
+        padding-top: 3rem;
+        padding-bottom: 3rem;
+        text-align: center;
+
+        .row{
+            .col-4{
+                height: 170px;
+                margin-bottom: 3rem;
+                border-right: 2px solid lightgray;
+
+                .info_area{
+                    width: 50%;
+                    margin: auto;
+                    margin-top: 1rem;
+                    font-size: 20px;
+                    font-weight: bolder;
+                }
+
+                &:nth-of-type(3){
+                    border: none;
+                }
+            }
+
+            .col-12{
+                width: 100%;
+            }
+            
+        }
+    }
 }

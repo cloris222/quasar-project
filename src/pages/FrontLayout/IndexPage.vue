@@ -188,7 +188,47 @@
 
       <!-- 聯絡我們 -->
       <div id="section05" class="section">
-        <h1>聯絡我們</h1>
+        <div class="container">
+          <!-- 3icon -->
+          <div class="row">
+            <div class="col-4">
+              <div class="icon_area">
+                <q-icon name="mdi-map-marker" color="primary" size="70px" />
+              </div>
+              <div class="info_area">
+                地址
+                <br>
+                新北市泰山區貴子里致遠新村55之1號
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="icon_area">
+                <q-icon name="mdi-phone" color="primary" size="70px" />
+              </div>
+              <div class="info_area">
+                連絡電話
+                <br>
+                02-23941157
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="icon_area">
+                <q-icon name="mdi-clock-time-four" color="primary" size="70px" />
+              </div>
+              <div class="info_area">
+                營業時間
+                <br>
+                早上10:00至晚上23:00
+              </div>
+            </div>
+          </div>
+          <!-- iframemap -->
+          <div class="row">
+            <div class="col-12">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3614.7035065347523!2d121.41732691537885!3d25.044134144038303!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442a7bec9ad74b1%3A0xa639904a89f26435!2z5Yue5YuV6YOo5Yue5YuV5Yqb55m85bGV572y5YyX5Z-65a6c6Iqx6YeR6aas5YiG572y5rOw5bGx6IG35qWt6KiT57e05aC0!5e0!3m2!1szh-TW!2sus!4v1677121138810!5m2!1szh-TW!2sus" width="1037" height="606" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" />
+            </div>
+          </div>
+        </div>
       </div>
       <!-- footer -->
       <div id="footer">
