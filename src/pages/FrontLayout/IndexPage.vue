@@ -91,12 +91,9 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row q-my-xl">
             <div class="col-12">
-              <div class="img_area">
-                <img src="@/assets/關於我們/about1.jpg">
-              </div>
-              <div class="info_area">
+              <div class="info_area1">
                 <div class="info_title">
                   桌上遊戲，讓我們拉近人與人的距離。
                 </div>
@@ -104,32 +101,36 @@
                   不論是跟同學們一起聚會、跟同事Team Building、或是同家人在節日聚在一起。
                   桌遊總能讓我們更靠近彼此。也是新世代年輕人休閒娛樂一個新的選擇。
                   <br>
+                  <br>
                   企鵝老闆擁有4年以上在桌遊店工作的經驗，於2020年底成立了玩聚空間這個品牌。
                   並在2021年1月23日正式開始營業。
                 </div>
+              </div>
+              <div class="img_area1">
+                <img src="@/assets/關於我們/about1.jpg">
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-12">
-              <div class="img_area">
-                <img src="@/assets/關於我們/about2.jpg">
-              </div>
-              <div class="info_area">
+              <div class="info_area2">
                 <div class="info_content">
                   本店選址在台北市中正區，忠孝新生捷運站附近。
-
+                  <br>
                   距離捷運站僅需步行6分鐘。靠近華山文創園區與三創生活園區。
-
+                  <br>
                   店內有300款精選開盒遊戲供遊玩。除一般方案外 ; 無教學方案給開團主或學生更優惠的價格。
-
+                  <br>
                   學生假日玩整天只要270元，平日更只需180元就可以暢玩10小時。
-
+                  <br>
                   本店的使命是提供人們休閒放鬆的舒適空間，秉持這個理念熱誠的對待每一位來店內拜訪的座上賓。
                 </div>
                 <div class="info_btn">
-                  <q-btn label="前往預約" to="/orders" outlined />
+                  <q-btn label="前往預約" to="/orders" outline size="lg" />
                 </div>
+              </div>
+              <div class="img_area2">
+                <img src="@/assets/關於我們/about2.jpg">
               </div>
             </div>
           </div>

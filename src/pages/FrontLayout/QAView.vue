@@ -55,7 +55,7 @@
                 <div class="question">
                   <div class="question_avatar">
                     <q-avatar>
-                      <img :src="`https://source.boringavatars.com/beam/256/${account.value}?colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`">
+                      <img src="https://source.boringavatars.com/beam/120/Maria%20Mitchell?colors=264653,2a9d8f,e9c46a,f4a261,e76f51">
                     </q-avatar>
                   </div>
                   <div class="question_text">
@@ -84,7 +84,7 @@
                 <div class="question">
                   <div class="question_avatar">
                     <q-avatar>
-                      <img :src="`https://source.boringavatars.com/beam/256/${account.value}?colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`">
+                      <img src="https://source.boringavatars.com/beam/120/Amanda%20Mitchell?colors=264653,2a9d8f,e9c46a,f4a261,e76f51">
                     </q-avatar>
                   </div>
                   <div class="question_text">
@@ -112,7 +112,7 @@
                 <div class="question">
                   <div class="question_avatar">
                     <q-avatar>
-                      <img :src="`https://source.boringavatars.com/beam/256/${account.value}?colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`">
+                      <img src="https://source.boringavatars.com/beam/120/abc%20Mitchell?colors=264653,2a9d8f,e9c46a,f4a261,e76f51">
                     </q-avatar>
                   </div>
                   <div class="question_text">
@@ -140,7 +140,7 @@
                 <div class="question">
                   <div class="question_avatar">
                     <q-avatar>
-                      <img :src="`https://source.boringavatars.com/beam/256/${account.value}?colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`">
+                      <img src="https://source.boringavatars.com/beam/120/edf%20Mitchell?colors=264653,2a9d8f,e9c46a,f4a261,e76f51">
                     </q-avatar>
                   </div>
                   <div class="question_text">
@@ -168,7 +168,7 @@
                 <div class="question">
                   <div class="question_avatar">
                     <q-avatar>
-                      <img :src="`https://source.boringavatars.com/beam/256/${account.value}?colors=ffabab,ffdaab,ddffab,abe4ff,d9abff`">
+                      <img src="https://source.boringavatars.com/beam/120/happy%20Mitchell?colors=264653,2a9d8f,e9c46a,f4a261,e76f51">
                     </q-avatar>
                   </div>
                   <div class="question_text">
