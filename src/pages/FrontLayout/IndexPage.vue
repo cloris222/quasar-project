@@ -158,7 +158,7 @@
                     老闆全都會教
                   </div>
                   <div class="btn_area">
-                    <q-btn label="店內桌遊" to="/boardGameList" ouline size="lg" />
+                    <q-btn label="店內桌遊" to="/boardGameList" ouline size="lg" color="primary" class="text-white" />
                   </div>
                 </div>
               </div>
@@ -177,7 +177,7 @@
                     安心在家享受桌遊時刻
                   </div>
                   <div class="btn_area">
-                    <q-btn label="二手專區" to="/shoppingMall" ouline size="lg" />
+                    <q-btn label="二手專區" to="/shoppingMall" ouline size="lg" color="primary" class="text-white" />
                   </div>
                 </div>
               </div>

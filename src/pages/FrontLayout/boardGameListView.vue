@@ -1,5 +1,5 @@
 <template>
-  <div id="shoppingMall">
+  <div id="boardGameList">
     <div class="container">
       <!-- 麵包屑 -->
       <div class="row q-mt-lg">

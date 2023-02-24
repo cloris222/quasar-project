@@ -7,6 +7,63 @@ body,html{
 }
 
 
+#mainLayout{
+
+    .logoBtn{
+        width: 200px;
+        height: 100px;
+        cursor: pointer;
+    
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+    
+    h4.title{
+        margin-left: -3%;
+        cursor: pointer;
+    }
+}
+
+#adminLayout,#userLayout{
+
+   
+
+        .q-btn.menuBtn{
+            margin-top: 2.5rem;
+            height: 50px;
+        }
+    
+    
+    
+        
+    
+
+    .left_area{
+        display: flex;
+    }
+    .logoBtn{
+        width: 200px;
+        height: 100px;
+        margin-top: 3%;
+        cursor: pointer;
+    
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+
+    h4.title{
+        margin-left: -10%;
+    }
+}
+
+
+
 .q-page-container{
     height: calc(100vh - 80px);
 }

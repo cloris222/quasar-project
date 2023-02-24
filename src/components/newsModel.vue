@@ -21,14 +21,14 @@
             <div class="date_area">
               {{ new Date(item.date).toLocaleDateString() }}
             </div>
-            <!-- <div class="btn_area">
+            <div class="btn_area">
               <q-btn round color="secondary" icon="more_horiz" size="sm" :to="'/news/' + item._id" />
-            </div> -->
+            </div>
           </q-card-section>
         </q-card>
       </swiper-slide>
       <swiper-slide>
-        <div class="btn_area">
+        <div class="more_btn">
           <q-btn flat size="xl" to="/newsView">
             <q-icon name="mdi-arrow-right-bold-circle" color="secondary" />
             MORE

@@ -3,7 +3,7 @@
     <div id="registerlogin">
       <div class="container q-mx-auto ">
         <div class="row justify-center">
-          <div class="col-8 col-lg-6">
+          <div class="col-8 col-lg-4">
             <q-card>
               <q-card-section>
                 <div class="text-h6 text-center">
@@ -221,11 +221,6 @@ async function loginValidate () {
     }
   } catch (error) {
     console.log(error)
-    $q.notify({
-      position: 'top',
-      message: error?.response?.data?.message || '發生錯誤',
-      color: 'negative'
-    })
   }
 }
 

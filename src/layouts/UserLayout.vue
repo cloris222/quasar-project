@@ -1,11 +1,16 @@
 <template>
-  <div id="adminLayout">
+  <div id="userLayout">
     <q-layout view="hHh lpR fFf">
       <q-header elevated class="bg-primary text-white">
         <q-toolbar class="justify-between">
           <div class="left_area">
-            <q-btn dense flat round icon="menu" @click="toggleLeftDrawer" />
-            <q-btn flat round color="white" icon="home" to="/" size="lg" />
+            <q-btn flat round icon="menu" class="menuBtn" @click="toggleLeftDrawer" />
+            <div class="logoBtn" @click="goHome">
+              <img src="@/assets/logo/weblogo-01.svg">
+            </div>
+            <h4 class="title">
+              桌下吧會員後台系統
+            </h4>
           </div>
           <div class="right_area">
             <q-btn flat round icon="mdi-door-open" size="lg" @click="logout" />
@@ -82,13 +87,19 @@
 <script setup>
 import { ref } from 'vue'
 import { useUserStore } from 'src/stores/users'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const user = useUserStore()
 const { logout, avatar } = user
 
 const leftDrawerOpen = ref(false)
 const toggleLeftDrawer = () => {
   leftDrawerOpen.value = !leftDrawerOpen.value
+}
+
+const goHome = () => {
+  router.push('/')
 }
 
 </script>

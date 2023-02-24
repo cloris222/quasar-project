@@ -2,8 +2,8 @@
   <div id="ShoppingsView">
     <div class="container q-mx-auto">
       <!-- 標題 -->
-      <div class="row q-mx-auto">
-        <div class="col-12 bigTitle">
+      <div class="row title_area">
+        <div class=" bigTitle">
           我的訂單
         </div>
       </div>

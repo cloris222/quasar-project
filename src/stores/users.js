@@ -38,6 +38,11 @@ export const useUserStore = defineStore('user', () => {
       favorites.value = data.result.favorites
     } catch (error) {
       console.log(error)
+      Notify.create({
+        position: 'top',
+        message: error?.response?.data?.message || '發生錯誤',
+        color: 'negative'
+      })
     }
   }
 
