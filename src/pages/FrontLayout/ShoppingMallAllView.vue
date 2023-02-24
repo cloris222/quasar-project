@@ -26,63 +26,59 @@
       >
         <div class="toolSection">
           <div class="row justify-center q-mt-lg q-mx-auto">
-            <div class="col-1 title_area">
-              <q-icon name="diversity_3" size="sm" />
-              人數
+            <div class="col-4">
+              <div class=" title_area">
+                <q-icon name="diversity_3" size="sm" />
+                人數
+              </div>
+              <div class="content_area">
+                <q-radio v-model="gamerradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="less" label="10人以下" />
+                <q-radio v-model="gamerradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="more" label="10人以上" />
+                <q-range
+                  v-model="filterCondition.gamer"
+                  :disable="gamerradio === 'more'"
+                  snap
+                  markers
+                  marker-labels
+                  :min="1"
+                  :max="10"
+                />
+              </div>
             </div>
-            <div class="col-5 q-mb-lg">
-              <q-radio v-model="gamerradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="less" label="10人以下" />
-              <q-radio v-model="gamerradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="more" label="10人以上" />
-              <q-range
-                v-model="filterCondition.gamer"
-                :disable="gamerradio === 'more'"
-                snap
-                markers
-                marker-labels
-                :min="1"
-                :max="10"
-              />
+            <div class="col-4">
+              <div class="title_area">
+                <q-icon name="sell" size="sm" />
+                標籤
+              </div>
+              <div class="content_area">
+                <div class="select_area">
+                  <q-select
+                    v-model="filterCondition.category"
+                    filled
+                    multiple
+                    :options="categories"
+                    label="新增標籤"
+                    style="width: 250px"
+                    bottom-slots
+                  />
+                </div>
+                <div class="chip_area">
+                  <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" color="primary" text-color="white" clickable icon="mdi-close-circle" icon-color="white" @click="delChip(i)">
+                    {{ chip }}
+                  </q-chip>
+                </div>
+              </div>
             </div>
-          </div>
-
-          <!-- 標籤 -->
-          <div class="row justify-center q-mx-auto">
-            <div class="col-1 title_area">
-              <q-icon name="sell" size="sm" />
-              標籤
-            </div>
-            <div class="col-2 q-mb-lg">
-              <q-select
-                v-model="filterCondition.category"
-                filled
-                multiple
-                :options="categories"
-                label="新增標籤"
-                style="width: 250px"
-                bottom-slots
-              >
-                <template #append>
-                  <q-btn round dense flat icon="add" @click="tagToChip" />
-                </template>
-              </q-select>
-            </div>
-            <div class="col-3">
-              <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" color="primary" text-color="white" clickable icon="mdi-close-circle" icon-color="white" @click="delChip(i)">
-                {{ chip }}
-              </q-chip>
-            </div>
-          </div>
-
-          <!-- price slider -->
-          <div class="row justify-center q-mx-auto">
-            <div class="col-1 title_area">
-              <q-icon name="monetization_on" size="sm" />
-              價格
-            </div>
-            <div class="col-12 col-lg-5 q-mb-lg">
-              <div class="btn_area">
-                <q-radio v-model="priceradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="0" label="由低到高" />
-                <q-radio v-model="priceradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="1" label="由高到低" />
+            <div class="col-4">
+              <div class="title_area">
+                <q-icon name="monetization_on" size="sm" />
+                價格
+              </div>
+              <div class="content_area">
+                <div class="radio_area">
+                  <q-radio v-model="priceradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="0" label="由低到高" />
+                  <q-radio v-model="priceradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="1" label="由高到低" />
+                </div>
               </div>
             </div>
           </div>
@@ -169,7 +165,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, watch, onMounted } from 'vue'
 import { api } from '../../boot/axios.js'
 import { useQuasar } from 'quasar'
 import { useUserStore } from '@/stores/users.js'
@@ -180,7 +176,7 @@ const user = useUserStore()
 const { editCart } = user
 const $q = useQuasar()
 const products = reactive([])
-const chips = ref([])
+const chips = ref(['派對遊戲', '暢銷遊戲'])
 const expanded = ref(true)
 const cartDialog = ref(false)
 const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
@@ -205,11 +201,14 @@ const openDialog = (product) => {
   console.log(cartDialog.value)
 }
 
-const tagToChip = () => {
-  chips.value = filterCondition.category.map((category) => {
-    return category
+onMounted(() => {
+  watch(() => filterCondition.category, (newValue, oldValue) => {
+    chips.value = []
+    chips.value.push(...filterCondition.category.map((category) => {
+      return category
+    }))
   })
-}
+})
 
 const delChip = (idx) => {
   // console.log(idx)
@@ -242,7 +241,7 @@ const filterCondition = reactive({
     min: 1,
     max: 5
   },
-  category: ['暢銷遊戲']
+  category: ['派對遊戲', '暢銷遊戲']
 })
 
 const filterFunc = computed(() => {

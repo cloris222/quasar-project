@@ -58,7 +58,7 @@
                     <div class="title">
                       預約人數
                     </div>
-                    <q-select v-model="form.participant" rounded outlined bottom-slots color="white" :options="participantOptions">
+                    <q-select v-model="form.participant" outlined bottom-slots color="white" :options="participantOptions">
                       <template #prepend>
                         <q-icon name="supervisor_account" color="primary" />
                       </template>
@@ -68,7 +68,7 @@
                     <div class="title">
                       預約日期
                     </div>
-                    <q-input v-model="form.orderDate" rounded outlined>
+                    <q-input v-model="form.orderDate" outlined>
                       <template #append>
                         <q-icon name="event" class="cursor-pointer" color="primary">
                           <q-popup-proxy cover transition-show="scale" transition-hide="scale">
@@ -97,7 +97,7 @@
                   </div>
                   <q-card-section>
                     <div>
-                      <q-btn v-for="(btn,i) in orderTimeBtn" :key="i" :label="btn.time" color="primary" class="orderTimeBtn q-mr-lg q-mb-lg" outline size="lg" :disable="!btn.available" @click="form.time=btn.time" />
+                      <q-btn v-for="(btn,i) in orderTimeBtn" :key="i" :label="btn.time" color="primary" class="orderTimeBtn q-mr-lg q-mb-lg" outline size="lg" :disable="!btn.available" @click="form.time = btn.time" />
                     </div>
                   </q-card-section>
                 </div>
@@ -108,7 +108,7 @@
                     <div class="title">
                       預約時數
                     </div>
-                    <q-select v-model="form.hours" color="secondary" :options="orderHoursOptions" rounded outlined bottom-slots>
+                    <q-select v-model="form.hours" color="secondary" :options="orderHoursOptions" outlined bottom-slots>
                       <template #prepend>
                         <q-icon name="schedule" color="primary" />
                       </template>
@@ -439,6 +439,15 @@ const editData = reactive({
   email
 })
 
+// 點擊過的按鈕變色
+const selectTimeBtn = document.querySelectorAll('.orderTimeBtn')
+selectTimeBtn.forEach((btn, i) => {
+  console.log('btn')
+  btn.addEventListener('click', function () {
+    btn.classList.add('bg-primary')
+  })
+})
+
 const onEditBtnClick = async () => {
   editForm.value.validate()
   try {
@@ -462,7 +471,7 @@ const onEditBtnClick = async () => {
 
 // 使用者選擇日期後發送請求取得該天預約情況
 watch(() => form.orderDate, async (newValue, oldValue) => {
-  console.log('form.orderDate 變更', newValue, oldValue)
+  // console.log('form.orderDate 變更', newValue, oldValue)
   try {
     if (!form.orderDate) {
       orderTimeBtn.forEach(btn => {
@@ -476,11 +485,8 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
     // 使按鈕全部恢復成available狀態
     orderTimeBtn.forEach(btn => {
       btn.available = true
-      console.log(btn.available)
       return btn
     })
-
-    console.log(orderTimeBtn)
 
     form.time = ''
     form.hours = 0
@@ -504,9 +510,6 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
       })
     }
 
-    console.log(orderTimeandHour)
-    // console.log(Array.isArray(orderTimeandHour))
-
     // orderTimeandHour 做forEach 將被預約的btn.available = false
     orderTimeandHour.forEach((info) => {
       const idx = orderTimeBtn.findIndex((btn) => {
@@ -523,8 +526,6 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
         if (orderTimeBtn[i] === orderTimeBtn[(orderTimeBtn.length) - 1]) return
       }
     })
-
-    console.log(orderTimeBtn)
   } catch (error) {
     console.log(error)
   }
@@ -535,7 +536,6 @@ const onSubmit = async () => {
   form.loading = true
   try {
     // form._id 為orders的_id
-    console.log(form)
     await apiAuth.post('/orders', ({
       name: form.name,
       phone: form.phone,
