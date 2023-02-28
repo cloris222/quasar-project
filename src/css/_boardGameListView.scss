@@ -3,6 +3,54 @@
     .container{
         width: 70%;
         margin: auto;
-        padding-top: 5rem;
+        padding-top: 3rem;
+
+        .filter_area{
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-top: 3rem;
+            margin-bottom: 3rem;
+            background-color: $primary;
+    
+            .gamer_filter{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .input_area{
+                    width: 65%;
+                }
+
+                .q-slider__marker-labels{
+                    color: white;
+                }
+            }
+    
+            .category_filter{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+    
+                .chip_area{
+                    width: 230px;
+                    display: flex;
+                    flex-wrap: wrap;
+                }
+            }
+    
+            .title_area{
+                width: 70px;
+                height: 180px;
+                padding-top: 4rem;
+                display: flex;
+                justify-content: space-evenly;
+                margin-right: 2rem;
+            }
+
+            
+        } 
     }
+
+    
 }

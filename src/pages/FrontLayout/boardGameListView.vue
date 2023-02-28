@@ -18,40 +18,39 @@
         </div>
       </div>
 
-      <!-- 人數slider -->
-      <q-expansion-item
-        v-model="expanded"
-        icon="mdi-filter-variant"
-        label="篩選條件"
-      >
-        <div class="toolSection">
-          <div class="row justify-center q-mt-lg q-mx-auto">
-            <div class="col-1 title_area">
-              <q-icon name="diversity_3" size="sm" />
-              人數
+      <!-- filter功能 -->
+      <div class="row filter_area">
+        <div class="col-12 col-lg-5">
+          <div class="gamer_filter">
+            <div class="title_area">
+              <q-icon name="diversity_3" size="sm" color="secondary" />
+              <div class="text-white">
+                人數
+              </div>
             </div>
-            <div class="col-5 q-mb-lg">
-              <q-radio v-model="gamerradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="less" label="10人以下" />
-              <q-radio v-model="gamerradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="more" label="10人以上" />
+            <div class="input_area">
               <q-range
                 v-model="filterCondition.gamer"
                 :disable="gamerradio === 'more'"
                 snap
                 markers
-                marker-labels
+                :marker-labels="gamerLabel"
+                color="white"
                 :min="1"
                 :max="10"
               />
             </div>
           </div>
-
-          <!-- 標籤 -->
-          <div class="row justify-center q-mx-auto">
-            <div class="col-1 title_area">
-              <q-icon name="sell" size="sm" />
-              標籤
+        </div>
+        <div class="col-12 col-lg-7">
+          <div class="category_filter">
+            <div class="title_area">
+              <q-icon name="sell" size="sm" color="secondary" />
+              <div class="text-white">
+                標籤
+              </div>
             </div>
-            <div class="col-2 q-mb-lg">
+            <div class="input_area q-mr-lg">
               <q-select
                 v-model="filterCondition.category"
                 filled
@@ -60,19 +59,21 @@
                 label="新增標籤"
                 style="width: 250px"
                 bottom-slots
+                bg-color="white"
               />
             </div>
-            <div class="col-3">
-              <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" color="primary" text-color="white" clickable icon="mdi-close-circle" icon-color="white" @click="delChip(i)">
+            <div class="chip_area">
+              <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" color="secondary" text-color="white" clickable icon="mdi-close-circle" icon-color="white" @click="delChip(i)">
                 {{ chip }}
               </q-chip>
             </div>
           </div>
         </div>
-      </q-expansion-item>
+      </div>
+      <!-- 遊戲人數 -->
 
-      <div class="row q-mx-auto justify-center">
-        <div v-for="(game,i) in filterFunc" :key="i" class="col-6 col-lg-3 q-mb-lg">
+      <div class="row q-mx-auto justify-center ">
+        <div v-for="(game,i) in filterFunc" :key="i" class="col-6 col-lg-4 q-mb-lg">
           <boardGameListcard v-bind="game" />
         </div>
       </div>
@@ -122,7 +123,6 @@ import boardGameListcard from '../../components/boardGameListcard.vue'
 const $q = useQuasar()
 const boardGameList = reactive([])
 const chips = ref(['熱門遊戲', '最新遊戲'])
-const expanded = ref(true)
 const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '熱門遊戲', '最新遊戲', '新手友善']
 const gamerradio = ref('less')
 
@@ -144,6 +144,19 @@ onMounted(() => {
   })
 })
 
+const gamerLabel = {
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  10: '10↑'
+}
+
 const delChip = (idx) => {
   // console.log(idx)
   // console.log(chips.value)
@@ -162,10 +175,14 @@ const filterCondition = reactive({
 
 const filterFunc = computed(() => {
   return boardGameList.filter((game) => {
-    // console.log(game.gamer.split('~').map(Number)[0], game.gamer.split('~').map(Number)[1])
-    return game.gamer.split('~').map(Number)[0] >= parseInt(filterCondition.gamer.min) &&
+    if (filterCondition.gamer.max === 10) {
+      return game.gamer.split('~').map(Number)[1] >= parseInt(filterCondition.gamer.max) &&
+    parseInt(_.intersection(game.category, filterCondition.category).length) !== 0
+    } else {
+      return game.gamer.split('~').map(Number)[0] >= parseInt(filterCondition.gamer.min) &&
     game.gamer.split('~').map(Number)[1] <= parseInt(filterCondition.gamer.max) &&
     parseInt(_.intersection(game.category, filterCondition.category).length) !== 0
+    }
   })
 });
 

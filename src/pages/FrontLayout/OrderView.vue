@@ -440,13 +440,13 @@ const editData = reactive({
 })
 
 // 點擊過的按鈕變色
-const selectTimeBtn = document.querySelectorAll('.orderTimeBtn')
-selectTimeBtn.forEach((btn, i) => {
-  console.log('btn')
-  btn.addEventListener('click', function () {
-    btn.classList.add('bg-primary')
-  })
-})
+// const selectTimeBtn = document.querySelectorAll('.orderTimeBtn')
+// selectTimeBtn.forEach((btn, i) => {
+//   console.log('btn')
+//   btn.addEventListener('click', function () {
+//     btn.classList.add('bg-primary')
+//   })
+// })
 
 const onEditBtnClick = async () => {
   editForm.value.validate()
