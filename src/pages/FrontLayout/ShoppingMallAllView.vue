@@ -2,7 +2,7 @@
   <div id="shoppingMall">
     <div class="container">
       <!-- 麵包屑 -->
-      <div class="row q-mt-lg">
+      <div class="row ">
         <div class="col-3">
           <q-breadcrumbs class="text-primary" active-color="grey">
             <template #separator>
@@ -18,72 +18,69 @@
         </div>
       </div>
 
-      <!-- 人數slider -->
-      <q-expansion-item
-        v-model="expanded"
-        icon="mdi-filter-variant"
-        label="篩選條件"
-      >
-        <div class="toolSection">
-          <div class="row justify-center q-mt-lg q-mx-auto">
-            <div class="col-4">
-              <div class=" title_area">
-                <q-icon name="diversity_3" size="sm" />
-                人數
-              </div>
-              <div class="content_area">
-                <q-radio v-model="gamerradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="less" label="10人以下" />
-                <q-radio v-model="gamerradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="more" label="10人以上" />
-                <q-range
-                  v-model="filterCondition.gamer"
-                  :disable="gamerradio === 'more'"
-                  snap
-                  markers
-                  marker-labels
-                  :min="1"
-                  :max="10"
-                />
-              </div>
+      <div class="row filter_area">
+        <!-- 人數filter -->
+        <div class="gamer_area col-4 ">
+          <div class=" title_area">
+            <q-icon name="diversity_3" size="sm" color="secondary" />
+            <div class="text-white">
+              人數
             </div>
-            <div class="col-4">
-              <div class="title_area">
-                <q-icon name="sell" size="sm" />
-                標籤
-              </div>
-              <div class="content_area">
-                <div class="select_area">
-                  <q-select
-                    v-model="filterCondition.category"
-                    filled
-                    multiple
-                    :options="categories"
-                    label="新增標籤"
-                    style="width: 250px"
-                    bottom-slots
-                  />
-                </div>
-                <div class="chip_area">
-                  <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" color="primary" text-color="white" clickable icon="mdi-close-circle" icon-color="white" @click="delChip(i)">
-                    {{ chip }}
-                  </q-chip>
-                </div>
-              </div>
+          </div>
+          <div class="input_area">
+            <q-range
+              v-model="filterCondition.gamer"
+              snap
+              markers
+              color="white"
+              :marker-labels="gamerLabel"
+              :min="1"
+              :max="10"
+            />
+          </div>
+        </div>
+        <div class="category_area col-6">
+          <div class="title_area">
+            <q-icon name="sell" size="sm" color="secondary" />
+            <div class="text-white">
+              標籤
             </div>
-            <div class="col-4">
-              <div class="title_area">
-                <q-icon name="monetization_on" size="sm" />
-                價格
-              </div>
-              <div class="content_area">
-                <div class="radio_area">
-                  <q-radio v-model="priceradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="0" label="由低到高" />
-                  <q-radio v-model="priceradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="1" label="由高到低" />
-                </div>
-              </div>
+          </div>
+          <div class="input_area">
+            <div class="select_area">
+              <q-select
+                v-model="filterCondition.category"
+                filled
+                bg-color="white"
+                multiple
+                :options="categories"
+                label="新增標籤"
+                style="width: 250px"
+                bottom-slots
+              />
+            </div>
+            <div class="chip_area">
+              <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" color="secondary" text-color="white" clickable icon="mdi-close-circle" icon-color="white" @click="delChip(i)">
+                {{ chip }}
+              </q-chip>
             </div>
           </div>
         </div>
-      </q-expansion-item>
+        <div class="price_area col-2">
+          <div class="title_area">
+            <q-icon name="monetization_on" size="sm" color="secondary" />
+            <div class="text-white">
+              價格
+            </div>
+          </div>
+          <div class="input_area">
+            <div class="radio_area">
+              <q-radio v-model="priceradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="0" label="由低到高" color="secondary" />
+              <q-radio v-model="priceradio" checked-icon="task_alt" unchecked-icon="panorama_fish_eye" val="1" label="由高到低" color="secondary" />
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="row q-mx-auto justify-center">
         <div v-for="(product,i) in filterResult" :key="i" class="col-6 col-lg-4 q-mb-lg">
@@ -177,11 +174,22 @@ const { editCart } = user
 const $q = useQuasar()
 const products = reactive([])
 const chips = ref(['派對遊戲', '暢銷遊戲'])
-const expanded = ref(true)
 const cartDialog = ref(false)
 const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '暢銷遊戲', '最新上架', '撿便宜', '八成新', '近全新']
-const gamerradio = ref('less')
 const priceradio = ref('0')
+
+const gamerLabel = {
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  9: '9',
+  10: '10↑'
+}
 
 // 存資料的form
 const form = reactive({
@@ -246,7 +254,7 @@ const filterCondition = reactive({
 
 const filterFunc = computed(() => {
   return products.filter((product) => {
-    if (gamerradio.value === 'less') {
+    if (filterCondition.gamer.max < 10) {
       // 回傳10人以下桌遊
       // console.log(product.gamer.split('~').map(Number)[0], product.gamer.split('~').map(Number)[1])
       return product.gamer.split('~').map(Number)[0] >= parseInt(filterCondition.gamer.min) &&
@@ -254,7 +262,7 @@ const filterFunc = computed(() => {
     parseInt(_.intersection(product.category, filterCondition.category).length) !== 0
     } else {
       // 回傳10人以上桌遊
-      return product.gamer.split('~').map(Number)[1] > 10 &&
+      return product.gamer.split('~').map(Number)[1] >= 10 &&
     parseInt(_.intersection(product.category, filterCondition.category).length) !== 0
     }
   })

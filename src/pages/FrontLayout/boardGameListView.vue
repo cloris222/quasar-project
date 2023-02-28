@@ -2,7 +2,7 @@
   <div id="boardGameList">
     <div class="container">
       <!-- 麵包屑 -->
-      <div class="row q-mt-lg">
+      <div class="row ">
         <div class="col-3">
           <q-breadcrumbs class="text-primary" active-color="grey">
             <template #separator>
