@@ -60,11 +60,7 @@
                 label="新增標籤"
                 style="width: 250px"
                 bottom-slots
-              >
-                <template #append>
-                  <q-btn round dense flat icon="add" @click="tagToChip" />
-                </template>
-              </q-select>
+              />
             </div>
             <div class="col-3">
               <q-chip v-for="(chip,i) in chips" :key="i" v-model="chips" color="primary" text-color="white" clickable icon="mdi-close-circle" icon-color="white" @click="delChip(i)">
@@ -117,7 +113,7 @@
 </template>
 
 <script setup>
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted, watch } from 'vue'
 import { api } from '../../boot/axios.js'
 import { useQuasar } from 'quasar'
 import _ from 'lodash'
@@ -125,7 +121,7 @@ import boardGameListcard from '../../components/boardGameListcard.vue'
 
 const $q = useQuasar()
 const boardGameList = reactive([])
-const chips = ref([])
+const chips = ref(['熱門遊戲', '最新遊戲'])
 const expanded = ref(true)
 const categories = ['派對遊戲', '策略遊戲', '陣營遊戲', '親子遊戲', '紙牌遊戲', '其他遊戲', '熱門遊戲', '最新遊戲', '新手友善']
 const gamerradio = ref('less')
@@ -139,11 +135,14 @@ const gamerradio = ref('less')
 //   loading: false
 // })
 
-const tagToChip = () => {
-  chips.value = filterCondition.category.map((category) => {
-    return category
+onMounted(() => {
+  watch(() => filterCondition.category, (newValue, oldValue) => {
+    chips.value = []
+    chips.value.push(...filterCondition.category.map((category) => {
+      return category
+    }))
   })
-}
+})
 
 const delChip = (idx) => {
   // console.log(idx)
@@ -158,7 +157,7 @@ const filterCondition = reactive({
     min: 1,
     max: 5
   },
-  category: ['暢銷遊戲']
+  category: ['熱門遊戲', '最新遊戲']
 })
 
 const filterFunc = computed(() => {
