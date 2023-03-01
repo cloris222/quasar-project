@@ -15,7 +15,7 @@
             <q-breadcrumbs-el label="最新公告" icon="mdi-newspaper-variant-outline" />
           </q-breadcrumbs>
         </div>
-        <div v-for="(item,i) in reversedItems" :key="i" class="col-12  q-my-lg">
+        <div v-for="(item,i) in reversedItems" :key="i" class="col-12 q-my-lg">
           <NewsCard v-bind="item" />
         </div>
       </div>

@@ -51,7 +51,7 @@
           >
             <div class="row">
               <!-- question -->
-              <div class="col-12">
+              <div class="col-12 q1">
                 <div class="question">
                   <div class="question_avatar">
                     <q-avatar>
@@ -64,7 +64,7 @@
                 </div>
               </div>
               <!-- answer -->
-              <div class="col-12">
+              <div class="col-12 a1">
                 <div class="answer">
                   <div class="answer_text">
                     目前沒有提供出租。
@@ -80,7 +80,7 @@
               </div>
 
               <!-- question -->
-              <div class="col-12">
+              <div class="col-12 q2">
                 <div class="question">
                   <div class="question_avatar">
                     <q-avatar>
@@ -93,7 +93,7 @@
                 </div>
               </div>
               <!-- answer -->
-              <div class="col-12">
+              <div class="col-12 a2">
                 <div class="answer">
                   <div class="answer_text">
                     可以帶蛋糕喔，跟外食一樣垃圾幫忙帶走或酌收$200處理費。
@@ -108,7 +108,7 @@
               </div>
 
               <!-- question -->
-              <div class="col-12">
+              <div class="col-12 q3">
                 <div class="question">
                   <div class="question_avatar">
                     <q-avatar>
@@ -121,7 +121,7 @@
                 </div>
               </div>
               <!-- answer -->
-              <div class="col-12">
+              <div class="col-12 a3">
                 <div class="answer">
                   <div class="answer_text">
                     網路預約只提供隔天到60天內的預約，
@@ -136,7 +136,7 @@
               </div>
 
               <!-- question -->
-              <div class="col-12">
+              <div class="col-12 q4">
                 <div class="question">
                   <div class="question_avatar">
                     <q-avatar>
@@ -149,7 +149,7 @@
                 </div>
               </div>
               <!-- answer -->
-              <div class="col-12">
+              <div class="col-12 a4">
                 <div class="answer">
                   <div class="answer_text">
                     不論是要開會、打SWITCH或是喝酒聊天都很適合喔。
@@ -164,7 +164,7 @@
               </div>
 
               <!-- question -->
-              <div class="col-12">
+              <div class="col-12 q5">
                 <div class="question">
                   <div class="question_avatar">
                     <q-avatar>
@@ -177,7 +177,7 @@
                 </div>
               </div>
               <!-- answer -->
-              <div class="col-12">
+              <div class="col-12 a5">
                 <div class="answer">
                   <div class="answer_text">
                     如果有修改或取消預約的需求，請直接撥電話至店裡諮詢喔。
@@ -245,8 +245,84 @@
 </template>
 
 <script setup>
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+import { onMounted, onUnmounted } from 'vue'
 import { useUserStore } from 'src/stores/users'
 
 const user = useUserStore()
 const { account } = user
+
+gsap.registerPlugin(ScrollTrigger)
+
+const QAAnimation = function () {
+  const tl2 = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#QAView',
+      start: 'top 0%',
+      end: 'bottom 100%',
+      toggleActions: 'play reverse play reverse',
+      scrub: 3
+      // markers: true
+    },
+    defaults: {
+      duration: 1,
+      ease: 'back'
+    }
+  })
+  tl2
+    .from('.q1', {
+      y: 100,
+      opacity: 0
+    })
+    .from('.a1', {
+      y: 100,
+      opacity: 0
+    }, '>0.5')
+    .from('.q2', {
+      y: 100,
+      opacity: 0
+    }, '>2')
+    .from('.a2', {
+      y: 100,
+      opacity: 0
+    }, '>0.5')
+    .from('.q3', {
+      y: 100,
+      opacity: 0
+    }, '>2')
+    .from('.a3', {
+      y: 100,
+      opacity: 0
+    }, '>0.5')
+    .from('.q4', {
+      y: 100,
+      opacity: 0
+    }, '>2')
+    .from('.a4', {
+      y: 100,
+      opacity: 0
+    }, '>0.5')
+    .from('.q5', {
+      y: 100,
+      opacity: 0
+    }, '>2')
+    .from('.a5', {
+      y: 100,
+      opacity: 0
+    }, '>0.5')
+}
+
+onMounted(() => {
+  QAAnimation()
+})
+
+const triggers = ScrollTrigger.getAll()
+
+onUnmounted(() => {
+  triggers.forEach((trigger) => {
+    // 把 ScrollTrigger 綁定的動畫消除
+    trigger.kill()
+  })
+})
 </script>

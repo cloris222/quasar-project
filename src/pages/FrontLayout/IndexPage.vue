@@ -75,7 +75,7 @@
                 最新公告
               </div>
             </div>
-            <div class="col-12">
+            <div class="col-12 news_area">
               <newsModle :news="news" />
             </div>
           </div>
@@ -269,7 +269,9 @@
 
 <script setup>
 import newsModle from '../../components/newsModel.vue'
-import { ref, reactive, onMounted } from 'vue'
+import gsap from 'gsap'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+import { ref, reactive, onMounted, onUnmounted } from 'vue'
 import { api } from '@/boot/axios.js'
 import { useQuasar } from 'quasar'
 
@@ -281,8 +283,117 @@ const block1 = ref(null)
 const block2 = ref(null)
 const block3 = ref(null)
 
+// onMounted(() => {
+//   console.log(bgArea.value.style.backgroundImage)
+// })
+
+gsap.registerPlugin(ScrollTrigger)
+
+const newsAnimation = function () {
+  const tl1 = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#section02',
+      start: '50% 100%',
+      end: 'bottom 100%',
+      toggleActions: 'play reverse play reverse',
+      scrub: 4
+      // markers: true
+    },
+    defaults: {
+      duration: 1,
+      ease: 'back'
+    }
+  })
+  tl1
+    .from('#section02 .bigTitle', {
+      y: 100,
+      opacity: 0
+    })
+    .from('#section02 .news_area', {
+      x: 500,
+      opacity: 0
+    }, '-=0.1')
+}
+
+const aboutAnimation = function () {
+  const tl2 = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#section03',
+      start: '10% 100%',
+      end: 'bottom 100%',
+      toggleActions: 'play reverse play reverse',
+      scrub: 4
+      // markers: true
+    },
+    defaults: {
+      duration: 1,
+      ease: 'back'
+    }
+  })
+  tl2
+    .from('#section03 .bigTitle', {
+      y: 100,
+      opacity: 0,
+      delay: 0.5
+    })
+    .from('#section03 .info_area1', {
+      y: 100,
+      opacity: 0
+    }, '-=0.1')
+    .from('#section03 .img_area1', {
+      y: 100,
+      opacity: 0
+    }, '-=0.1')
+    .from('#section03 .info_area2', {
+      y: 100,
+      opacity: 0
+    }, '-=0.1')
+    .from('#section03 .img_area2', {
+      y: 100,
+      opacity: 0
+    }, '-=0.1')
+}
+
+const gamesAnimation = function () {
+  const tl2 = gsap.timeline({
+    scrollTrigger: {
+      trigger: '#section04',
+      start: '10% 100%',
+      end: 'bottom 100%',
+      toggleActions: 'play reverse play reverse',
+      scrub: 4
+      // markers: true
+    },
+    defaults: {
+      duration: 1,
+      ease: 'back'
+    }
+  })
+  tl2
+    .from('.boardGameList', {
+      y: 100,
+      opacity: 0,
+      delay: 1
+    })
+    .from('.shopping', {
+      y: 100,
+      opacity: 0
+    }, '>1')
+}
+
 onMounted(() => {
-  console.log(bgArea.value.style.backgroundImage)
+  aboutAnimation()
+  newsAnimation()
+  gamesAnimation()
+})
+
+const triggers = ScrollTrigger.getAll()
+
+onUnmounted(() => {
+  triggers.forEach((trigger) => {
+    // 把 ScrollTrigger 綁定的動畫消除
+    trigger.kill()
+  })
 })
 
 // 載入最新公告
