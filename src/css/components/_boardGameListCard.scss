@@ -9,7 +9,6 @@
         &:hover{
             cursor: pointer;
         }
-        
 
         .cardImage{
             width: 100%;
@@ -51,11 +50,17 @@
             }
         }
 
-
         .btn_area{
             position: absolute;
             top: 86%;
             left: 60%;
+        }
+
+        .gamer_icon{
+            display: flex;
+            align-items: center;
+            margin-top: -3px;
+            margin-left: 10px;
         }
     }
 }

@@ -8,8 +8,10 @@
       <q-card-section>
         <div class="row text-h6">
           {{ name }}
-          <q-icon name="diversity_3" color="primary" size="sm" class="q-mr-sm" />
-          <span style="font-size:16px">{{ gamer }}</span>
+          <div class="gamer_icon">
+            <q-icon name="diversity_3" color="primary" size="sm" class="q-mr-sm" />
+            <span style="font-size:16px">{{ gamer }}</span>
+          </div>
         </div>
       </q-card-section>
       <q-card-section class="q-pt-none">

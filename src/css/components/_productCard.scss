@@ -67,9 +67,13 @@
         .btn_area{
             position: absolute;
             top: 86%;
-            left: 70%;
+            left: 70%; 
+        }
 
-            
+        .gamer_icon{
+            display: flex;
+            align-items: center;
+            margin-left: 5px;
         }
     }
 }
