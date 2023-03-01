@@ -4,7 +4,7 @@
       <!-- 標題 -->
       <div class="row ">
         <div class="col-12 bigTitle">
-          訂單管理
+          訂單資料
         </div>
       </div>
       <!-- 購物車表格 -->

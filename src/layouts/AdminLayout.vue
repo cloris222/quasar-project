@@ -31,7 +31,7 @@
                 <q-icon name="face" color="secondary" />
               </q-item-section>
               <q-item-section>
-                會員管理
+                會員資料
               </q-item-section>
             </q-item>
 
@@ -51,7 +51,7 @@
               </q-item-section>
 
               <q-item-section>
-                預約管理
+                預約資料
               </q-item-section>
             </q-item>
 
@@ -61,7 +61,7 @@
               </q-item-section>
 
               <q-item-section>
-                訂單管理
+                訂單資料
               </q-item-section>
             </q-item>
 

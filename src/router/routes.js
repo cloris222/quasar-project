@@ -126,7 +126,7 @@ const routes = [
         name: 'admin-users',
         component: () => import('@/pages/AdminLayout/adminUsers.vue'),
         meta: {
-          title: '桌下吧 | 會員管理',
+          title: '桌下吧 | 會員資料',
           login: true,
           admin: true
         }
@@ -165,7 +165,7 @@ const routes = [
         name: 'admin-orders',
         component: () => import('@/pages/AdminLayout/adminOrders.vue'),
         meta: {
-          title: '桌下吧 | 預約管理',
+          title: '桌下吧 | 預約資料',
           login: true,
           admin: true
         }
@@ -174,7 +174,7 @@ const routes = [
         name: 'admin-shoppings',
         component: () => import('@/pages/AdminLayout/adminShoppings.vue'),
         meta: {
-          title: '桌下吧 | 訂單管理',
+          title: '桌下吧 | 訂單資料',
           login: true,
           admin: true
         }

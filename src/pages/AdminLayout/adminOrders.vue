@@ -4,7 +4,7 @@
       <!-- 標題 -->
       <div class="row ">
         <div class="col-12 bigTitle">
-          預約管理
+          預約資料
         </div>
       </div>
       <!-- 預約表格 -->

@@ -45,7 +45,7 @@
             <q-list>
               <q-item v-close-popup clickable to="/admin/users">
                 <q-item-section>
-                  <q-item-label>會員管理</q-item-label>
+                  <q-item-label>會員資料</q-item-label>
                 </q-item-section>
               </q-item>
 
@@ -57,13 +57,13 @@
 
               <q-item v-close-popup clickable to="/admin/orders">
                 <q-item-section>
-                  <q-item-label>預約管理</q-item-label>
+                  <q-item-label>預約資料</q-item-label>
                 </q-item-section>
               </q-item>
 
               <q-item v-close-popup clickable to="/admin/shoppings">
                 <q-item-section>
-                  <q-item-label>訂單管理</q-item-label>
+                  <q-item-label>訂單資料</q-item-label>
                 </q-item-section>
               </q-item>
 

@@ -4,7 +4,7 @@
       <!-- 標題 -->
       <div class="row q-mx-auto">
         <div class="col-12 bigTitle">
-          會員管理
+          會員資料
         </div>
       </div>
       <!-- 會員表格 -->
