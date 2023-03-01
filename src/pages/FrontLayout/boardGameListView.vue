@@ -72,7 +72,7 @@
       </div>
       <!-- 遊戲人數 -->
 
-      <div class="row q-mx-auto justify-center ">
+      <div class="row q-mx-auto boardGameList_card_area">
         <div v-for="(game,i) in filterFunc" :key="i" class="col-6 col-lg-4 q-mb-lg">
           <boardGameListcard v-bind="game" />
         </div>

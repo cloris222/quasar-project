@@ -440,12 +440,15 @@ const editData = reactive({
 })
 
 // 點擊過的按鈕變色
-// const selectTimeBtn = document.querySelectorAll('.orderTimeBtn')
+// const selectTimeBtn = document.getElementsByClassName('.orderTimeBtn')
+// console.log(selectTimeBtn)
+// console.log(document.querySelectorAll('.orderTimeBtn'))
 // selectTimeBtn.forEach((btn, i) => {
-//   console.log('btn')
+//   console.log(btn)
 //   btn.addEventListener('click', function () {
-//     btn.classList.add('bg-primary')
-//   })
+//     btn.classList.remove('bg-primary text-white')
+//     this.classList.add('bg-primary')
+//   })S
 // })
 
 const onEditBtnClick = async () => {
@@ -513,7 +516,6 @@ watch(() => form.orderDate, async (newValue, oldValue) => {
     // orderTimeandHour 做forEach 將被預約的btn.available = false
     orderTimeandHour.forEach((info) => {
       const idx = orderTimeBtn.findIndex((btn) => {
-        console.log(info)
         return btn.time === info.time
       })
       // 從該被預約按鈕開始往後hours的按鈕改為disable

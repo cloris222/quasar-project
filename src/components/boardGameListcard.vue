@@ -13,7 +13,7 @@
         </div>
       </q-card-section>
       <q-card-section class="q-pt-none">
-        <q-chip v-for="(item,i) in category" :key="i" color="primary" text-color="white">
+        <q-chip v-for="(item,i) in category" :key="i" color="secondary" text-color="white">
           {{ item }}
         </q-chip>
       </q-card-section>

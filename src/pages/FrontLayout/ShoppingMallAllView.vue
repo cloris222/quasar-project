@@ -82,7 +82,7 @@
         </div>
       </div>
 
-      <div class="row q-mx-auto justify-center">
+      <div class="row q-mx-auto product_card_area">
         <div v-for="(product,i) in filterResult" :key="i" class="col-6 col-lg-4 q-mb-lg">
           <ProductCard v-bind="product" @open-cart-dialog="openDialog(product)" />
           <!-- 加入cart -->
