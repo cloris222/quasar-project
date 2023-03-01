@@ -76,7 +76,6 @@
                         rules.required,rules.length
                       ]"
                     />
-                    <q-toggle v-model="registerform.accept" label="我已了解店內相關規定並願意遵守" @click="!accept" />
                     <div>
                       <q-btn label="Submit" type="submit" color="primary" />
                       <q-btn label="Reset" type="reset" color="primary" flat class="q-ml-sm" />
