@@ -146,10 +146,10 @@ const onSubmit = async () => {
   try {
     form.loading = true
     const { data } = await apiAuth.patch('/users/' + user._id, form)
-    form.name = data.result.name
-    form.account = data.result.account
-    form.email = data.result.email
-    form.phone = data.result.phone
+    user.name = data.result.name
+    user.account = data.result.account
+    user.email = data.result.email
+    user.phone = data.result.phone
     $q.notify({
       position: 'top',
       message: '編輯成功',

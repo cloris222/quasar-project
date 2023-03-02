@@ -103,11 +103,3 @@ const goHome = () => {
 }
 
 </script>
-
-<!-- <style lang="scss" scoped>
-
-.bg-primary{
-        color: #fff;
-    }
-
-</style> -->
